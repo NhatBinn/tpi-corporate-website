@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Binn" }],
   creator: "Binn",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://tpi-corporate-website.vercel.app/"),
   openGraph: {
     title: "TPI | Demo Website For Papa",
     description:
@@ -76,7 +76,7 @@ export default function RootLayout({
         geist.variable,
       )}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
         <Navbar />
         <Main>{children}</Main>
         <Footer />

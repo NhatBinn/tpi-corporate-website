@@ -1,4 +1,3 @@
-// components/common/nav/ProductMegaMenu.tsx
 import ProductCategoryBrowser, {
   type ProductCategory,
   type Product,

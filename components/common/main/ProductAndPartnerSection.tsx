@@ -86,7 +86,7 @@ function ProjectsCarousel() {
         {extendedProjects.map((project, i) => (
           <div
             key={i}
-            className="relative h-[420px] shrink-0 overflow-hidden"
+            className="relative h-[200px] sm:h-[300px] md:h-[420px] shrink-0 overflow-hidden"
             style={{ width: `${100 / VISIBLE_COUNT}%` }}
           >
             <Link href={project.link} className="group block h-full w-full">
@@ -97,18 +97,14 @@ function ProjectsCarousel() {
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
 
-              {/* Overlay */}
               <div className="absolute inset-0 bg-black/20 transition-colors duration-500 group-hover:bg-black/55" />
 
-              {/* Content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-                {/* Text từ dưới lên */}
-                <h3 className="mt-3 text-3xl font-semibold opacity-0 translate-y-8 transition-all duration-500 delay-100 group-hover:translate-y-0 group-hover:opacity-100">
+                <h3 className="mt-3 text-xl md:text-3xl font-semibold opacity-0 translate-y-8 transition-all duration-500 delay-100 group-hover:translate-y-0 group-hover:opacity-100">
                   Cao tầng
                 </h3>
 
-                {/* Text từ trên xuống */}
-                <span className="text-sm font-medium opacity-0 -translate-y-8 transition-all duration-500 group-hover:translate-y-4 group-hover:opacity-100">
+                <span className="text-xs md:text-sm font-medium opacity-0 -translate-y-8 transition-all duration-500 group-hover:translate-y-4 group-hover:opacity-100">
                   Khu Phức Hợp Thuận An 1
                 </span>
               </div>
@@ -123,14 +119,14 @@ function ProjectsCarousel() {
 export default function ProjectsAndPartnersSection() {
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-10">
-        <svg viewBox="0 0 380 150" className="h-[120px] w-[450px]">
+      <div className="mx-auto flex max-w-[1380px] items-center justify-between px-4 md:px-6 py-8 md:py-10">
+        <svg viewBox="0 0 380 150" className="hidden md:block h-[80px] md:h-[120px] w-[300px] md:w-[450px]">
           <polygon points="0,150 95,150 235,0 140,0" fill="#e5173f" />
           <polygon points="145,150 240,150 380,0 285,0" fill="#e5173f" />
         </svg>
 
-        <div className="text-right mr-10">
-          <h2 className="text-[50px] leading-tight text-black">
+        <div className="text-right md:mr-10">
+          <h2 className="text-[28px] md:text-[50px] leading-tight text-black">
             <span className="font-extrabold">Dự Án</span>
             <span className="font-normal"> và </span>
             <span className="font-extrabold">Đối Tác</span>

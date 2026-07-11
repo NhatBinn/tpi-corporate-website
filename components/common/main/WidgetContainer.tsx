@@ -65,9 +65,9 @@ const slides: Slide[] = [
   },
 ];
 
-const STRIP_COUNT = 100; // số dải dọc — nhiều hơn = mượt/tinh hơn, ít hơn = "chunky" hơn
-const STRIP_DURATION_MS = 600; // thời gian mỗi dải tự mở
-const MAX_DELAY_MS = 380; // độ trễ tối đa (dải chính giữa)
+const STRIP_COUNT = 100;
+const STRIP_DURATION_MS = 600;
+const MAX_DELAY_MS = 380;
 const AUTO_INTERVAL_MS = 6000;
 
 export default function HeroSlider() {
@@ -85,8 +85,6 @@ export default function HeroSlider() {
       setPendingIndex(nextIndex);
       setRevealed(false);
 
-      // Đợi 2 khung hình để trạng thái "ẩn" được vẽ trước khi bật animate,
-      // tránh trình duyệt gộp chung 2 lần set state vào 1 lần vẽ (mất hiệu ứng)
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setRevealed(true));
       });
@@ -97,7 +95,6 @@ export default function HeroSlider() {
         setPendingIndex(null);
         transitioning.current = false;
       }, totalDuration);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [currentIndex],
   );
@@ -129,11 +126,10 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative h-186 w-full overflow-hidden"
+      className="relative h-[55vh] min-h-[350px] md:h-186 w-full overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Slide hiện tại - nền dưới cùng */}
       <Image
         src={current.image}
         alt=""
@@ -142,7 +138,6 @@ export default function HeroSlider() {
         className="object-cover"
       />
 
-      {/* Slide sắp vào - chia dải dọc, lan từ 2 mép vào giữa */}
       {incoming && (
         <div className="absolute inset-0 flex">
           {Array.from({ length: STRIP_COUNT }).map((_, i) => {
@@ -165,8 +160,6 @@ export default function HeroSlider() {
                   transitionDelay: `${delay}ms`,
                 }}
               >
-                {/* Sprite kỹ thuật: div rộng bằng cả ảnh, dịch trái đúng vị trí dải i,
-                    để khi ghép 20 dải lại, ảnh khớp liền mạch như chưa từng bị cắt */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -189,26 +182,25 @@ export default function HeroSlider() {
 
       <div className="absolute inset-0 bg-black/35" />
 
-      {/* Nội dung */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <p className="text-[16px] text-white/80">{current.eyebrow}</p>
-        <h2 className="mt-2 text-[56px] font-light leading-none text-white sm:text-[64px]">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 md:px-6 text-center">
+        <p className="text-[14px] md:text-[16px] text-white/80">{current.eyebrow}</p>
+        <h2 className="mt-2 text-[28px] font-light leading-none text-white sm:text-[40px] md:text-[64px]">
           {current.titleLight}
         </h2>
-        <h2 className="mt-1 text-[56px] font-black leading-none text-white sm:text-[64px]">
+        <h2 className="mt-1 text-[28px] font-black leading-none text-white sm:text-[40px] md:text-[64px]">
           {current.titleBold}
         </h2>
 
-        <div className="mt-8 flex items-center gap-4">
+        <div className="mt-6 md:mt-8 flex items-center gap-3 md:gap-4">
           <Link
             href={current.readMoreHref}
-            className="rounded-full bg-[#0a8a3f] px-8 py-3 text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#097535]"
+            className="rounded-full bg-[#0a8a3f] px-6 py-2.5 md:px-8 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#097535]"
           >
             Read More
           </Link>
           <Link
             href={current.viewMoreHref}
-            className="rounded-full border border-white px-8 py-3 text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-white hover:text-black"
+            className="rounded-full border border-white px-6 py-2.5 md:px-8 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-white hover:text-black"
           >
             View More
           </Link>
@@ -218,25 +210,25 @@ export default function HeroSlider() {
       <button
         onClick={goPrev}
         aria-label="Slide trước"
-        className="cursor-pointer absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:text-white"
+        className="cursor-pointer absolute left-2 md:left-4 top-1/2 z-10 flex h-8 w-8 md:h-10 md:w-10 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:text-white"
       >
-        <ChevronLeft size={42} />
+        <ChevronLeft size={28} />
       </button>
       <button
         onClick={goNext}
         aria-label="Slide tiếp theo"
-        className="cursor-pointer absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:text-white"
+        className="cursor-pointer absolute right-2 md:right-4 top-1/2 z-10 flex h-8 w-8 md:h-10 md:w-10 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:text-white"
       >
-        <ChevronRight size={42} />
+        <ChevronRight size={28} />
       </button>
 
-      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2 cursor-pointer">
+      <div className="absolute bottom-4 md:bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2 cursor-pointer">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Đi tới slide ${i + 1}`}
-            className={`h-2.5 w-2.5 rounded-full transition-colors ${
+            className={`h-2 md:h-2.5 w-2 md:w-2.5 rounded-full transition-colors ${
               i === currentIndex ? "bg-white" : "bg-white/40 hover:bg-white/70"
             }`}
           />

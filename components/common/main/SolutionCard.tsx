@@ -8,8 +8,8 @@ const solutions = [
     label: "Công Nghiệp",
     title: "Nhà Xưởng",
     desc: "Vữa rót, vữa tự san, trám khe, sơn sàn, bột xoa nền...",
-    span: "flex-5",
-    descWidth: "max-w-60",
+    span: "flex-1 md:flex-5",
+    descWidth: "md:max-w-60",
   },
   {
     href: "/giai-phap/cao-tang",
@@ -17,8 +17,8 @@ const solutions = [
     label: "Công Nghiệp",
     title: "Cao Tầng",
     desc: "Tháo cốp pha, chống thấm, vữa tô, xử lý nứt...",
-    span: "flex-4",
-    descWidth: "max-w-55",
+    span: "flex-1 md:flex-4",
+    descWidth: "md:max-w-55",
   },
   {
     href: "/giai-phap/be-tong-tuoi",
@@ -26,8 +26,8 @@ const solutions = [
     label: "Nhà Máy",
     title: "Bê Tông Tươi",
     desc: "Phụ gia giảm nước, hoá dẻo, silicafume...",
-    span: "flex-3",
-    descWidth: "max-w-45",
+    span: "flex-1 md:flex-3",
+    descWidth: "md:max-w-45",
   },
 ];
 
@@ -38,8 +38,8 @@ const solutionsRow2 = [
     label: "Nhà Máy",
     title: "Bê Tông Đúc Sẵn",
     desc: "Tháo khuôn, bảo dưỡng, tẩy rỉ cốt thép...",
-    span: "flex-3",
-    descWidth: "max-w-50",
+    span: "flex-1 md:flex-3",
+    descWidth: "md:max-w-50",
     titleTight: true,
   },
   {
@@ -49,8 +49,8 @@ const solutionsRow2 = [
     title: "Cửa Hàng VLXD",
     titleLine2: "Kênh Phân Phối",
     desc: "Latex, chống thấm 2 thành phần, vữa grout, phụ gia...",
-    span: "flex-6",
-    descWidth: "max-w-75",
+    span: "flex-1 md:flex-6",
+    descWidth: "md:max-w-75",
     titleTight: true,
   },
   {
@@ -59,8 +59,8 @@ const solutionsRow2 = [
     label: "Dân Dụng",
     title: "Thầu Thợ",
     desc: "Latex, chống thấm 2 thành phần, vữa grout, phụ gia...",
-    span: "flex-3",
-    descWidth: "max-w-55",
+    span: "flex-1 md:flex-3",
+    descWidth: "md:max-w-55",
   },
 ];
 
@@ -88,7 +88,7 @@ function SolutionCard({
   return (
     <Link
       href={href}
-      className={`group relative h-70 ${span} overflow-hidden rounded-sm`}
+      className={`group relative h-44 md:h-70 ${span} overflow-hidden rounded-sm`}
     >
       <Image
         src={image}
@@ -97,10 +97,10 @@ function SolutionCard({
         className="object-cover transition-transform duration-500 group-hover:scale-110"
       />
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-gray via-gray/85 to-transparent" />
-      <div className="absolute bottom-0 left-0 p-5">
-        <p className="text-[13px] text-[#696969]">{label}</p>
+      <div className="absolute bottom-0 left-0 p-4 md:p-5">
+        <p className="text-[12px] md:text-[13px] text-[#696969]">{label}</p>
         <h4
-          className={`text-[20px] font-bold text-black ${
+          className={`text-[18px] md:text-[20px] font-bold text-black ${
             titleTight ? "leading-tight" : ""
           }`}
         >
@@ -113,7 +113,7 @@ function SolutionCard({
           )}
         </h4>
         <p
-          className={`mt-1 ${descWidth} text-[13px] leading-snug text-[#696969]`}
+          className={`mt-1 ${descWidth} text-[12px] md:text-[13px] leading-snug text-[#696969]`}
         >
           {desc}
         </p>
@@ -124,31 +124,31 @@ function SolutionCard({
 
 export default function SolutionsOverviewSection() {
   return (
-    <section className="mx-auto max-w-350 px-6 py-16">
+    <section className="mx-auto max-w-350 px-4 md:px-6 py-12 md:py-16">
       <div className="flex items-baseline gap-3">
-        <span className="text-[56px] font-black leading-none text-[#e9e9e9]">
+        <span className="text-[40px] md:text-[56px] font-black leading-none text-[#e9e9e9]">
           03
         </span>
-        <p className="-ml-3 text-[13px] font-semibold uppercase tracking-[0.1em] text-[#4a4a4a]">
+        <p className="-ml-3 text-[12px] md:text-[13px] font-semibold uppercase tracking-[0.1em] text-[#4a4a4a]">
           Đa dạng <span className="font-bold text-black">Giải Pháp</span> &{" "}
           <span className="font-bold text-black">Đối Tượng</span>
         </p>
       </div>
 
-      <h2 className="-mt-1 text-[32px] leading-tight text-black sm:text-[38px]">
+      <h2 className="-mt-1 text-[24px] md:text-[38px] leading-tight text-black">
         <span className="font-normal">Từ </span>
         <span className="font-extrabold">CÔNG NGHIỆP</span>
         <span className="font-normal"> đến </span>
         <span className="font-extrabold">DÂN DỤNG</span>
       </h2>
 
-      <div className="mt-8 flex flex-col gap-6">
-        <div className="flex gap-6">
+      <div className="mt-6 md:mt-8 flex flex-col gap-4 md:gap-6">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
           {solutions.map((item) => (
             <SolutionCard key={item.title} {...item} />
           ))}
         </div>
-        <div className="flex gap-6">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
           {solutionsRow2.map((item) => (
             <SolutionCard key={item.title} {...item} />
           ))}

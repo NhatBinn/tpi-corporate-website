@@ -47,9 +47,6 @@ export default function ProductCategoryBrowser({
     setPage(0);
   }
 
-  // Gộp chung logic sự kiện cho nút category, dùng lại ở cả 2 biến thể sidebar bên dưới.
-  // interaction === "hover": đổi category khi rê chuột/focus (dùng cho dropdown navbar)
-  // interaction === "click": chỉ đổi khi bấm (dùng cho section tĩnh trên trang)
   const categoryTriggerProps = (key: string) =>
     interaction === "hover"
       ? {
@@ -59,17 +56,16 @@ export default function ProductCategoryBrowser({
       : { onClick: () => selectCategory(key) };
 
   return (
-    <div className={`flex ${variant === "nav" ? "w-[1240px]" : "w-full"}`}>
-      {/* Sidebar */}
+    <div className={`flex flex-col md:flex-row ${variant === "nav" ? "w-full max-w-[1240px]" : "w-full"}`}>
       {variant === "nav" ? (
-        <div className="flex w-[280px] flex-col">
+        <div className="flex w-full md:w-[280px] flex-row md:flex-col overflow-x-auto">
           {categories.map((cat) => {
             const isActive = cat.key === activeCategory;
             return (
               <button
                 key={cat.key}
                 {...categoryTriggerProps(cat.key)}
-                className={`flex items-center justify-between px-6 py-4 text-left text-[15px] font-bold transition-colors ${
+                className={`shrink-0 flex items-center justify-between px-4 md:px-6 py-3 md:py-4 text-left text-[13px] md:text-[15px] font-bold transition-colors ${
                   isActive
                     ? "bg-white text-black"
                     : "bg-[#0a8a3f] text-white hover:bg-[#097535]"
@@ -81,14 +77,14 @@ export default function ProductCategoryBrowser({
           })}
         </div>
       ) : (
-        <div className="flex min-h-[560px] w-[300px] shrink-0 flex-col gap-1 bg-[#f2f2f2] px-6 py-6">
+        <div className="flex w-full md:w-[300px] flex-row md:flex-col overflow-x-auto gap-1 bg-[#f2f2f2] px-4 md:px-6 py-4 md:py-6">
           {categories.map((cat) => {
             const isActive = cat.key === activeCategory;
             return (
               <button
                 key={cat.key}
                 {...categoryTriggerProps(cat.key)}
-                className={`py-2 text-left text-[14px] font-bold uppercase tracking-wide transition-colors ${
+                className={`shrink-0 py-2 px-3 md:px-0 text-left text-[13px] md:text-[14px] font-bold uppercase tracking-wide transition-colors ${
                   isActive
                     ? "text-[#e5173f]"
                     : "text-black hover:text-[#0a8a3f]"
@@ -101,15 +97,14 @@ export default function ProductCategoryBrowser({
         </div>
       )}
 
-      {/* Grid sản phẩm */}
       <div
         className={`flex flex-1 flex-col justify-between ${
-          variant === "section" ? "border border-l-0 border-[#e5e5e5] p-8" : ""
+          variant === "section" ? "border border-t-0 md:border-t md:border-l-0 border-[#e5e5e5] p-4 md:p-8" : ""
         }`}
       >
         <div
-          className={`grid gap-x-6 gap-y-8 ${
-            columns === 4 ? "grid-cols-4" : "grid-cols-5"
+          className={`grid gap-x-4 md:gap-x-6 gap-y-6 md:gap-y-8 ${
+            columns === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-2 md:grid-cols-5"
           }`}
         >
           {visibleProducts.map((p) =>
@@ -159,7 +154,7 @@ export default function ProductCategoryBrowser({
 function ProductCardBody({ product }: { product: Product }) {
   return (
     <>
-      <div className="relative h-[130px] w-full overflow-hidden">
+      <div className="relative h-[100px] md:h-[130px] w-full overflow-hidden">
         <Image
           src={product.image}
           alt={product.name}
@@ -167,7 +162,7 @@ function ProductCardBody({ product }: { product: Product }) {
           className="object-contain transition-transform duration-500 group-hover:scale-110"
         />
       </div>
-      <p className="mt-3 text-[13px] leading-snug text-[#4a4a4a]">
+      <p className="mt-2 md:mt-3 text-[12px] md:text-[13px] leading-snug text-[#4a4a4a]">
         <span className="font-bold text-black">{product.name}</span>
         {" – "}
         {product.desc}

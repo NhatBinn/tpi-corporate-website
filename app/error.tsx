@@ -11,13 +11,11 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Gửi log lỗi về hệ thống giám sát của bạn (Sentry, LogRocket, v.v.)
     console.error(error);
   }, [error]);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white px-6 py-20">
-      {/* Texture bê tông nhẹ phía sau, đồng bộ với trang 404 */}
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white px-4 sm:px-6 py-20">
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.035]"
         aria-hidden="true"
@@ -38,14 +36,12 @@ export default function ErrorPage({
           TPI — Tin Cậy · Nhiệt Huyết · Sáng Tạo
         </p>
 
-        {/* Khe nứt đang rò rỉ */}
-        <div className="relative mt-8 h-[140px] w-[220px]">
+        <div className="relative mt-8 h-[120px] w-[180px] sm:h-[140px] sm:w-[220px]">
           <svg
             viewBox="0 0 220 140"
             className="h-full w-full"
             aria-hidden="true"
           >
-            {/* Khe nứt tĩnh */}
             <path
               d="M20,40 L60,55 L95,35 L130,58 L160,38 L200,50"
               fill="none"
@@ -55,7 +51,6 @@ export default function ErrorPage({
               strokeLinejoin="round"
             />
 
-            {/* Giọt nước rơi lặp lại */}
             <circle
               className="tpi-drip"
               cx="95"
@@ -64,7 +59,6 @@ export default function ErrorPage({
               fill="#d97706"
             />
 
-            {/* Gợn nước khi giọt chạm đáy */}
             <ellipse
               className="tpi-ripple"
               cx="95"
@@ -78,10 +72,10 @@ export default function ErrorPage({
           </svg>
         </div>
 
-        <h1 className="mt-6 text-[26px] font-bold text-black sm:text-[30px]">
+        <h1 className="mt-6 text-[22px] sm:text-[26px] md:text-[30px] font-bold text-black leading-snug px-2">
           Có chút rò rỉ trong hệ thống
         </h1>
-        <p className="mt-4 max-w-[460px] text-[15px] leading-relaxed text-[#4a4a4a]">
+        <p className="mt-4 max-w-[460px] text-[14px] sm:text-[15px] leading-relaxed text-[#4a4a4a] px-4">
           Đã có lỗi xảy ra khi tải trang này. Đội ngũ kỹ thuật đã được ghi nhận
           sự cố — bạn có thể thử lại ngay bây giờ.
         </p>

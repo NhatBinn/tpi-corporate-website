@@ -17,8 +17,8 @@ function ParallaxLogo() {
     ).matches;
     if (prefersReducedMotion) return;
 
-    const speed = 0.5; // tốc độ trôi so với scroll — số càng lớn di chuyển càng nhiều
-    const smoothness = 0.1; // độ mượt — số càng nhỏ càng "trễ"/mượt, càng lớn càng bám sát scroll
+    const speed = 0.5;
+    const smoothness = 0.1;
 
     function handleScroll() {
       const el = wrapperRef.current;
@@ -52,9 +52,9 @@ function ParallaxLogo() {
     <div
       ref={wrapperRef}
       style={{ transform: `translate3d(0, ${offset}px, 0)` }}
-      className="absolute left-[8%] top-1/2 z-10 h-[110px] w-[180px] -translate-y-1/2 sm:h-[140px] sm:w-[220px]"
+      className="absolute left-[8%] top-1/2 z-10 h-[70px] w-[120px] -translate-y-1/2 sm:h-[100px] sm:w-[160px] md:h-[140px] md:w-[220px]"
     >
-      <svg viewBox="0 0 380 150" className="h-[120px] w-[450px]">
+      <svg viewBox="0 0 380 150" className="h-[80px] w-[250px] md:h-[120px] md:w-[450px]">
           <polygon points="0,150 95,150 235,0 140,0" fill="#e5173f" />
           <polygon points="145,150 240,150 380,0 285,0" fill="#e5173f" />
         </svg>
@@ -64,8 +64,7 @@ function ParallaxLogo() {
 
 export default function QualityControlSection() {
   return (
-    <section className="relative flex min-h-[1000px] items-center overflow-hidden">
-      {/* Ảnh nền */}
+    <section className="relative flex min-h-[400px] md:min-h-[1000px] items-center overflow-hidden">
       <Image
         src="/San-xuat-grayscale.jpg"
         alt="Nhà máy TPI tại Lái Thiêu, Bình Dương"
@@ -74,65 +73,61 @@ export default function QualityControlSection() {
         className="object-cover"
       />
 
-      {/* Overlay tối để chữ luôn rõ */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
 
-      {/* Logo mark đỏ - có parallax khi scroll */}
       <ParallaxLogo />
 
-      {/* Khối nội dung */}
-      <div className="relative z-10 ml-auto w-full max-w-[960px] px-6 sm:pr-16 mr-20">
+      <div className="relative z-10 mx-auto md:ml-auto w-full max-w-[960px] px-4 sm:px-6 md:pr-16 md:mr-20">
         <div className="flex items-baseline gap-3">
           <span
-            className="text-[64px] font-black leading-none text-[#0a8a3f]/30"
+            className="text-[40px] md:text-[64px] font-black leading-none text-[#0a8a3f]/30"
             style={{ textShadow: "0 0 24px rgba(10,138,63,0.5)" }}
           >
             02
           </span>
-          <p className="-ml-2 text-[13px] font-semibold uppercase tracking-[0.15em] text-white/80">
+          <p className="-ml-2 text-[12px] md:text-[13px] font-semibold uppercase tracking-[0.15em] text-white/80">
             Chủ Động Sản Xuất
           </p>
         </div>
 
-        <h2 className="-mt-2 text-[34px] leading-tight text-white sm:text-[40px]">
+        <h2 className="-mt-2 text-[28px] md:text-[40px] leading-tight text-white">
           <span className="font-light">Kiểm soát </span>
           <span className="font-extrabold">CHẤT LƯỢNG</span>
         </h2>
 
-        <p className="mt-5 text-[15px] leading-relaxed text-white/85">
+        <p className="mt-4 md:mt-5 text-[14px] md:text-[15px] leading-relaxed text-white/85">
           TPI sở hữu nhà máy diện tích 1,500m² tại khu vực Lái Thiêu, Bình
           Dương. Máy móc, trang thiết bị liên tục được đầu tư để đáp ứng sản
           xuất và kiểm soát chất lượng.
         </p>
 
-        <p className="mt-4 text-[15px] leading-relaxed text-white/85">
+        <p className="mt-3 md:mt-4 text-[14px] md:text-[15px] leading-relaxed text-white/85">
           Chúng tôi cũng thường xuyên tổ chức các buổi tham quan nhà máy cho quý
           khách hàng, đối tác, nhà cung cấp...
         </p>
 
-        <div className="mt-7 flex items-center gap-4">
+        <div className="mt-6 md:mt-7 flex items-center gap-4">
           <Link
             href="/gioi-thieu"
-            className="rounded-full bg-[#0a8a3f] px-7 py-3 text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#097535]"
+            className="rounded-full bg-[#0a8a3f] px-6 py-2.5 md:px-7 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-[#097535]"
           >
             About Us
           </Link>
           <Link
             href="/du-an"
-            className="rounded-full bg-white px-7 py-3 text-[13px] font-bold uppercase tracking-wide text-black transition-colors hover:bg-white/90"
+            className="rounded-full bg-white px-6 py-2.5 md:px-7 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide text-black transition-colors hover:bg-white/90"
           >
             View More
           </Link>
         </div>
 
-        {/* Box chứng nhận */}
-        <div className="mt-8 inline-flex items-center px-5 py-3">
+        <div className="mt-6 md:mt-8 inline-flex items-center px-3 md:px-5 py-3">
           <Image
             src="/AQS-VGBC.webp"
             alt="Chứng nhận ISO 9001:2015 - IQS Global và Vietnam Green Building Council"
-            width={260}
-            height={160}
-            className="object-contain"
+            width={200}
+            height={120}
+            className="object-contain w-[160px] md:w-[260px] h-auto"
           />
         </div>
       </div>

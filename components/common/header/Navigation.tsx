@@ -27,9 +27,7 @@ function Navigation() {
           <NavigationMenuContent>
             <div className="relative left-1/2 w-screen -translate-x-1/2 bg-white shadow-lg">
               <div className="mx-auto flex max-w-350 flex-col gap-6 p-8">
-                {/* Hàng 1 */}
                 <div className="flex gap-6">
-                  {/* Nhà Xưởng */}
                   <NavigationMenuLink
                     className="group relative h-70 flex-5 overflow-hidden rounded-sm"
                     render={
@@ -42,22 +40,16 @@ function Navigation() {
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-5">
-                          <p className="text-[13px] text-[#9a9a9a]">
-                            Công Nghiệp
-                          </p>
-                          <h4 className="text-[20px] font-bold text-black">
-                            Nhà Xưởng
-                          </h4>
+                          <p className="text-[13px] text-[#9a9a9a]">Công Nghiệp</p>
+                          <h4 className="text-[20px] font-bold text-black">Nhà Xưởng</h4>
                           <p className="mt-1 max-w-60 text-[13px] leading-snug text-[#9a9a9a]">
-                            Vữa rót, vữa tự san, trám khe, sơn sàn, bột xoa
-                            nền...
+                            Vữa rót, vữa tự san, trám khe, sơn sàn, bột xoa nền...
                           </p>
                         </div>
                       </Link>
                     }
                   />
 
-                  {/* Cao Tầng */}
                   <NavigationMenuLink
                     className="group relative h-70 flex-4 overflow-hidden rounded-sm"
                     render={
@@ -70,12 +62,8 @@ function Navigation() {
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-5">
-                          <p className="text-[13px] text-[#9a9a9a]">
-                            Công Nghiệp
-                          </p>
-                          <h4 className="text-[20px] font-bold text-black">
-                            Cao Tầng
-                          </h4>
+                          <p className="text-[13px] text-[#9a9a9a]">Công Nghiệp</p>
+                          <h4 className="text-[20px] font-bold text-black">Cao Tầng</h4>
                           <p className="mt-1 max-w-55 text-[13px] leading-snug text-[#9a9a9a]">
                             Tháo cốp pha, chống thấm, vữa tô, xử lý nứt...
                           </p>
@@ -84,7 +72,6 @@ function Navigation() {
                     }
                   />
 
-                  {/* Bê Tông Tươi */}
                   <NavigationMenuLink
                     className="group relative h-70 flex-3 overflow-hidden rounded-sm"
                     render={
@@ -98,9 +85,7 @@ function Navigation() {
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-5">
                           <p className="text-[13px] text-[#9a9a9a]">Nhà Máy</p>
-                          <h4 className="text-[20px] font-bold text-black">
-                            Bê Tông Tươi
-                          </h4>
+                          <h4 className="text-[20px] font-bold text-black">Bê Tông Tươi</h4>
                           <p className="mt-1 max-w-45 text-[13px] leading-snug text-[#9a9a9a]">
                             Phụ gia giảm nước, hoá dẻo, silicafume...
                           </p>
@@ -110,9 +95,7 @@ function Navigation() {
                   />
                 </div>
 
-                {/* Hàng 2 */}
                 <div className="flex gap-6">
-                  {/* Bê Tông Đúc Sẵn */}
                   <NavigationMenuLink
                     className="group relative h-70 flex-3 overflow-hidden rounded-sm"
                     render={
@@ -126,9 +109,7 @@ function Navigation() {
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-5">
                           <p className="text-[13px] text-[#9a9a9a]">Nhà Máy</p>
-                          <h4 className="text-[20px] font-bold leading-tight text-black">
-                            Bê Tông Đúc Sẵn
-                          </h4>
+                          <h4 className="text-[20px] font-bold leading-tight text-black">Bê Tông Đúc Sẵn</h4>
                           <p className="mt-1 max-w-50 text-[13px] leading-snug text-[#9a9a9a]">
                             Tháo khuôn, bảo dưỡng, tẩy rỉ cốt thép...
                           </p>
@@ -137,7 +118,6 @@ function Navigation() {
                     }
                   />
 
-                  {/* Cửa Hàng VLXD - card lớn nhất */}
                   <NavigationMenuLink
                     className="group relative h-70 flex-6 overflow-hidden rounded-sm"
                     render={
@@ -152,20 +132,16 @@ function Navigation() {
                         <div className="absolute bottom-0 left-0 p-5">
                           <p className="text-[13px] text-[#9a9a9a]">Dân Dụng</p>
                           <h4 className="text-[20px] font-bold leading-tight text-black">
-                            Cửa Hàng VLXD
-                            <br />
-                            Kênh Phân Phối
+                            Cửa Hàng VLXD<br />Kênh Phân Phối
                           </h4>
                           <p className="mt-1 max-w-75 text-[13px] leading-snug text-[#9a9a9a]">
-                            Latex, chống thấm 2 thành phần, vữa grout, phụ
-                            gia...
+                            Latex, chống thấm 2 thành phần, vữa grout, phụ gia...
                           </p>
                         </div>
                       </Link>
                     }
                   />
 
-                  {/* Thầu Thợ */}
                   <NavigationMenuLink
                     className="group relative h-70 flex-3 overflow-hidden rounded-sm"
                     render={
@@ -179,12 +155,9 @@ function Navigation() {
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
                         <div className="absolute bottom-0 left-0 p-5">
                           <p className="text-[13px] text-[#9a9a9a]">Dân Dụng</p>
-                          <h4 className="text-[20px] font-bold text-black">
-                            Thầu Thợ
-                          </h4>
+                          <h4 className="text-[20px] font-bold text-black">Thầu Thợ</h4>
                           <p className="mt-1 max-w-55 text-[13px] leading-snug text-[#9a9a9a]">
-                            Latex, chống thấm 2 thành phần, vữa grout, phụ
-                            gia...
+                            Latex, chống thấm 2 thành phần, vữa grout, phụ gia...
                           </p>
                         </div>
                       </Link>

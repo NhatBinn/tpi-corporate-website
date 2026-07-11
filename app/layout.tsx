@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Cardo, Geist, Inter } from "next/font/google";
 import "./globals.css";
 
-import Footer from "@/components/common/footer/Footer";
-import Navbar from "@/components/common/header/Navbar";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import Main from "@/components/layout/Main";
 import { cn } from "@/lib/utils";
 
@@ -27,21 +27,14 @@ export const metadata: Metadata = {
     default: "TPI | Demo Website for Papa",
     template: "%s | TPI",
   },
-  description:
-    "A modern corporate website demo for TPI.",
-  keywords: [
-    "TPI",
-    "PAPA",
-    "PAPA KIM",
-    "NHAN TRAN",
-  ],
+  description: "A modern corporate website demo for TPI.",
+  keywords: ["TPI", "PAPA", "PAPA KIM", "NHAN TRAN"],
   authors: [{ name: "Binn" }],
   creator: "Binn",
   metadataBase: new URL("https://tpi-corporate-website.vercel.app/"),
   openGraph: {
     title: "TPI | Demo Website For Papa",
-    description:
-      "A modern corporate website demo.",
+    description: "A modern corporate website demo.",
     type: "website",
     locale: "vi_VN",
     siteName: "TPI Demo",
@@ -77,7 +70,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
-        <Navbar />
+        <Header />
         <Main>{children}</Main>
         <Footer />
       </body>

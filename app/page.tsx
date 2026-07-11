@@ -1,11 +1,11 @@
-import AboutIntroSection from "@/components/common/main/AboutIntroSection";
-import HeroBanner from "@/components/common/main/HeroBanner";
-import HomeProductsSection from "@/components/common/main/HomeProductsSection";
-import PartnersAndFeaturesSection from "@/components/common/main/PartnersAndFeaturesSection";
-import ProductAndPartnerSection from "@/components/common/main/ProductAndPartnerSection";
-import QualityControlSection from "@/components/common/main/QualityControlSection";
-import SolutionsOverviewSection from "@/components/common/main/SolutionCard";
-import WidgetContainer from "@/components/common/main/WidgetContainer";
+import AboutIntroSection from "@/components/home/AboutIntroSection";
+import HeroBanner from "@/components/home/HeroBanner";
+import HomeProductsSection from "@/components/home/HomeProductsSection";
+import PartnersAndFeaturesSection from "@/components/home/PartnersAndFeaturesSection";
+import ProductAndPartnerSection from "@/components/home/ProjectsAndPartnersSection";
+import QualityControlSection from "@/components/home/QualityControlSection";
+import SolutionsOverviewSection from "@/components/home/SolutionsOverviewSection";
+import WidgetContainer from "@/components/home/HeroSlider";
 
 export default function Home() {
   return (

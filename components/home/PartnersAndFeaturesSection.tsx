@@ -19,12 +19,9 @@ const partners = [
   { name: "Ricons", src: "/Ricons-250x250.webp" },
 ];
 
-const VISIBLE_COUNT = 8;
 const DESKTOP_CARD_WIDTH = 170;
 const CARD_GAP = 16;
 const STEP = DESKTOP_CARD_WIDTH + CARD_GAP;
-const VIEWPORT_WIDTH =
-  VISIBLE_COUNT * DESKTOP_CARD_WIDTH + (VISIBLE_COUNT - 1) * CARD_GAP;
 const INTERVAL_MS = 5000;
 
 function PartnersCarousel() {

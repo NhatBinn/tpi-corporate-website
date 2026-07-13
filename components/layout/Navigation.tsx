@@ -9,7 +9,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
-import ProductMegaMenu from "./ProductMegaMenu";
+import ProductMegaMenu from "../common/ProductMegaMenu";
 
 function Navigation() {
   return (

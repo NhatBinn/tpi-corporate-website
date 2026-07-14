@@ -4,41 +4,21 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
-
-export interface ProductCategory {
-  key: string;
-  label: string;
-}
-
-export interface Product {
-  name: string;
-  desc: string;
-  image: string;
-  href: string;
-}
-
-interface ProductCategoryBrowserProps {
-  categories: ProductCategory[];
-  productsByCategory: Record<string, Product[]>;
-  columns?: 4 | 5;
-  pageSize?: number;
-  variant?: "nav" | "section";
-  interaction?: "hover" | "click";
-}
+import { ProductCard, ProductCategoryBrowserProps } from "@/types/common";
 
 export default function ProductCategoryBrowser({
   categories,
-  productsByCategory,
   columns = 5,
   pageSize,
   variant = "nav",
   interaction = variant === "nav" ? "hover" : "click",
 }: ProductCategoryBrowserProps) {
-  const [activeCategory, setActiveCategory] = useState(categories[0]?.key);
+  const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [page, setPage] = useState(0);
+  const activeCategoryData = categories.find((c) => c.id === activeCategory);
 
   const size = pageSize ?? columns * 2;
-  const allProducts = productsByCategory[activeCategory] ?? [];
+  const allProducts = activeCategoryData?.products ?? [];
   const totalPages = Math.max(1, Math.ceil(allProducts.length / size));
   const visibleProducts = allProducts.slice(page * size, page * size + size);
 
@@ -56,22 +36,24 @@ export default function ProductCategoryBrowser({
       : { onClick: () => selectCategory(key) };
 
   return (
-    <div className={`flex flex-col md:flex-row ${variant === "nav" ? "w-full max-w-[1240px]" : "w-full"}`}>
+    <div
+      className={`flex flex-col md:flex-row ${variant === "nav" ? "w-full max-w-[1240px]" : "w-full"}`}
+    >
       {variant === "nav" ? (
         <div className="flex w-full md:w-[280px] flex-row md:flex-col overflow-x-auto">
           {categories.map((cat) => {
-            const isActive = cat.key === activeCategory;
+            const isActive = cat.id === activeCategory;
             return (
               <button
-                key={cat.key}
-                {...categoryTriggerProps(cat.key)}
+                key={cat.id}
+                {...categoryTriggerProps(cat.id)}
                 className={`shrink-0 flex items-center justify-between px-4 md:px-6 py-3 md:py-4 text-left text-[13px] md:text-[15px] font-bold transition-colors ${
                   isActive
                     ? "bg-white text-black"
                     : "bg-[#0a8a3f] text-white hover:bg-[#097535]"
                 }`}
               >
-                {cat.label}
+                {cat.name}
               </button>
             );
           })}
@@ -79,18 +61,18 @@ export default function ProductCategoryBrowser({
       ) : (
         <div className="flex w-full md:w-[300px] flex-row md:flex-col overflow-x-auto gap-1 bg-[#f2f2f2] px-4 md:px-6 py-4 md:py-6">
           {categories.map((cat) => {
-            const isActive = cat.key === activeCategory;
+            const isActive = cat.id === activeCategory;
             return (
               <button
-                key={cat.key}
-                {...categoryTriggerProps(cat.key)}
+                key={cat.id}
+                {...categoryTriggerProps(cat.id)}
                 className={`shrink-0 py-2 px-3 md:px-0 text-left text-[13px] md:text-[14px] font-bold uppercase tracking-wide transition-colors ${
                   isActive
                     ? "text-[#e5173f]"
                     : "text-black hover:text-[#0a8a3f]"
                 }`}
               >
-                {cat.label}
+                {cat.name}
               </button>
             );
           })}
@@ -99,12 +81,16 @@ export default function ProductCategoryBrowser({
 
       <div
         className={`flex flex-1 flex-col justify-between ${
-          variant === "section" ? "border border-t-0 md:border-t md:border-l-0 border-[#e5e5e5] p-4 md:p-8" : ""
+          variant === "section"
+            ? "border border-t-0 md:border-t md:border-l-0 border-[#e5e5e5] p-4 md:p-8"
+            : ""
         }`}
       >
         <div
           className={`grid gap-x-4 md:gap-x-6 gap-y-6 md:gap-y-8 ${
-            columns === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-2 md:grid-cols-5"
+            columns === 4
+              ? "grid-cols-2 md:grid-cols-4"
+              : "grid-cols-2 md:grid-cols-5"
           }`}
         >
           {visibleProducts.map((p) =>
@@ -113,15 +99,15 @@ export default function ProductCategoryBrowser({
                 key={p.name}
                 className="group flex flex-col items-center text-center"
                 render={
-                  <Link href={p.href}>
+                  <Link href={p.slug}>
                     <ProductCardBody product={p} />
                   </Link>
                 }
               />
             ) : (
               <Link
-                key={p.name}
-                href={p.href}
+                key={p.id}
+                href={p.slug}
                 className="group flex flex-col items-center text-center"
               >
                 <ProductCardBody product={p} />
@@ -151,12 +137,12 @@ export default function ProductCategoryBrowser({
   );
 }
 
-function ProductCardBody({ product }: { product: Product }) {
+function ProductCardBody({ product }: { product: ProductCard }) {
   return (
     <>
       <div className="relative h-[100px] md:h-[130px] w-full overflow-hidden">
         <Image
-          src={product.image}
+          src={product.imageUrl ?? ""}
           alt={product.name}
           fill
           className="object-contain transition-transform duration-500 group-hover:scale-110"
@@ -165,7 +151,7 @@ function ProductCardBody({ product }: { product: Product }) {
       <p className="mt-2 md:mt-3 text-[12px] md:text-[13px] leading-snug text-[#4a4a4a]">
         <span className="font-bold text-black">{product.name}</span>
         {" – "}
-        {product.desc}
+        {product.description}
       </p>
     </>
   );

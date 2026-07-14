@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import Navigation from "./Navigation";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { FaFacebookF, FaTiktok } from "react-icons/fa6";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { X, Menu } from "lucide-react";
+import { useState } from "react";
+import { FaFacebookF, FaTiktok } from "react-icons/fa6";
+import Navigation from "./Navigation";
+import { NavbarProps } from "@/types/common";
 
-function Navbar() {
+function Navbar({ categories } : NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -29,7 +30,7 @@ function Navbar() {
           className="w-14 md:w-[90px]"
         />
         <div className="hidden md:flex gap-3 ml-8">
-          <Navigation />
+          <Navigation categories={categories} />
         </div>
         <div className="hidden md:block">
           <Field orientation="horizontal">
@@ -70,13 +71,18 @@ function Navbar() {
       </nav>
 
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-0 left-0 z-40 h-screen w-full bg-black/60 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
+        <div
+          className="md:hidden fixed inset-0 top-0 left-0 z-40 h-screen w-full bg-black/60 backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        >
           <div
             className="absolute right-0 top-0 h-full w-[300px] max-w-[85vw] bg-white shadow-xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-gray-100 px-4 py-4">
-              <span className="text-[13px] font-bold uppercase text-black">Menu</span>
+              <span className="text-[13px] font-bold uppercase text-black">
+                Menu
+              </span>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Đóng menu"

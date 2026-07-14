@@ -188,6 +188,7 @@ model Product {
   @@index([isFeatured])
   @@index([isNew])
   @@index([isBestSeller])
+  @@map("product")
 }
 
 model Category {
@@ -234,6 +235,8 @@ model Category {
 
   // Một Category có nhiều Product.
   products Product[]
+
+  @@map("category")
 }
 
 model Tag {
@@ -262,6 +265,7 @@ model Tag {
 
   // Query theo name nhanh hơn.
   @@index([name])
+  @@map("tag")
 }
 
 model ProductImage {
@@ -294,4 +298,6 @@ model ProductImage {
 
   // Ảnh thuộc Product nào.
   product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@map("product_image")
 }

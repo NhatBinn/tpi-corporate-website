@@ -33,6 +33,8 @@ async function main() {
     prisma.tag.deleteMany(),
     prisma.product.deleteMany(),
     prisma.category.deleteMany(),
+    prisma.solution.deleteMany(),
+    prisma.solutionCategory.deleteMany(),
     prisma.account.deleteMany(),
     prisma.session.deleteMany(),
     prisma.verification.deleteMany(),
@@ -658,17 +660,119 @@ async function main() {
   console.log(`    ✓ ${productImages.length} ảnh sản phẩm`);
 
   // ----------------------------------------------------------
-  // 7. TỔNG KẾT
+  // 7. SOLUTION CATEGORIES
+  // ----------------------------------------------------------
+  console.log("  → Tạo nhóm giải pháp...");
+
+  const solutionCategoryData = [
+    {
+      id: "solcat-cong-nghiep",
+      name: "Công Nghiệp",
+      slug: "cong-nghiep",
+      sortOrder: 0,
+    },
+    {
+      id: "solcat-nha-may",
+      name: "Nhà Máy",
+      slug: "nha-may",
+      sortOrder: 1,
+    },
+    {
+      id: "solcat-dan-dung",
+      name: "Dân Dụng",
+      slug: "dan-dung",
+      sortOrder: 2,
+    },
+  ];
+
+  const solutionCategories = await Promise.all(
+    solutionCategoryData.map((sc) =>
+      prisma.solutionCategory.create({ data: sc }),
+    ),
+  );
+  console.log(`    ✓ ${solutionCategories.length} nhóm giải pháp`);
+
+  // ----------------------------------------------------------
+  // 8. SOLUTIONS
+  // ----------------------------------------------------------
+  console.log("  → Tạo giải pháp...");
+
+  const solutionData = [
+    {
+      id: "sol-nha-xuong",
+      name: "Nhà Xưởng",
+      slug: "nha-xuong",
+      description: "Vữa rót, vữa tự san, trám khe, sơn sàn, bột xoa nền...",
+      imageUrl: "/Grouting-580-280.jpg",
+      sortOrder: 0,
+      categoryId: "solcat-cong-nghiep",
+    },
+    {
+      id: "sol-cao-tang",
+      name: "Cao Tầng",
+      slug: "cao-tang",
+      description: "Tháo cốp pha, chống thấm, vữa tô, xử lý nứt...",
+      imageUrl: "/Building-Cao-tang.webp",
+      sortOrder: 1,
+      categoryId: "solcat-cong-nghiep",
+    },
+    {
+      id: "sol-be-tong-tuoi",
+      name: "Bê Tông Tươi",
+      slug: "be-tong-tuoi",
+      description: "Phụ gia giảm nước, hoá dẻo, silicafume...",
+      imageUrl: "/Do-beton-tuoi-280x280-1.jpg",
+      sortOrder: 2,
+      categoryId: "solcat-nha-may",
+    },
+    {
+      id: "sol-be-tong-duc-san",
+      name: "Bê Tông Đúc Sẵn",
+      slug: "be-tong-duc-san",
+      description: "Tháo khuôn, bảo dưỡng, tẩy rỉ cốt thép...",
+      imageUrl: "/Beton-Duc-san-cong-2-280x280-1.webp",
+      sortOrder: 3,
+      categoryId: "solcat-nha-may",
+    },
+    {
+      id: "sol-cua-hang-vlxd",
+      name: "Cửa Hàng VLXD",
+      slug: "cua-hang-vlxd",
+      description: "Latex, chống thấm 2 thành phần, vữa grout, phụ gia...",
+      imageUrl: "/Cua-hang-vlxd.jpg",
+      sortOrder: 4,
+      categoryId: "solcat-dan-dung",
+    },
+    {
+      id: "sol-thau-tho",
+      name: "Thầu Thợ",
+      slug: "thau-tho",
+      description: "Latex, chống thấm 2 thành phần, vữa grout, phụ gia...",
+      imageUrl: "/Non-bao-ho.webp",
+      sortOrder: 5,
+      categoryId: "solcat-dan-dung",
+    },
+  ];
+
+  const solutions = await Promise.all(
+    solutionData.map((s) => prisma.solution.create({ data: s })),
+  );
+  console.log(`    ✓ ${solutions.length} giải pháp`);
+
+  // ----------------------------------------------------------
+  // 9. TỔNG KẾT
   // ----------------------------------------------------------
   console.log("");
   console.log("========================================");
   console.log("  ✅ SEED HOÀN TẤT");
   console.log("========================================");
-  console.log(`  Users:         1`);
-  console.log(`  Categories:    ${categories.length}`);
-  console.log(`  Tags:          ${tags.length}`);
-  console.log(`  Products:      ${products.length}`);
-  console.log(`  ProductImages: ${productImages.length}`);
+  console.log(`  Users:             1`);
+  console.log(`  Categories:        ${categories.length}`);
+  console.log(`  Tags:              ${tags.length}`);
+  console.log(`  Products:          ${products.length}`);
+  console.log(`  ProductImages:     ${productImages.length}`);
+  console.log(`  SolutionCategories: ${solutionCategories.length}`);
+  console.log(`  Solutions:         ${solutions.length}`);
   console.log("========================================");
 }
 

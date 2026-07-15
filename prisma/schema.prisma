@@ -301,3 +301,76 @@ model ProductImage {
 
   @@map("product_image")
 }
+
+model SolutionCategory {
+  // UUID
+  id String @id @default(uuid())
+
+  // Tên nhóm.
+  //
+  // Ví dụ:
+  // Công Nghiệp
+  // Nhà Máy
+  // Dân Dụng
+  name String
+
+  // Slug URL.
+  slug String @unique
+
+  // Thứ tự hiển thị.
+  sortOrder Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  solutions Solution[]
+
+  @@map("solution_category")
+}
+
+model Solution {
+  // UUID
+  id String @id @default(uuid())
+
+  // Tên giải pháp.
+  //
+  // Ví dụ:
+  // - Nhà Xưởng
+  // - Cao Tầng
+  // - Bê Tông Tươi
+  name String
+
+  // Slug URL.
+  slug String @unique
+
+  // Mô tả ngắn.
+  description String?
+
+  // Ảnh đại diện.
+  imageUrl String?
+
+  // Thứ tự hiển thị.
+  sortOrder Int @default(0)
+
+  // Có hiển thị ngoài website hay không.
+  isPublished Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // FK
+  categoryId String
+
+  // Thuộc nhóm giải pháp nào.
+  category SolutionCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@map("solution")
+}

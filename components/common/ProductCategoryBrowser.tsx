@@ -140,12 +140,13 @@ export default function ProductCategoryBrowser({
 function ProductCardBody({ product }: { product: ProductCard }) {
   return (
     <>
-      <div className="relative h-[100px] md:h-[130px] w-full overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden p-2 md:p-3">
         <Image
-          src={product.imageUrl ?? ""}
+          src="/products/list/TPI-SPR4-25L-800x800-1-300x300.webp"
           alt={product.name}
           fill
-          className="object-contain transition-transform duration-500 group-hover:scale-110"
+          sizes="(max-width: 768px) 120px, 180px"
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </div>
       <p className="mt-2 md:mt-3 text-[12px] md:text-[13px] leading-snug text-[#4a4a4a]">

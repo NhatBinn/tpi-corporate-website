@@ -36,3 +36,15 @@ export interface NavbarProps extends CategoriesProps {}
 export interface NavigationProps extends CategoriesProps {}
 
 export interface ProductMegaProps extends CategoriesProps {}
+
+export type SolutionCardProps = {
+  href: string;
+  image: string;
+  label: string;
+  title: string;
+  desc: string;
+  span?: string;
+  descWidth?: string;
+  titleLine2?: string;
+  titleTight?: boolean;
+};

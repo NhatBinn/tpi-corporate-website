@@ -17,14 +17,18 @@ function Navigation({ categories }: NavigationProps) {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
-          <NavigationMenuTrigger>SẢN PHẨM</NavigationMenuTrigger>
+          <NavigationMenuTrigger>
+            <Link href={"/san-pham"}>SẢN PHẨM</Link>
+          </NavigationMenuTrigger>
           <NavigationMenuContent className={`p-2`}>
             <ProductMegaMenu categories={categories} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
-          <NavigationMenuTrigger>GIẢI PHÁP</NavigationMenuTrigger>
+          <NavigationMenuTrigger>
+            <Link href={"/giai-phap"}>GIẢI PHÁP</Link>
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="relative left-1/2 w-screen -translate-x-1/2 bg-white shadow-lg">
               <div className="mx-auto flex max-w-350 flex-col gap-6 p-8">
@@ -192,18 +196,20 @@ function Navigation({ categories }: NavigationProps) {
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
           <NavigationMenuLink
             className={navigationMenuTriggerStyle()}
-            render={<Link href="/">DỰ ÁN</Link>}
+            render={<Link href="/du-an">DỰ ÁN</Link>}
           />
         </NavigationMenuItem>
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
           <NavigationMenuLink
             className={navigationMenuTriggerStyle()}
-            render={<Link href="/">GIỚI THIỆU</Link>}
+            render={<Link href="/gioi-thieu">GIỚI THIỆU</Link>}
           />
         </NavigationMenuItem>
 
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
-          <NavigationMenuTrigger>TÀI LIỆU & ỨNG DỤNG</NavigationMenuTrigger>
+          <NavigationMenuTrigger>
+            <Link href={"/"}>TÀI LIỆU & ỨNG DỤNG</Link>
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="flex flex-row gap-10 p-8">
               <ul className="grid w-full">
@@ -292,7 +298,7 @@ function Navigation({ categories }: NavigationProps) {
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
           <NavigationMenuLink
             className={navigationMenuTriggerStyle()}
-            render={<Link href="/">LIÊN HỆ</Link>}
+            render={<Link href="/lien-he">LIÊN HỆ</Link>}
           />
         </NavigationMenuItem>
       </NavigationMenuList>

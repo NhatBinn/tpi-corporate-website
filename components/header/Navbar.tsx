@@ -10,7 +10,7 @@ import { FaFacebookF, FaTiktok } from "react-icons/fa6";
 import Navigation from "./Navigation";
 import { NavbarProps } from "@/types/common";
 
-function Navbar({ categories } : NavbarProps) {
+function Navbar({ categories }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

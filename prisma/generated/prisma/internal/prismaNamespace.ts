@@ -391,7 +391,9 @@ export const ModelName = {
   Product: 'Product',
   Category: 'Category',
   Tag: 'Tag',
-  ProductImage: 'ProductImage'
+  ProductImage: 'ProductImage',
+  SolutionCategory: 'SolutionCategory',
+  Solution: 'Solution'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "product" | "category" | "tag" | "productImage"
+    modelProps: "user" | "session" | "account" | "verification" | "product" | "category" | "tag" | "productImage" | "solutionCategory" | "solution"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1005,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SolutionCategory: {
+      payload: Prisma.$SolutionCategoryPayload<ExtArgs>
+      fields: Prisma.SolutionCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SolutionCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SolutionCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.SolutionCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SolutionCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.SolutionCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.SolutionCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.SolutionCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SolutionCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.SolutionCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>
+        }
+        update: {
+          args: Prisma.SolutionCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.SolutionCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SolutionCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SolutionCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.SolutionCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.SolutionCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSolutionCategory>
+        }
+        groupBy: {
+          args: Prisma.SolutionCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SolutionCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SolutionCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SolutionCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    Solution: {
+      payload: Prisma.$SolutionPayload<ExtArgs>
+      fields: Prisma.SolutionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SolutionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SolutionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>
+        }
+        findFirst: {
+          args: Prisma.SolutionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SolutionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>
+        }
+        findMany: {
+          args: Prisma.SolutionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>[]
+        }
+        create: {
+          args: Prisma.SolutionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>
+        }
+        createMany: {
+          args: Prisma.SolutionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SolutionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>[]
+        }
+        delete: {
+          args: Prisma.SolutionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>
+        }
+        update: {
+          args: Prisma.SolutionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SolutionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SolutionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SolutionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SolutionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SolutionPayload>
+        }
+        aggregate: {
+          args: Prisma.SolutionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSolution>
+        }
+        groupBy: {
+          args: Prisma.SolutionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SolutionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SolutionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SolutionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1161,6 +1311,34 @@ export const ProductImageScalarFieldEnum = {
 } as const
 
 export type ProductImageScalarFieldEnum = (typeof ProductImageScalarFieldEnum)[keyof typeof ProductImageScalarFieldEnum]
+
+
+export const SolutionCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SolutionCategoryScalarFieldEnum = (typeof SolutionCategoryScalarFieldEnum)[keyof typeof SolutionCategoryScalarFieldEnum]
+
+
+export const SolutionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  sortOrder: 'sortOrder',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoryId: 'categoryId'
+} as const
+
+export type SolutionScalarFieldEnum = (typeof SolutionScalarFieldEnum)[keyof typeof SolutionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1401,6 +1579,8 @@ export type GlobalOmitConfig = {
   category?: Prisma.CategoryOmit
   tag?: Prisma.TagOmit
   productImage?: Prisma.ProductImageOmit
+  solutionCategory?: Prisma.SolutionCategoryOmit
+  solution?: Prisma.SolutionOmit
 }
 
 /* Types for Logging */

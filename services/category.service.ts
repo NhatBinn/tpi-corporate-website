@@ -1,6 +1,5 @@
-import { Category } from "@/prisma/generated/prisma/client";
 import { findCategoryByProduct } from "@/repositories/category.repository";
-import { Result, ok, err } from "@/types/result";
+import { ok, err } from "@/types/result";
 
 export async function getCategoryByProduct() {
   try {

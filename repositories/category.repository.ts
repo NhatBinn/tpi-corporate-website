@@ -17,3 +17,21 @@ export async function findCategoryByProduct() {
     },
   });
 }
+
+export async function findCategoryByProductWhere() {
+  return await prisma.category.findMany({
+  orderBy: {
+    sortOrder: "asc",
+  },
+  include: {
+    products: {
+      where: {
+        isPublished: true,
+      },
+      orderBy: {
+        sortOrder: "asc",
+      },
+    },
+  },
+});
+}

@@ -57,3 +57,13 @@ export type Tag = Prisma.TagModel
  * 
  */
 export type ProductImage = Prisma.ProductImageModel
+/**
+ * Model SolutionCategory
+ * 
+ */
+export type SolutionCategory = Prisma.SolutionCategoryModel
+/**
+ * Model Solution
+ * 
+ */
+export type Solution = Prisma.SolutionModel

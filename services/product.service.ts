@@ -1,13 +1,12 @@
-import { Product } from "@/prisma/generated/prisma/client";
-import { findProducts } from "@/repositories/product.repository";
-import { err, ok, Result } from "@/types/result";
+import { findProductsByCategoryId } from "@/repositories/product.repository";
+import { err, ok } from "@/types/result";
 
-export async function getProducts(): Promise<Result<Product[]>> {
+export async function getProductsByCategoryId(categoryId: string) {
   try {
-    const data = await findProducts();
+    const data = await findProductsByCategoryId(categoryId);
     return ok(data);
   } catch (error) {
-    console.log("~getProducts~", error);
+    console.log("~getProductsByCategoryId~", error);
     return err("Failed to get products");
   }
 }

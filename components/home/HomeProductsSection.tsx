@@ -4,7 +4,7 @@ import ProductCategoryBrowser from "../common/ProductCategoryBrowser";
 
 export default async function HomeProductsSection() {
   const category = await getCategoryByProduct();
-
+  if(!category.success) return <div>error</div>
   return (
     <section className="mx-auto max-w-[1400px] px-4 md:px-6 py-12 md:py-16">
       <div className="mb-6 md:mb-8 flex items-start justify-between">

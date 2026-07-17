@@ -1,4 +1,10 @@
-function ProductCategorySection() {
+import { getProductsByCategoryId } from "@/services/product.service";
+import ProductsList from "./ProductsList";
+
+async function ProductCategorySection() {
+  const products = await getProductsByCategoryId("cat-thao-khuon");
+  if (!products.success) return <div>Không tìm thấy sản phẩm</div>;
+
   return (
     <section>
       <div className="border-b border-gray-300">
@@ -6,7 +12,9 @@ function ProductCategorySection() {
           CHẤT THÁO KHUÔN
         </h1>
       </div>
-      <div>hello</div>
+      <div className="mt-8">
+        <ProductsList products={products.data}/>
+      </div>
     </section>
   );
 }

@@ -1,81 +1,39 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import useInfiniteList from "@/hooks/useInfiniteList";
 import Features from "../common/Features";
+import type { PartnerItem } from "@/types/common";
 
-const partners = [
-  { name: "DELTA-V", src: "/Delta-V-250x250.webp" },
-  { name: "DELTA", src: "/Delta-250x250.webp" },
-  { name: "BCONS", src: "/Unicons-250x250.webp" },
-  { name: "TUẤN LÊ", src: "/Tuan-Le-250x250.webp" },
-  { name: "PHƯỚC THÀNH", src: "/Phuoc-Thanh-250x250.webp" },
-  { name: "ECOBA", src: "/Ecoba-250x250.webp" },
-  { name: "HÒA BÌNH", src: "/Hoa-Binh-250x250.webp" },
-  { name: "COTECCONS", src: "/Coteccons-250x250.webp" },
-  { name: "CENTRAL", src: "/Central-250x250.webp" },
-  { name: "NEWTECONS", src: "/Newtecons-250x250.webp" },
-  { name: "Ricons", src: "/Ricons-250x250.webp" },
+const partners: PartnerItem[] = [
+  { name: "DELTA-V", imageUrl: "/Delta-V-250x250.webp" },
+  { name: "DELTA", imageUrl: "/Delta-250x250.webp" },
+  { name: "BCONS", imageUrl: "/Unicons-250x250.webp" },
+  { name: "TUẤN LÊ", imageUrl: "/Tuan-Le-250x250.webp" },
+  { name: "PHƯỚC THÀNH", imageUrl: "/Phuoc-Thanh-250x250.webp" },
+  { name: "ECOBA", imageUrl: "/Ecoba-250x250.webp" },
+  { name: "HÒA BÌNH", imageUrl: "/Hoa-Binh-250x250.webp" },
+  { name: "COTECCONS", imageUrl: "/Coteccons-250x250.webp" },
+  { name: "CENTRAL", imageUrl: "/Central-250x250.webp" },
+  { name: "NEWTECONS", imageUrl: "/Newtecons-250x250.webp" },
+  { name: "Ricons", imageUrl: "/Ricons-250x250.webp" },
 ];
 
-const DESKTOP_CARD_WIDTH = 170;
-const CARD_GAP = 16;
-const STEP = DESKTOP_CARD_WIDTH + CARD_GAP;
-const INTERVAL_MS = 5000;
-
 function PartnersCarousel() {
-  const realLength = partners.length;
-  const tripled = useMemo(() => [...partners, ...partners, ...partners], []);
-
-  const [index, setIndex] = useState(realLength);
-  const [withTransition, setWithTransition] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const isAdjusting = useRef(false);
-
-  const goNext = () => setIndex((i) => i + 1);
-  const goPrev = () => setIndex((i) => i - 1);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReducedMotion || isPaused) return;
-
-    const timer = setInterval(goNext, INTERVAL_MS);
-    return () => clearInterval(timer);
-  }, [isPaused]);
-
-  function handleTransitionEnd() {
-    if (isAdjusting.current) return;
-
-    if (index >= realLength * 2) {
-      isAdjusting.current = true;
-      setWithTransition(false);
-      setIndex((i) => i - realLength);
-    } else if (index < realLength) {
-      isAdjusting.current = true;
-      setWithTransition(false);
-      setIndex((i) => i + realLength);
-    }
-  }
-
-  useEffect(() => {
-    if (!withTransition) {
-      const raf1 = requestAnimationFrame(() => {
-        const raf2 = requestAnimationFrame(() => {
-          setWithTransition(true);
-          isAdjusting.current = false;
-        });
-        return () => cancelAnimationFrame(raf2);
-      });
-      return () => cancelAnimationFrame(raf1);
-    }
-  }, [withTransition]);
+  const {
+    goNext,
+    goPrev,
+    setIsPaused,
+    handleTransitionEnd,
+    tripled,
+    trackStyle,
+    firstCardRef,
+  } = useInfiniteList(partners, { gap: 16, intervalMs: 5000 });
 
   return (
     <div
-      className="mx-auto flex w-fit items-center justify-center gap-2"
+      className="mx-auto flex w-full items-center justify-center gap-2"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -92,29 +50,20 @@ function PartnersCarousel() {
 
       <div className="w-full max-w-[calc(100vw-3rem)] overflow-hidden px-2 md:px-0 md:max-w-none">
         <div className="overflow-hidden py-10">
-          <div
-            onTransitionEnd={handleTransitionEnd}
-            className={`flex ${
-              withTransition
-                ? "transition-transform duration-700 ease-in-out"
-                : ""
-            }`}
-            style={{
-              gap: CARD_GAP,
-              transform: `translateX(-${index * STEP}px)`,
-            }}
-          >
+          <div onTransitionEnd={handleTransitionEnd} style={trackStyle}>
             {tripled.map((partner, i) => (
               <div
                 key={i}
+                ref={i === 0 ? firstCardRef : undefined}
                 className="flex w-[120px] md:w-[150px] lg:w-[170px] shrink-0 items-center justify-center bg-white shadow-sm"
                 style={{ height: 130 }}
               >
                 <Image
-                  src={partner.src}
+                  src={partner.imageUrl!}
                   alt={partner.name}
                   width={140}
                   height={90}
+                  priority
                   className="h-auto w-auto max-h-[90px] object-contain"
                 />
               </div>
@@ -149,12 +98,10 @@ export default function PartnersAndFeaturesSection() {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-white/30" />
-
         <div className="relative z-10 w-full">
           <PartnersCarousel />
         </div>
       </section>
-
       <Features />
     </>
   );

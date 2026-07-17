@@ -16,9 +16,8 @@ export type CategoryWithProducts = Prisma.CategoryGetPayload<{
   };
 }>;
 
-export type ProductCard =
-  CategoryWithProducts["products"][number];
-  
+export type ProductCard = CategoryWithProducts["products"][number];
+
 export interface ProductCategoryBrowserProps {
   categories: CategoryWithProducts[];
   columns?: 4 | 5;
@@ -48,3 +47,15 @@ export type SolutionCardProps = {
   titleLine2?: string;
   titleTight?: boolean;
 };
+
+export interface PartnerItem {
+  name: string;
+  imageUrl: string | null;
+}
+
+export interface ProductItem {
+  id?: string;
+  name: string;
+  imageUrl: string | null;
+  slug?: string;
+}

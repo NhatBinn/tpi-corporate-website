@@ -60,7 +60,8 @@ export const ModelName = {
   Tag: 'Tag',
   ProductImage: 'ProductImage',
   SolutionCategory: 'SolutionCategory',
-  Solution: 'Solution'
+  Solution: 'Solution',
+  Feedback: 'Feedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -226,6 +227,18 @@ export const SolutionScalarFieldEnum = {
 } as const
 
 export type SolutionScalarFieldEnum = (typeof SolutionScalarFieldEnum)[keyof typeof SolutionScalarFieldEnum]
+
+
+export const FeedbackScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  company: 'company',
+  message: 'message'
+} as const
+
+export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -374,3 +374,15 @@ model Solution {
 
   @@map("solution")
 }
+
+model Feedback {
+  id String @id @default(uuid())
+  name String
+  email String
+  phone String?
+  company String?
+  message String
+
+  @@index([email])
+  @@map("contact")
+}

@@ -16,12 +16,12 @@ function HeroBanner() {
 
       <div className="relative z-10 md:mr-auto px-4 sm:px-6 md:pr-16 md:ml-84 mt-10 mx-auto w-full max-w-350">
         <h1 className="-mt-2 text-[40px] md:text-[72px] leading-tight text-white font-bold">
-          Liên hệ
+          Victoria Village
         </h1>
         <div>
           <Link href={"/"}>Home</Link>
           <span> / </span>
-          <span>Liên hệ</span>
+          <span>Project</span>
         </div>
       </div>
     </section>

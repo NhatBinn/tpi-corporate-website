@@ -1,4 +1,5 @@
 import { Prisma } from "@/prisma/generated/prisma/client";
+import { FeedbackInput } from "@/schemas/Feedback";
 
 export type CategoryWithProducts = Prisma.CategoryGetPayload<{
   select: {

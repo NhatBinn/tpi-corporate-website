@@ -67,3 +67,8 @@ export type SolutionCategory = Prisma.SolutionCategoryModel
  * 
  */
 export type Solution = Prisma.SolutionModel
+/**
+ * Model Feedback
+ * 
+ */
+export type Feedback = Prisma.FeedbackModel

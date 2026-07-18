@@ -17,7 +17,7 @@ export default function QualityControlSection() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
 
-      <ParallaxLogo />
+      <ParallaxLogo position={false} />
 
       <div className="relative z-10 mx-auto md:ml-auto w-full max-w-[960px] px-4 sm:px-6 md:pr-16 md:mr-20">
         <div className="flex items-baseline gap-3">

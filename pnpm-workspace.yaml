@@ -1,0 +1,7 @@
+allowBuilds:
+  '@prisma/engines': false
+  prisma: false
+  sharp: false
+  unrs-resolver: false
+minimumReleaseAgeExclude:
+  - react-hook-form@7.82.0

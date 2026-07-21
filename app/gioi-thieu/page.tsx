@@ -1,19 +1,13 @@
 import Features from "@/components/common/Features";
+import FirstElement from "@/components/introduction/FirstElement";
 import HeroBanner from "@/components/introduction/HeroBanner";
 
 function IntroductionPage() {
   return (
     <>
       <HeroBanner />
-      <section className="mx-auto max-w-350">
-        <div className="flex gap-4 px-4 md:px-6 mx-8">
-          <div className="flex-1 mt-5">
-            <h1>helo</h1>
-          </div>
-          <div className="flex-1 mt-5">
-            <h1>helo</h1>
-          </div>
-        </div>
+      <section className="mx-auto max-w-400">
+        <FirstElement />
         <Features />
       </section>
     </>

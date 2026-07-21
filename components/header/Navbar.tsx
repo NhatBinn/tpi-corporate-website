@@ -22,13 +22,15 @@ function Navbar({ categories }: NavbarProps) {
       </div>
       <div className="hidden md:block mt-2.5 mb-1.5 h-px w-full bg-white/50" />
       <nav className="flex gap-2 md:gap-4 items-center">
-        <Image
-          src="/TPI-logo-2025-169-nen-trang-cham-xanh-la.webp"
-          width={90}
-          height={60}
-          alt="logo"
-          className="w-14 md:w-[90px]"
-        />
+        <Link href={"/"}>
+          <Image
+            src="/TPI-logo-2025-169-nen-trang-cham-xanh-la.webp"
+            width={90}
+            height={60}
+            alt="logo"
+            className="w-14 md:w-[90px]"
+          />
+        </Link>
         <div className="hidden md:flex gap-3 ml-8">
           <Navigation categories={categories} />
         </div>

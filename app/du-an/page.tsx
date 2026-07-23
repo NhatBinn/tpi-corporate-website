@@ -1,19 +1,18 @@
 import Features from "@/components/common/Features";
 import HeroBanner from "@/components/project/HeroBanner";
+import ProjectListSection from "@/components/project/ProjectListSection";
 
-function ProjectPage() {
+async function ProjectPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ cats?: string }>;
+}) {
+  const { cats } = await searchParams;
   return (
     <>
       <HeroBanner />
       <section className="mx-auto max-w-350">
-        <div className="flex gap-4 px-4 md:px-6 mx-8">
-          <div className="flex-1 mt-5">
-            <h1>helo</h1>
-          </div>
-          <div className="flex-1 mt-5">
-            <h1>helo</h1>
-          </div>
-        </div>
+        <ProjectListSection active={cats ?? "all"} />
         <Features />
       </section>
     </>

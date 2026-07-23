@@ -12,32 +12,101 @@ datasource db {
   provider = "postgresql"
 }
 
+// ============================================================
+// AUTH
+// Các model được thư viện Better Auth tự quản lý.
+// KHÔNG thêm @map cho từng field ở nhóm này vì Better Auth mặc
+// định đọc/ghi theo tên field camelCase — đổi tên cột sẽ làm
+// thư viện auth không hoạt động đúng.
+// ============================================================
+
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  role          Role      @default(user)
-  sessions      Session[]
-  accounts      Account[]
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính do Better Auth tự sinh.
+  id String @id
+
+  // Họ tên người dùng.
+  name String
+
+  // Email đăng nhập.
+  email String
+
+  // Email đã xác thực hay chưa.
+  emailVerified Boolean @default(false)
+
+  // Ảnh đại diện.
+  image String?
+
+  // Vai trò tài khoản.
+  role Role @default(user)
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now())
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // Một User có nhiều phiên đăng nhập.
+  sessions Session[]
+
+  // Một User có nhiều tài khoản liên kết (OAuth, credentials...).
+  accounts Account[]
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
 
   @@unique([email])
   @@map("user")
 }
 
 model Session {
-  id        String   @id
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính do Better Auth tự sinh.
+  id String @id
+
+  // Thời điểm phiên hết hạn.
   expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  // Token phiên đăng nhập.
+  token String
+
+  // IP của thiết bị đăng nhập.
   ipAddress String?
+
+  // User agent của thiết bị đăng nhập.
   userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now())
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // FK.
+  userId String
+
+  // Phiên thuộc User nào.
+  // onDelete Cascade: xóa User thì xóa luôn phiên đăng nhập.
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
 
   @@unique([token])
   @@index([userId])
@@ -45,32 +114,91 @@ model Session {
 }
 
 model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính do Better Auth tự sinh.
+  id String @id
+
+  // Id tài khoản phía provider (Google, GitHub, credentials...).
+  accountId String
+
+  // Tên provider.
+  providerId String
+
+  // Access token của provider.
+  accessToken String?
+
+  // Refresh token của provider.
+  refreshToken String?
+
+  // ID token (dùng cho OIDC).
+  idToken String?
+
+  // Thời điểm access token hết hạn.
+  accessTokenExpiresAt DateTime?
+
+  // Thời điểm refresh token hết hạn.
   refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+
+  // Phạm vi quyền (OAuth scope).
+  scope String?
+
+  // Mật khẩu (chỉ dùng cho provider dạng credentials).
+  password String?
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now())
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // FK.
+  userId String
+
+  // Tài khoản thuộc User nào.
+  // onDelete Cascade: xóa User thì xóa luôn tài khoản liên kết.
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
 
   @@index([userId])
   @@map("account")
 }
 
 model Verification {
-  id         String   @id
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính do Better Auth tự sinh.
+  id String @id
+
+  // Định danh cần xác thực (email, số điện thoại...).
   identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+
+  // Giá trị mã xác thực (OTP, token...).
+  value String
+
+  // Thời điểm hết hạn.
+  expiresAt DateTime
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now())
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
 
   @@index([identifier])
   @@map("verification")
@@ -81,153 +209,168 @@ enum Role {
   admin
 }
 
-// ===========================
+// ============================================================
 // PRODUCT
-// ===========================
+// ============================================================
 
 model Product {
-  // Khóa chính của Product.
-  // UUID được Prisma tự sinh.
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
 
   // Tên sản phẩm.
   name String
 
   // Slug dùng cho URL đẹp.
-  // Ví dụ:
-  // /product/tpi-bc-n
+  // Ví dụ: /product/tpi-bc-n
   slug String @unique
 
-  // Hiển thị ở mục "Nổi bật"
-  isFeatured Boolean @default(false)
-
-  // Hiển thị ở mục "Mới"
-  isNew Boolean @default(false)
-
-  // Hiển thị ở mục "Bán chạy"
-  isBestSeller Boolean @default(false)
-
-  // Mã sản phẩm.
-  // Thường dùng để tìm kiếm trong kho.
+  // Mã sản phẩm. Thường dùng để tìm kiếm trong kho.
   sku String? @unique
-
-  // Ảnh đại diện.
-  // @map nghĩa là trong database tên cột là image_url
-  imageUrl String? @map("image_url")
 
   // Nội dung mô tả.
   description String?
 
-  // Cường độ chịu nén
+  //------------------------------------------------------
+  // HIỂN THỊ
+  //------------------------------------------------------
+
+  // Hiển thị ở mục "Nổi bật".
+  isFeatured Boolean @default(false) @map("is_featured")
+
+  // Hiển thị ở mục "Mới".
+  isNew Boolean @default(false) @map("is_new")
+
+  // Hiển thị ở mục "Bán chạy".
+  isBestSeller Boolean @default(false) @map("is_best_seller")
+
+  //------------------------------------------------------
+  // THÔNG SỐ KỸ THUẬT
+  //------------------------------------------------------
+
+  // Cường độ chịu nén.
   compressiveStrength String? @map("compressive_strength")
 
-  // Tỷ lệ pha nước
+  // Tỷ lệ pha nước.
   waterDilutionRatio String? @map("water_dilution_ratio")
 
-  // Quy cách đóng gói
+  // Quy cách đóng gói.
   pack String?
 
-  // Link file PDF catalogue
+  //------------------------------------------------------
+  // MEDIA
+  //------------------------------------------------------
+
+  // Ảnh đại diện.
+  imageUrl String? @map("image_url")
+
+  // Link file PDF catalogue.
   pdfUrl String? @map("pdf_url")
 
-  // Giá gốc.
-  // Decimal để tránh sai số của float.
+  //------------------------------------------------------
+  // GIÁ & TỒN KHO
+  //------------------------------------------------------
+
+  // Giá gốc. Decimal để tránh sai số của float.
   price Decimal? @db.Decimal(12, 2)
 
   // Giá khuyến mãi.
-  salePrice Decimal? @db.Decimal(12, 2)
+  salePrice Decimal? @db.Decimal(12, 2) @map("sale_price")
 
   // Số lượng tồn kho.
   stock Int?
 
-  // SEO title
-  seoTitle String?
+  //------------------------------------------------------
+  // SEO
+  //------------------------------------------------------
 
-  // SEO description
-  seoDescription String?
+  // SEO title.
+  seoTitle String? @map("seo_title")
 
-  // Thời điểm tạo
-  createdAt DateTime @default(now())
+  // SEO description.
+  seoDescription String? @map("seo_description")
 
-  // Prisma tự cập nhật khi update
-  updatedAt DateTime @updatedAt
+  //------------------------------------------------------
+  // TIMESTAMP
+  //------------------------------------------------------
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   //------------------------------------------------------
   // RELATION
   //------------------------------------------------------
 
-  // Khóa ngoại.
-  // Lưu id của Category.
-  categoryId String
+  // FK — lưu id của ProductCategory.
+  categoryId String @map("category_id")
 
-  // Quan hệ tới Category.
-  //
-  // fields:
-  // Product.categoryId
-  //
-  // references:
-  // Category.id
-  //
-  // Restrict:
-  // Không cho xóa Category nếu vẫn còn Product.
-  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  // Quan hệ tới ProductCategory.
+  // onDelete Restrict: không cho xóa Category nếu vẫn còn Product.
+  category ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
-  // Một Product có nhiều Tag.
+  // Many-to-many: một Product có nhiều Tag, Prisma tự sinh bảng trung gian.
   tags Tag[]
 
   // Một Product có nhiều ảnh.
+  // onDelete (xem ProductImage.product) là Cascade: xóa Product thì xóa luôn ảnh.
   productImages ProductImage[]
 
   //------------------------------------------------------
   // INDEX
   //------------------------------------------------------
 
-  // Index giúp query nhanh hơn.
-  // Ví dụ:
-  // SELECT * FROM Product WHERE isFeatured=true
   @@index([isFeatured])
   @@index([isNew])
   @@index([isBestSeller])
+  @@index([categoryId])
   @@map("product")
 }
 
-model Category {
-  // UUID
+model ProductCategory {
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
 
-  // Tên Category
+  // Tên Category.
   name String
 
-  // URL đẹp
+  // Slug dùng cho URL đẹp.
   slug String @unique
 
-  createdAt DateTime @default(now())
+  // SEO title.
+  seoTitle String? @map("seo_title")
 
-  updatedAt DateTime @updatedAt
+  // SEO description.
+  seoDescription String? @map("seo_description")
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   //------------------------------------------------------
-  // SELF RELATION
+  // SELF RELATION (cây danh mục)
   //------------------------------------------------------
 
-  // Category cha.
-  //
-  // NULL
-  // nếu đây là category gốc.
-  parentId String?
-
-  seoTitle String?
-
-  seoDescription String?
+  // FK tới Category cha. NULL nếu đây là category gốc.
+  parentId String? @map("parent_id")
 
   // Quan hệ tới Category cha.
-  //
-  // SetNull:
-  // nếu category cha bị xóa
-  // parentId sẽ thành NULL.
-  parent Category? @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  // onDelete SetNull: nếu category cha bị xóa, parentId sẽ thành NULL.
+  parent ProductCategory? @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
 
   // Danh sách category con.
-  children Category[] @relation("CategoryTree")
+  children ProductCategory[] @relation("CategoryTree")
 
   //------------------------------------------------------
   // RELATION
@@ -236,32 +379,40 @@ model Category {
   // Một Category có nhiều Product.
   products Product[]
 
-  @@map("category")
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
+
+  @@index([parentId])
+  @@map("product_category")
 }
 
 model Tag {
-  // UUID
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
 
-  // Tên tag
-  // Ví dụ:
-  // Chống thấm
-  // Acrylic
-  // Nội thất
+  // Tên tag.
+  // Ví dụ: Chống thấm, Acrylic, Nội thất.
   name String
 
-  // URL đẹp
+  // Slug dùng cho URL đẹp.
   slug String @unique
 
   //------------------------------------------------------
-  // MANY TO MANY
+  // RELATION
   //------------------------------------------------------
 
-  // Một Tag có nhiều Product.
-  // Một Product cũng có nhiều Tag.
-  //
-  // Prisma sẽ tự sinh bảng trung gian.
+  // Many-to-many: một Tag có nhiều Product, một Product có nhiều Tag.
+  // Prisma tự sinh bảng trung gian.
   products Product[]
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
 
   // Query theo name nhanh hơn.
   @@index([name])
@@ -269,120 +420,348 @@ model Tag {
 }
 
 model ProductImage {
-  // UUID
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
 
-  // Link ảnh
+  // Link ảnh.
   url String
-
-  // Thứ tự hiển thị.
-  //
-  // 0
-  // 1
-  // 2
-  //
-  // Dùng để sort gallery.
-  sortOrder Int @default(0)
 
   // ALT cho SEO.
   alt String?
 
-  createdAt DateTime @default(now())
+  // Thứ tự hiển thị trong gallery (0, 1, 2...). Dùng để sort.
+  sortOrder Int @default(0) @map("sort_order")
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
 
   //------------------------------------------------------
   // RELATION
   //------------------------------------------------------
 
-  // FK
-  productId String
+  // FK.
+  productId String @map("product_id")
 
   // Ảnh thuộc Product nào.
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  // onDelete Cascade: xóa Product thì xóa luôn ảnh.
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
+
+  @@index([productId])
   @@map("product_image")
 }
 
+// ============================================================
+// SOLUTION
+// ============================================================
+
 model SolutionCategory {
-  // UUID
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
 
   // Tên nhóm.
-  //
-  // Ví dụ:
-  // Công Nghiệp
-  // Nhà Máy
-  // Dân Dụng
+  // Ví dụ: Công Nghiệp, Nhà Máy, Dân Dụng.
   name String
 
-  // Slug URL.
+  // Slug dùng cho URL đẹp.
   slug String @unique
 
   // Thứ tự hiển thị.
-  sortOrder Int @default(0)
+  sortOrder Int @default(0) @map("sort_order")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   //------------------------------------------------------
   // RELATION
   //------------------------------------------------------
 
+  // Một Category có nhiều Solution.
   solutions Solution[]
 
   @@map("solution_category")
 }
 
 model Solution {
-  // UUID
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
 
   // Tên giải pháp.
-  //
-  // Ví dụ:
-  // - Nhà Xưởng
-  // - Cao Tầng
-  // - Bê Tông Tươi
+  // Ví dụ: Nhà Xưởng, Cao Tầng, Bê Tông Tươi.
   name String
 
-  // Slug URL.
+  // Slug dùng cho URL đẹp.
   slug String @unique
 
   // Mô tả ngắn.
   description String?
 
   // Ảnh đại diện.
-  imageUrl String?
+  imageUrl String? @map("image_url")
 
   // Thứ tự hiển thị.
-  sortOrder Int @default(0)
+  sortOrder Int @default(0) @map("sort_order")
 
   // Có hiển thị ngoài website hay không.
-  isPublished Boolean @default(true)
+  isPublished Boolean @default(true) @map("is_published")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   //------------------------------------------------------
   // RELATION
   //------------------------------------------------------
 
-  // FK
-  categoryId String
+  // FK.
+  categoryId String @map("category_id")
 
   // Thuộc nhóm giải pháp nào.
+  // onDelete Restrict: không cho xóa Category nếu vẫn còn Solution.
   category SolutionCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
+
+  @@index([categoryId])
+  @@index([isPublished])
   @@map("solution")
 }
 
+// ============================================================
+// CONTACT / FEEDBACK
+// ============================================================
+
 model Feedback {
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
   id String @id @default(uuid())
+
+  // Tên người gửi.
   name String
+
+  // Email người gửi.
   email String
+
+  // Số điện thoại (không bắt buộc).
   phone String?
+
+  // Tên công ty (không bắt buộc).
   company String?
+
+  // Nội dung liên hệ / phản hồi.
   message String
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
 
   @@index([email])
   @@map("contact")
+}
+
+// ============================================================
+// PROJECT
+// ============================================================
+
+model Project {
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
+  id String @id @default(uuid())
+
+  // Tên dự án.
+  // Ví dụ: Nhà máy ABC, Chung cư XYZ.
+  name String
+
+  // Slug dùng cho URL đẹp.
+  // Ví dụ: /du-an/nha-may-abc
+  slug String @unique
+
+  // Mô tả ngắn.
+  excerpt String?
+
+  // Nội dung chi tiết.
+  description String?
+
+  //------------------------------------------------------
+  // THÔNG TIN DỰ ÁN
+  //------------------------------------------------------
+
+  // Ảnh đại diện.
+  thumbnailUrl String? @map("thumbnail_url")
+
+  // Địa điểm.
+  location String?
+
+  // Chủ đầu tư.
+  investor String?
+
+  // Nhà thầu.
+  contractor String?
+
+  // Diện tích.
+  area String?
+
+  // Thời gian thi công.
+  constructionTime String? @map("construction_time")
+
+  // Năm hoàn thành.
+  completedYear Int? @map("completed_year")
+
+  //------------------------------------------------------
+  // HIỂN THỊ
+  //------------------------------------------------------
+
+  // Có hiển thị ngoài website không.
+  isPublished Boolean @default(true) @map("is_published")
+
+  // Dự án nổi bật.
+  isFeatured Boolean @default(false) @map("is_featured")
+
+  // Thứ tự hiển thị.
+  sortOrder Int @default(0) @map("sort_order")
+
+  //------------------------------------------------------
+  // SEO
+  //------------------------------------------------------
+
+  // SEO title.
+  seoTitle String? @map("seo_title")
+
+  // SEO description.
+  seoDescription String? @map("seo_description")
+
+  //------------------------------------------------------
+  // TIMESTAMP
+  //------------------------------------------------------
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // FK.
+  categoryId String @map("category_id")
+
+  // Thuộc nhóm dự án nào.
+  // onDelete Restrict: không cho xóa Category nếu vẫn còn Project.
+  category ProjectCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  // Một Project có nhiều ảnh.
+  // onDelete (xem ProjectImage.project) là Cascade: xóa Project thì xóa luôn ảnh.
+  images ProjectImage[]
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
+
+  @@index([isPublished])
+  @@index([isFeatured])
+  @@index([categoryId])
+  @@map("project")
+}
+
+model ProjectCategory {
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
+  id String @id @default(uuid())
+
+  // Tên danh mục.
+  // Ví dụ: Cao tầng, Nhà xưởng, Hạ tầng.
+  name String
+
+  // Slug dùng cho URL đẹp.
+  slug String @unique
+
+  // Thứ tự hiển thị.
+  sortOrder Int @default(0) @map("sort_order")
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Prisma tự cập nhật khi update.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // Một Category có nhiều Project.
+  projects Project[]
+
+  @@map("project_category")
+}
+
+model ProjectImage {
+  //------------------------------------------------------
+  // CORE
+  //------------------------------------------------------
+
+  // Khóa chính. UUID được Prisma tự sinh.
+  id String @id @default(uuid())
+
+  // Link ảnh.
+  url String
+
+  // ALT cho SEO.
+  alt String?
+
+  // Thứ tự hiển thị.
+  sortOrder Int @default(0) @map("sort_order")
+
+  // Thời điểm tạo.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  //------------------------------------------------------
+  // RELATION
+  //------------------------------------------------------
+
+  // FK.
+  projectId String @map("project_id")
+
+  // Ảnh thuộc Project nào.
+  // onDelete Cascade: xóa Project thì xóa luôn ảnh.
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  //------------------------------------------------------
+  // INDEX
+  //------------------------------------------------------
+
+  @@index([projectId])
+  @@map("project_image")
 }

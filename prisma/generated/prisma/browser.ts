@@ -43,10 +43,10 @@ export type Verification = Prisma.VerificationModel
  */
 export type Product = Prisma.ProductModel
 /**
- * Model Category
+ * Model ProductCategory
  * 
  */
-export type Category = Prisma.CategoryModel
+export type ProductCategory = Prisma.ProductCategoryModel
 /**
  * Model Tag
  * 
@@ -72,3 +72,18 @@ export type Solution = Prisma.SolutionModel
  * 
  */
 export type Feedback = Prisma.FeedbackModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel
+/**
+ * Model ProjectCategory
+ * 
+ */
+export type ProjectCategory = Prisma.ProjectCategoryModel
+/**
+ * Model ProjectImage
+ * 
+ */
+export type ProjectImage = Prisma.ProjectImageModel

@@ -56,12 +56,15 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Product: 'Product',
-  Category: 'Category',
+  ProductCategory: 'ProductCategory',
   Tag: 'Tag',
   ProductImage: 'ProductImage',
   SolutionCategory: 'SolutionCategory',
   Solution: 'Solution',
-  Feedback: 'Feedback'
+  Feedback: 'Feedback',
+  Project: 'Project',
+  ProjectCategory: 'ProjectCategory',
+  ProjectImage: 'ProjectImage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -86,9 +89,9 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  role: 'role',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  role: 'role'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -98,10 +101,10 @@ export const SessionScalarFieldEnum = {
   id: 'id',
   expiresAt: 'expiresAt',
   token: 'token',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   userId: 'userId'
 } as const
 
@@ -112,7 +115,6 @@ export const AccountScalarFieldEnum = {
   id: 'id',
   accountId: 'accountId',
   providerId: 'providerId',
-  userId: 'userId',
   accessToken: 'accessToken',
   refreshToken: 'refreshToken',
   idToken: 'idToken',
@@ -121,7 +123,8 @@ export const AccountScalarFieldEnum = {
   scope: 'scope',
   password: 'password',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -143,15 +146,15 @@ export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
+  sku: 'sku',
+  description: 'description',
   isFeatured: 'isFeatured',
   isNew: 'isNew',
   isBestSeller: 'isBestSeller',
-  sku: 'sku',
-  imageUrl: 'imageUrl',
-  description: 'description',
   compressiveStrength: 'compressiveStrength',
   waterDilutionRatio: 'waterDilutionRatio',
   pack: 'pack',
+  imageUrl: 'imageUrl',
   pdfUrl: 'pdfUrl',
   price: 'price',
   salePrice: 'salePrice',
@@ -166,18 +169,18 @@ export const ProductScalarFieldEnum = {
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
-export const CategoryScalarFieldEnum = {
+export const ProductCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  parentId: 'parentId',
-  seoTitle: 'seoTitle',
-  seoDescription: 'seoDescription'
+  parentId: 'parentId'
 } as const
 
-export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+export type ProductCategoryScalarFieldEnum = (typeof ProductCategoryScalarFieldEnum)[keyof typeof ProductCategoryScalarFieldEnum]
 
 
 export const TagScalarFieldEnum = {
@@ -192,8 +195,8 @@ export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagSca
 export const ProductImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  sortOrder: 'sortOrder',
   alt: 'alt',
+  sortOrder: 'sortOrder',
   createdAt: 'createdAt',
   productId: 'productId'
 } as const
@@ -239,6 +242,56 @@ export const FeedbackScalarFieldEnum = {
 } as const
 
 export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
+export const ProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  excerpt: 'excerpt',
+  description: 'description',
+  thumbnailUrl: 'thumbnailUrl',
+  location: 'location',
+  investor: 'investor',
+  contractor: 'contractor',
+  area: 'area',
+  constructionTime: 'constructionTime',
+  completedYear: 'completedYear',
+  isPublished: 'isPublished',
+  isFeatured: 'isFeatured',
+  sortOrder: 'sortOrder',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoryId: 'categoryId'
+} as const
+
+export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const ProjectCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectCategoryScalarFieldEnum = (typeof ProjectCategoryScalarFieldEnum)[keyof typeof ProjectCategoryScalarFieldEnum]
+
+
+export const ProjectImageScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  alt: 'alt',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  projectId: 'projectId'
+} as const
+
+export type ProjectImageScalarFieldEnum = (typeof ProjectImageScalarFieldEnum)[keyof typeof ProjectImageScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -37,8 +37,8 @@ export type ProductImageSumAggregateOutputType = {
 export type ProductImageMinAggregateOutputType = {
   id: string | null
   url: string | null
-  sortOrder: number | null
   alt: string | null
+  sortOrder: number | null
   createdAt: Date | null
   productId: string | null
 }
@@ -46,8 +46,8 @@ export type ProductImageMinAggregateOutputType = {
 export type ProductImageMaxAggregateOutputType = {
   id: string | null
   url: string | null
-  sortOrder: number | null
   alt: string | null
+  sortOrder: number | null
   createdAt: Date | null
   productId: string | null
 }
@@ -55,8 +55,8 @@ export type ProductImageMaxAggregateOutputType = {
 export type ProductImageCountAggregateOutputType = {
   id: number
   url: number
-  sortOrder: number
   alt: number
+  sortOrder: number
   createdAt: number
   productId: number
   _all: number
@@ -74,8 +74,8 @@ export type ProductImageSumAggregateInputType = {
 export type ProductImageMinAggregateInputType = {
   id?: true
   url?: true
-  sortOrder?: true
   alt?: true
+  sortOrder?: true
   createdAt?: true
   productId?: true
 }
@@ -83,8 +83,8 @@ export type ProductImageMinAggregateInputType = {
 export type ProductImageMaxAggregateInputType = {
   id?: true
   url?: true
-  sortOrder?: true
   alt?: true
+  sortOrder?: true
   createdAt?: true
   productId?: true
 }
@@ -92,8 +92,8 @@ export type ProductImageMaxAggregateInputType = {
 export type ProductImageCountAggregateInputType = {
   id?: true
   url?: true
-  sortOrder?: true
   alt?: true
+  sortOrder?: true
   createdAt?: true
   productId?: true
   _all?: true
@@ -188,8 +188,8 @@ export type ProductImageGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type ProductImageGroupByOutputType = {
   id: string
   url: string
-  sortOrder: number
   alt: string | null
+  sortOrder: number
   createdAt: Date
   productId: string
   _count: ProductImageCountAggregateOutputType | null
@@ -220,8 +220,8 @@ export type ProductImageWhereInput = {
   NOT?: Prisma.ProductImageWhereInput | Prisma.ProductImageWhereInput[]
   id?: Prisma.StringFilter<"ProductImage"> | string
   url?: Prisma.StringFilter<"ProductImage"> | string
-  sortOrder?: Prisma.IntFilter<"ProductImage"> | number
   alt?: Prisma.StringNullableFilter<"ProductImage"> | string | null
+  sortOrder?: Prisma.IntFilter<"ProductImage"> | number
   createdAt?: Prisma.DateTimeFilter<"ProductImage"> | Date | string
   productId?: Prisma.StringFilter<"ProductImage"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
@@ -230,8 +230,8 @@ export type ProductImageWhereInput = {
 export type ProductImageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  sortOrder?: Prisma.SortOrder
   alt?: Prisma.SortOrderInput | Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
@@ -243,8 +243,8 @@ export type ProductImageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProductImageWhereInput[]
   NOT?: Prisma.ProductImageWhereInput | Prisma.ProductImageWhereInput[]
   url?: Prisma.StringFilter<"ProductImage"> | string
-  sortOrder?: Prisma.IntFilter<"ProductImage"> | number
   alt?: Prisma.StringNullableFilter<"ProductImage"> | string | null
+  sortOrder?: Prisma.IntFilter<"ProductImage"> | number
   createdAt?: Prisma.DateTimeFilter<"ProductImage"> | Date | string
   productId?: Prisma.StringFilter<"ProductImage"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
@@ -253,8 +253,8 @@ export type ProductImageWhereUniqueInput = Prisma.AtLeast<{
 export type ProductImageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  sortOrder?: Prisma.SortOrder
   alt?: Prisma.SortOrderInput | Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   _count?: Prisma.ProductImageCountOrderByAggregateInput
@@ -270,8 +270,8 @@ export type ProductImageScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProductImageScalarWhereWithAggregatesInput | Prisma.ProductImageScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"ProductImage"> | string
   url?: Prisma.StringWithAggregatesFilter<"ProductImage"> | string
-  sortOrder?: Prisma.IntWithAggregatesFilter<"ProductImage"> | number
   alt?: Prisma.StringNullableWithAggregatesFilter<"ProductImage"> | string | null
+  sortOrder?: Prisma.IntWithAggregatesFilter<"ProductImage"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductImage"> | Date | string
   productId?: Prisma.StringWithAggregatesFilter<"ProductImage"> | string
 }
@@ -279,8 +279,8 @@ export type ProductImageScalarWhereWithAggregatesInput = {
 export type ProductImageCreateInput = {
   id?: string
   url: string
-  sortOrder?: number
   alt?: string | null
+  sortOrder?: number
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutProductImagesInput
 }
@@ -288,8 +288,8 @@ export type ProductImageCreateInput = {
 export type ProductImageUncheckedCreateInput = {
   id?: string
   url: string
-  sortOrder?: number
   alt?: string | null
+  sortOrder?: number
   createdAt?: Date | string
   productId: string
 }
@@ -297,8 +297,8 @@ export type ProductImageUncheckedCreateInput = {
 export type ProductImageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutProductImagesNestedInput
 }
@@ -306,8 +306,8 @@ export type ProductImageUpdateInput = {
 export type ProductImageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -315,8 +315,8 @@ export type ProductImageUncheckedUpdateInput = {
 export type ProductImageCreateManyInput = {
   id?: string
   url: string
-  sortOrder?: number
   alt?: string | null
+  sortOrder?: number
   createdAt?: Date | string
   productId: string
 }
@@ -324,16 +324,16 @@ export type ProductImageCreateManyInput = {
 export type ProductImageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProductImageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -351,8 +351,8 @@ export type ProductImageOrderByRelationAggregateInput = {
 export type ProductImageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  sortOrder?: Prisma.SortOrder
   alt?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   productId?: Prisma.SortOrder
 }
@@ -364,8 +364,8 @@ export type ProductImageAvgOrderByAggregateInput = {
 export type ProductImageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  sortOrder?: Prisma.SortOrder
   alt?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   productId?: Prisma.SortOrder
 }
@@ -373,8 +373,8 @@ export type ProductImageMaxOrderByAggregateInput = {
 export type ProductImageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   url?: Prisma.SortOrder
-  sortOrder?: Prisma.SortOrder
   alt?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   productId?: Prisma.SortOrder
 }
@@ -436,16 +436,16 @@ export type IntFieldUpdateOperationsInput = {
 export type ProductImageCreateWithoutProductInput = {
   id?: string
   url: string
-  sortOrder?: number
   alt?: string | null
+  sortOrder?: number
   createdAt?: Date | string
 }
 
 export type ProductImageUncheckedCreateWithoutProductInput = {
   id?: string
   url: string
-  sortOrder?: number
   alt?: string | null
+  sortOrder?: number
   createdAt?: Date | string
 }
 
@@ -481,8 +481,8 @@ export type ProductImageScalarWhereInput = {
   NOT?: Prisma.ProductImageScalarWhereInput | Prisma.ProductImageScalarWhereInput[]
   id?: Prisma.StringFilter<"ProductImage"> | string
   url?: Prisma.StringFilter<"ProductImage"> | string
-  sortOrder?: Prisma.IntFilter<"ProductImage"> | number
   alt?: Prisma.StringNullableFilter<"ProductImage"> | string | null
+  sortOrder?: Prisma.IntFilter<"ProductImage"> | number
   createdAt?: Prisma.DateTimeFilter<"ProductImage"> | Date | string
   productId?: Prisma.StringFilter<"ProductImage"> | string
 }
@@ -490,32 +490,32 @@ export type ProductImageScalarWhereInput = {
 export type ProductImageCreateManyProductInput = {
   id?: string
   url: string
-  sortOrder?: number
   alt?: string | null
+  sortOrder?: number
   createdAt?: Date | string
 }
 
 export type ProductImageUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProductImageUncheckedUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProductImageUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   alt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -524,8 +524,8 @@ export type ProductImageUncheckedUpdateManyWithoutProductInput = {
 export type ProductImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   url?: boolean
-  sortOrder?: boolean
   alt?: boolean
+  sortOrder?: boolean
   createdAt?: boolean
   productId?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -534,8 +534,8 @@ export type ProductImageSelect<ExtArgs extends runtime.Types.Extensions.Internal
 export type ProductImageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   url?: boolean
-  sortOrder?: boolean
   alt?: boolean
+  sortOrder?: boolean
   createdAt?: boolean
   productId?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -544,8 +544,8 @@ export type ProductImageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 export type ProductImageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   url?: boolean
-  sortOrder?: boolean
   alt?: boolean
+  sortOrder?: boolean
   createdAt?: boolean
   productId?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -554,13 +554,13 @@ export type ProductImageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type ProductImageSelectScalar = {
   id?: boolean
   url?: boolean
-  sortOrder?: boolean
   alt?: boolean
+  sortOrder?: boolean
   createdAt?: boolean
   productId?: boolean
 }
 
-export type ProductImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "sortOrder" | "alt" | "createdAt" | "productId", ExtArgs["result"]["productImage"]>
+export type ProductImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "url" | "alt" | "sortOrder" | "createdAt" | "productId", ExtArgs["result"]["productImage"]>
 export type ProductImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
@@ -579,8 +579,8 @@ export type $ProductImagePayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     url: string
-    sortOrder: number
     alt: string | null
+    sortOrder: number
     createdAt: Date
     productId: string
   }, ExtArgs["result"]["productImage"]>
@@ -1009,8 +1009,8 @@ export interface Prisma__ProductImageClient<T, Null = never, ExtArgs extends run
 export interface ProductImageFieldRefs {
   readonly id: Prisma.FieldRef<"ProductImage", 'String'>
   readonly url: Prisma.FieldRef<"ProductImage", 'String'>
-  readonly sortOrder: Prisma.FieldRef<"ProductImage", 'Int'>
   readonly alt: Prisma.FieldRef<"ProductImage", 'String'>
+  readonly sortOrder: Prisma.FieldRef<"ProductImage", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ProductImage", 'DateTime'>
   readonly productId: Prisma.FieldRef<"ProductImage", 'String'>
 }

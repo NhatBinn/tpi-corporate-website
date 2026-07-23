@@ -60,3 +60,14 @@ export interface ProductItem {
   imageUrl: string | null;
   slug?: string;
 }
+
+export interface ProjectList {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  thumbnailUrl: string;
+  category: {
+    name: string;
+  };
+}

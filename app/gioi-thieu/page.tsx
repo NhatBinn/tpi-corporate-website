@@ -10,17 +10,17 @@ function IntroductionPage() {
   return (
     <>
       <HeroBanner />
-      <section className="">
-        <div className="mx-auto max-w-400">
+      <section>
+        <div className="mx-auto max-w-350">
           <FirstElement />
         </div>
         <JustDoItSection />
-        <div className="mx-auto max-w-400">
+        <div className="mx-auto max-w-350">
           <KeyPeopleSection />
         </div>
         <EffortsImageSection />
         <EffortsVideoSection />
-        <div className="mx-auto max-w-400">
+        <div className="mx-auto max-w-350">
           <Features />
         </div>
       </section>

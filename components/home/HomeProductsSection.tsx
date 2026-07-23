@@ -1,9 +1,9 @@
-import { getCategoryByProduct } from "@/services/category.service";
 import Link from "next/link";
 import ProductCategoryBrowser from "../common/ProductCategoryBrowser";
+import { getCategoriesWithProducts } from "@/services/product.service";
 
 export default async function HomeProductsSection() {
-  const category = await getCategoryByProduct();
+  const category = await getCategoriesWithProducts();
   if(!category.success) return <div>error</div>
   return (
     <section className="mx-auto max-w-[1400px] px-4 md:px-6 py-12 md:py-16">

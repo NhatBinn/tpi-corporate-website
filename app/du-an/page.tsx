@@ -12,7 +12,7 @@ async function ProjectPage({
     <>
       <HeroBanner />
       <section className="mx-auto max-w-350">
-        <ProjectListSection active={cats ?? "all"} />
+        <ProjectListSection cats={cats ?? "all"} />
         <Features />
       </section>
     </>

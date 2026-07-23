@@ -279,7 +279,7 @@ export type ProjectGroupByOutputType = {
   slug: string
   excerpt: string | null
   description: string | null
-  thumbnailUrl: string | null
+  thumbnailUrl: string
   location: string | null
   investor: string | null
   contractor: string | null
@@ -325,7 +325,7 @@ export type ProjectWhereInput = {
   slug?: Prisma.StringFilter<"Project"> | string
   excerpt?: Prisma.StringNullableFilter<"Project"> | string | null
   description?: Prisma.StringNullableFilter<"Project"> | string | null
-  thumbnailUrl?: Prisma.StringNullableFilter<"Project"> | string | null
+  thumbnailUrl?: Prisma.StringFilter<"Project"> | string
   location?: Prisma.StringNullableFilter<"Project"> | string | null
   investor?: Prisma.StringNullableFilter<"Project"> | string | null
   contractor?: Prisma.StringNullableFilter<"Project"> | string | null
@@ -350,7 +350,7 @@ export type ProjectOrderByWithRelationInput = {
   slug?: Prisma.SortOrder
   excerpt?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   investor?: Prisma.SortOrderInput | Prisma.SortOrder
   contractor?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -378,7 +378,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Project"> | string
   excerpt?: Prisma.StringNullableFilter<"Project"> | string | null
   description?: Prisma.StringNullableFilter<"Project"> | string | null
-  thumbnailUrl?: Prisma.StringNullableFilter<"Project"> | string | null
+  thumbnailUrl?: Prisma.StringFilter<"Project"> | string
   location?: Prisma.StringNullableFilter<"Project"> | string | null
   investor?: Prisma.StringNullableFilter<"Project"> | string | null
   contractor?: Prisma.StringNullableFilter<"Project"> | string | null
@@ -403,7 +403,7 @@ export type ProjectOrderByWithAggregationInput = {
   slug?: Prisma.SortOrder
   excerpt?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   investor?: Prisma.SortOrderInput | Prisma.SortOrder
   contractor?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -434,7 +434,7 @@ export type ProjectScalarWhereWithAggregatesInput = {
   slug?: Prisma.StringWithAggregatesFilter<"Project"> | string
   excerpt?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
-  thumbnailUrl?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  thumbnailUrl?: Prisma.StringWithAggregatesFilter<"Project"> | string
   location?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   investor?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   contractor?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
@@ -457,7 +457,7 @@ export type ProjectCreateInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -481,7 +481,7 @@ export type ProjectUncheckedCreateInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -505,7 +505,7 @@ export type ProjectUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -529,7 +529,7 @@ export type ProjectUncheckedUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -553,7 +553,7 @@ export type ProjectCreateManyInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -576,7 +576,7 @@ export type ProjectUpdateManyMutationInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -598,7 +598,7 @@ export type ProjectUncheckedUpdateManyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -771,7 +771,7 @@ export type ProjectCreateWithoutCategoryInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -794,7 +794,7 @@ export type ProjectUncheckedCreateWithoutCategoryInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -846,7 +846,7 @@ export type ProjectScalarWhereInput = {
   slug?: Prisma.StringFilter<"Project"> | string
   excerpt?: Prisma.StringNullableFilter<"Project"> | string | null
   description?: Prisma.StringNullableFilter<"Project"> | string | null
-  thumbnailUrl?: Prisma.StringNullableFilter<"Project"> | string | null
+  thumbnailUrl?: Prisma.StringFilter<"Project"> | string
   location?: Prisma.StringNullableFilter<"Project"> | string | null
   investor?: Prisma.StringNullableFilter<"Project"> | string | null
   contractor?: Prisma.StringNullableFilter<"Project"> | string | null
@@ -869,7 +869,7 @@ export type ProjectCreateWithoutImagesInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -892,7 +892,7 @@ export type ProjectUncheckedCreateWithoutImagesInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -931,7 +931,7 @@ export type ProjectUpdateWithoutImagesInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -954,7 +954,7 @@ export type ProjectUncheckedUpdateWithoutImagesInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -977,7 +977,7 @@ export type ProjectCreateManyCategoryInput = {
   slug: string
   excerpt?: string | null
   description?: string | null
-  thumbnailUrl?: string | null
+  thumbnailUrl: string
   location?: string | null
   investor?: string | null
   contractor?: string | null
@@ -999,7 +999,7 @@ export type ProjectUpdateWithoutCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1022,7 +1022,7 @@ export type ProjectUncheckedUpdateWithoutCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1045,7 +1045,7 @@ export type ProjectUncheckedUpdateManyWithoutCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  thumbnailUrl?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   investor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1214,7 +1214,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     slug: string
     excerpt: string | null
     description: string | null
-    thumbnailUrl: string | null
+    thumbnailUrl: string
     location: string | null
     investor: string | null
     contractor: string | null

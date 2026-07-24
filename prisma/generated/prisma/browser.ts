@@ -87,3 +87,8 @@ export type ProjectCategory = Prisma.ProjectCategoryModel
  * 
  */
 export type ProjectImage = Prisma.ProjectImageModel
+/**
+ * Model ProjectProduct
+ * 
+ */
+export type ProjectProduct = Prisma.ProjectProductModel

@@ -36,6 +36,7 @@ async function main() {
   // ----------------------------------------------------------
   console.log("  → Xoá dữ liệu cũ...");
   await prisma.$transaction([
+    prisma.projectProduct.deleteMany(),
     prisma.projectImage.deleteMany(),
     prisma.project.deleteMany(),
     prisma.projectCategory.deleteMany(),
@@ -452,7 +453,77 @@ async function main() {
   console.log("    ✓ " + projectImages.length + " ảnh dự án");
 
   // ----------------------------------------------------------
-  // 10. FEEDBACK (20 records)
+  // 10. PROJECT-PRODUCT ASSOCIATIONS (Many-to-Many)
+  // ----------------------------------------------------------
+  console.log("  → Tạo liên kết dự án - sản phẩm...");
+
+  // Mapping: project category slug → list of product category slugs
+  const projectCatToProductCats: Record<string, string[]> = {
+    "chung-cu": ["chong-tham", "keo-dan-gach-a", "son-nuoc", "vua-chuyen-dung"],
+    "biet-thu": ["chong-tham", "son-nuoc", "keo-dan-gach-a", "son-phu-hoa-chat"],
+    "nha-may": ["son-epoxy", "vua-chuyen-dung", "chat-chong-ri", "san-be-tong", "phu-gia-be-tong"],
+    "cau-uong": ["vua-chuyen-dung", "phu-gia-be-tong", "san-be-tong"],
+    "ben-cang": ["vua-chuyen-dung", "chat-chong-ri", "phu-gia-be-tong"],
+    "truong-hoc": ["son-nuoc", "chong-tham", "keo-dan-gach-a", "vua-chuyen-dung"],
+    "benh-vien": ["son-nuoc", "chong-tham", "keo-dan-gach-a", "son-epoxy"],
+    "trung-tam-thuong-mai": ["son-nuoc", "chong-tham", "keo-dan-gach-a", "son-epoxy"],
+    "khach-san": ["chong-tham", "son-nuoc", "keo-dan-gach-a", "son-epoxy", "vua-chuyen-dung"],
+    "san-bay": ["vua-chuyen-dung", "chong-tham", "son-epoxy", "san-be-tong"],
+    "cong-trinh-ngam": ["chong-tham", "vua-chuyen-dung", "phu-gia-be-tong"],
+    "khu-cong-nghe": ["son-epoxy", "chong-tham", "vua-chuyen-dung"],
+    "khu-o-thi": ["chong-tham", "son-nuoc", "keo-dan-gach-a", "vua-chuyen-dung", "phu-gia-be-tong"],
+    "nang-luong": ["vua-chuyen-dung", "chat-chong-ri", "son-epoxy", "phu-gia-be-tong"],
+    "cong-trinh-cong": ["chong-tham", "vua-chuyen-dung", "son-nuoc"],
+    "khu-cong-nghiep": ["son-epoxy", "vua-chuyen-dung", "chat-chong-ri", "san-be-tong"],
+    "ha-tang": ["vua-chuyen-dung", "phu-gia-be-tong", "san-be-tong", "chong-tham"],
+    "cao-oc-van-phong": ["chong-tham", "son-nuoc", "vua-chuyen-dung", "keo-dan-gach-a"],
+    "nha-o-xa-hoi": ["son-nuoc", "chong-tham", "vua-chuyen-dung", "keo-dan-gach-a"],
+    "khu-du-lich": ["chong-tham", "son-nuoc", "keo-dan-gach-a", "son-phu-hoa-chat"],
+  };
+
+  // Build product lookup: product category slug → product IDs
+  const productsByCatSlug: Record<string, string[]> = {};
+  for (const p of products) {
+    const catSlug = p.categoryId.replace("cat-", "");
+    if (!productsByCatSlug[catSlug]) productsByCatSlug[catSlug] = [];
+    productsByCatSlug[catSlug].push(p.id);
+  }
+
+  const projectProductData: { projectId: string; productId: string }[] = [];
+  for (const proj of projects) {
+    const catSlug = proj.categoryId.replace("projcat-", "");
+    const relevantProductCats = projectCatToProductCats[catSlug] ?? [];
+
+    // Collect all product IDs from relevant categories
+    const relevantProductIds = relevantProductCats.flatMap(
+      (pCat) => productsByCatSlug[pCat] ?? [],
+    );
+
+    // Take 3-6 random products per project (deterministic using index)
+    const projIndex = projects.indexOf(proj);
+    const count = Math.min(relevantProductIds.length, 3 + (projIndex % 4));
+    const shuffled = [...relevantProductIds].sort(() => ((projIndex * 7 + 13) % 17 - 8) / 17);
+    const selected = shuffled.slice(0, count);
+
+    for (const productId of selected) {
+      projectProductData.push({ projectId: proj.id, productId });
+    }
+  }
+
+  // Remove duplicates (same project + same product)
+  const uniquePairs = new Set<string>();
+  const uniqueProjectProductData = projectProductData.filter((item) => {
+    const key = `${item.projectId}:${item.productId}`;
+    if (uniquePairs.has(key)) return false;
+    uniquePairs.add(key);
+    return true;
+  });
+
+  await prisma.projectProduct.createMany({ data: uniqueProjectProductData });
+  console.log(`    ✓ ${uniqueProjectProductData.length} liên kết dự án - sản phẩm`);
+
+  // ----------------------------------------------------------
+  // 11. FEEDBACK (20 records)
   // ----------------------------------------------------------
   console.log("  → Tạo feedback...");
 
@@ -496,7 +567,7 @@ async function main() {
   console.log("    ✓ " + feedbacks.length + " feedback");
 
   // ----------------------------------------------------------
-  // 11. SOLUTION CATEGORIES (20 records)
+  // 12. SOLUTION CATEGORIES (20 records)
   // ----------------------------------------------------------
   console.log("  → Tạo danh mục giải pháp...");
 
@@ -521,7 +592,7 @@ async function main() {
   console.log("    ✓ " + solCategories.length + " danh mục giải pháp");
 
   // ----------------------------------------------------------
-  // 12. SOLUTIONS (20 records)
+  // 13. SOLUTIONS (20 records)
   // ----------------------------------------------------------
   console.log("  → Tạo giải pháp...");
 
@@ -580,6 +651,7 @@ async function main() {
   console.log("  📁 Danh mục dự án: " + projCategories.length);
   console.log("  🏗️  Dự án: " + projects.length);
   console.log("  🖼️  Ảnh dự án: " + projectImages.length);
+  console.log("  🔗 Liên kết dự án - sản phẩm: " + uniqueProjectProductData.length);
   console.log("  💬 Feedback: " + feedbacks.length);
   console.log("  📁 Danh mục giải pháp: " + solCategories.length);
   console.log("  💡 Giải pháp: " + solutions.length);

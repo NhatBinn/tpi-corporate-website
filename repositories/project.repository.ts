@@ -42,6 +42,44 @@ export async function findProjectsBySlug(slug: string) {
     select: {
       id: true,
       name: true,
+      slug: true,
+      location: true,
+      investor: true,
+      contractor: true,
+      area: true,
+      constructionTime: true,
+      completedYear: true,
+      thumbnailUrl: true,
+
+      category: {
+        select: {
+          name: true,
+        },
+      },
+
+      images: {
+        select: {
+          id: true,
+          url: true,
+          alt: true,
+          sortOrder: true,
+        },
+        orderBy: {
+          sortOrder: "asc",
+        },
+      },
+
+      projectProducts: {
+        select: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
     },
   });
 }

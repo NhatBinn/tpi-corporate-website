@@ -397,7 +397,8 @@ export const ModelName = {
   Feedback: 'Feedback',
   Project: 'Project',
   ProjectCategory: 'ProjectCategory',
-  ProjectImage: 'ProjectImage'
+  ProjectImage: 'ProjectImage',
+  ProjectProduct: 'ProjectProduct'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "product" | "productCategory" | "tag" | "productImage" | "solutionCategory" | "solution" | "feedback" | "project" | "projectCategory" | "projectImage"
+    modelProps: "user" | "session" | "account" | "verification" | "product" | "productCategory" | "tag" | "productImage" | "solutionCategory" | "solution" | "feedback" | "project" | "projectCategory" | "projectImage" | "projectProduct"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1453,6 +1454,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProjectProduct: {
+      payload: Prisma.$ProjectProductPayload<ExtArgs>
+      fields: Prisma.ProjectProductFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectProductFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectProductFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectProductFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectProductFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>
+        }
+        findMany: {
+          args: Prisma.ProjectProductFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>[]
+        }
+        create: {
+          args: Prisma.ProjectProductCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>
+        }
+        createMany: {
+          args: Prisma.ProjectProductCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectProductCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectProductDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>
+        }
+        update: {
+          args: Prisma.ProjectProductUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectProductDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectProductUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectProductUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectProductUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectProductPayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectProductAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectProduct>
+        }
+        groupBy: {
+          args: Prisma.ProjectProductGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectProductGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectProductCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectProductCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1703,6 +1778,14 @@ export const ProjectImageScalarFieldEnum = {
 export type ProjectImageScalarFieldEnum = (typeof ProjectImageScalarFieldEnum)[keyof typeof ProjectImageScalarFieldEnum]
 
 
+export const ProjectProductScalarFieldEnum = {
+  projectId: 'projectId',
+  productId: 'productId'
+} as const
+
+export type ProjectProductScalarFieldEnum = (typeof ProjectProductScalarFieldEnum)[keyof typeof ProjectProductScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1947,6 +2030,7 @@ export type GlobalOmitConfig = {
   project?: Prisma.ProjectOmit
   projectCategory?: Prisma.ProjectCategoryOmit
   projectImage?: Prisma.ProjectImageOmit
+  projectProduct?: Prisma.ProjectProductOmit
 }
 
 /* Types for Logging */

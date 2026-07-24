@@ -71,3 +71,32 @@ export interface ProjectList {
     name: string;
   };
 }
+
+type ProjectImage = {
+  id: string;
+  url: string;
+  alt: string | null;
+  sortOrder: number;
+};
+
+type ProjectProducts = {
+  product: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+};
+
+export type ProjectDetail = {
+  name: string;
+  location: string | null;
+  investor: string | null;
+  contractor: string | null;
+  area: string | null;
+  constructionTime: string | null;
+  completedYear: number | null;
+  thumbnailUrl: string;
+  category: { name: string };
+  images: ProjectImage[];
+  projectProducts: ProjectProducts[];
+};

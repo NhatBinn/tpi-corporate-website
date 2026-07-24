@@ -1,5 +1,6 @@
 import Features from "@/components/common/Features";
 import ProjectHeroBanner from "@/components/project/ProjectHeroBanner";
+import ProjectInfo from "@/components/project/ProjectInfo";
 import { getProjectsBySlug } from "@/services/project.service";
 import { notFound } from "next/navigation";
 
@@ -18,11 +19,9 @@ export default async function ProjectDetailPage({
   return (
     <>
       <ProjectHeroBanner name={project.name} slug={slug} />
-      <section>
-        <div className="mx-auto max-w-350">
-          <h1>{project.name}</h1>
-          <Features />
-        </div>
+      <section className="mx-auto max-w-350">
+        <ProjectInfo project={project} />
+        <Features />
       </section>
     </>
   );

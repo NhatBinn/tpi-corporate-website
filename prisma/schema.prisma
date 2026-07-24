@@ -317,9 +317,11 @@ model Product {
   // Many-to-many: một Product có nhiều Tag, Prisma tự sinh bảng trung gian.
   tags Tag[]
 
-  // Một Product có nhiều ảnh.
   // onDelete (xem ProductImage.product) là Cascade: xóa Product thì xóa luôn ảnh.
   productImages ProductImage[]
+
+  // Một Product có nhiều project.
+  projectProducts ProjectProduct[]
 
   //------------------------------------------------------
   // INDEX
@@ -683,6 +685,9 @@ model Project {
   // onDelete (xem ProjectImage.project) là Cascade: xóa Project thì xóa luôn ảnh.
   images ProjectImage[]
 
+  // Một Project có nhiều Product.
+  projectProducts ProjectProduct[]
+
   //------------------------------------------------------
   // INDEX
   //------------------------------------------------------
@@ -764,4 +769,16 @@ model ProjectImage {
 
   @@index([projectId])
   @@map("project_image")
+}
+
+model ProjectProduct {
+  projectId String
+  productId String
+
+  project Project @relation(fields: [projectId], references: [id])
+
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([projectId, productId])
+  @@map("project_product")
 }

@@ -2,14 +2,7 @@
 
 import { feedbackSchema } from "@/schemas/Feedback";
 import { submitFeedback } from "@/services/contact.service";
-
-export interface FeedbackActionState {
-  success?: boolean;
-  message?: string;
-  errors?: Partial<
-    Record<"name" | "email" | "phone" | "company" | "message", string[]>
-  >;
-}
+import { FeedbackActionState } from "@/types/common";
 
 export async function sendFeedback(
   _prevState: FeedbackActionState,

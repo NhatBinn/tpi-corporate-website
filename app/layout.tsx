@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Cardo, Geist, Inter } from "next/font/google";
 import "./globals.css";
-
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import Main from "@/components/layout/Main";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -69,11 +65,7 @@ export default function RootLayout({
         geist.variable,
       )}
     >
-      <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
-        <Header />
-        <Main>{children}</Main>
-        <Footer />
-      </body>
+      <body className="min-h-dvh font-sans overflow-x-hidden">{children}</body>
     </html>
   );
 }

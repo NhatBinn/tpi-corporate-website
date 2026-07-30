@@ -4,8 +4,10 @@ import { useActionState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { feedbackSchema, type FeedbackInput } from "@/schemas/Feedback";
-import { sendFeedback, type FeedbackActionState } from "@/app/lien-he/actions";
 import SubmitContactBtn from "./SubmitContactBtn";
+import { sendFeedback } from "@/app/(website)/lien-he/actions";
+import { FeedbackActionState } from "@/types/common";
+
 const initialState: FeedbackActionState = {};
 
 function ContactForm() {

@@ -1,5 +1,5 @@
 import Features from "@/components/common/Features";
-import AccordionList from "@/components/contact/AccordionList";
+import AccordionList from "@/components/common/AccordionList";
 import ContactForm from "@/components/contact/ContactForm";
 import HeroBanner from "@/components/contact/HeroBanner";
 

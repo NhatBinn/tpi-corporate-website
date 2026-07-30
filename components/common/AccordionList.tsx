@@ -5,13 +5,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export default function AccordionDemo() {
+export default function AccordionList() {
   return (
     <div className="px-4 py-2">
-      <h3 className="text-[#a5a5a5] text-[16px]">FAQ</h3>
-      <h2 className="text-[24px] font-medium my-2">
+      <h2 className="text-[#a5a5a5] text-[16px]">FAQs</h2>
+      <h3 className="text-[24px] font-medium my-2">
         NHỮNG VẤN ĐỀ THƯỜNG ĐƯỢC QUAN TÂM
-      </h2>
+      </h3>
       <Accordion defaultValue={["1"]} className="max-w-lg">
         <AccordionItem value="1" className={`my-3`}>
           <AccordionTrigger

@@ -100,3 +100,17 @@ export type ProjectDetail = {
   images: ProjectImage[];
   projectProducts: ProjectProducts[];
 };
+
+export interface FeedbackActionState {
+  success?: boolean;
+  message?: string;
+  errors?: Partial<
+    Record<"name" | "email" | "phone" | "company" | "message", string[]>
+  >;
+}
+
+export interface LoginActionState {
+  success?: boolean;
+  message?: string;
+  errors?: Partial<Record<"email" | "password", string[]>>;
+}

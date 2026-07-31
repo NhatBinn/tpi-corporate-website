@@ -21,11 +21,18 @@ export async function ChkLoginForm(
   }
 
   try {
-    await ChkLogin(formData);
+    const res = await ChkLogin(formData);
 
-    return {
-      success: true,
-    };
+    if (res.success) {
+      return {
+        success: true,
+      };
+    } else {
+      return {
+        success: false,
+        message: res.error
+      };
+    }
   } catch {
     return {
       success: false,

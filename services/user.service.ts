@@ -16,9 +16,10 @@ export async function ChkLogin(formData: FormData) {
         password: res.data.password,
       },
     });
+
     return ok(data);
   } catch (error) {
-    console.log("~getProductsByCategoryId~", error);
-    return err("Failed to get products");
+    console.log("~ChkLogin~", error);
+    return err("Failed to login");
   }
 }

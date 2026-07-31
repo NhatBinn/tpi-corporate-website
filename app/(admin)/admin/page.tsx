@@ -50,8 +50,10 @@ function LoginPage() {
     if (state.success) {
       reset();
       router.push("/admin/dashboard");
+    } else if (!state.success && state.message) {
+      alert("Error login!!!");
     }
-  }, [state.success, reset, router]);
+  }, [state.success, reset, router, state.message]);
 
   return (
     <section className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#0a0d12] px-4 py-16">

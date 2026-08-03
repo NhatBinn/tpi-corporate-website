@@ -11,17 +11,12 @@ export async function submitFeedback(formData: FormData) {
     message: formData.get("message"),
   });
 
-  if (!result.success) {
-    return err("Invalid data form");
-  }
-
+  if (!result.success) return err("Invalid data form");
   try {
     const feedback = await createFeedback(result.data);
-
     return ok(feedback);
   } catch (error) {
     console.error(error);
-
     return err("Failed to create feedback");
   }
 }

@@ -1,16 +1,15 @@
 import {
   findCategoriesWithProducts,
-  findProductsByCategoryId,
+  findProductsByCategory,
 } from "@/repositories/product.repository";
 import { err, ok } from "@/types/result";
-import { cacheTag } from "next/cache";
 
-export async function getProductsByCategoryId(categoryId: string) {
+export async function getProductsByCategory(categoryId: string) {
   try {
-    const data = await findProductsByCategoryId(categoryId);
+    const data = await findProductsByCategory(categoryId);
     return ok(data);
   } catch (error) {
-    console.log("~getProductsByCategoryId~", error);
+    console.log("~getProductsByCategory~", error);
     return err("Failed to get products");
   }
 }

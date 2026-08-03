@@ -1,66 +1,9 @@
-"use client";
-
-import { Field } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Menu, X } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { FaFacebookF, FaTiktok } from "react-icons/fa6";
-import Navigation from "./Navigation";
-
-function Navbar({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
+"use client"
+function MobiNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="mx-auto w-full max-w-300 bg-transparent mt-2 flex flex-col absolute top-0 left-1/2 -translate-x-1/2 text-white z-50 px-4 md:px-0">
-      <div className="hidden md:flex items-center text-[11px] font-bold tracking-wide">
-        <span>TRUST - PASSION - INNOVATION</span>
-        <span className="mx-4 h-4 w-px bg-white/50" />
-        <span>NHÀ SẢN XUẤT HOÁ CHẤT XÂY DỰNG</span>
-      </div>
-      <div className="hidden md:block mt-2.5 mb-1.5 h-px w-full bg-white/50" />
-      <nav className="flex gap-2 md:gap-4 items-center">
-        <Link href={"/"}>
-          <Image
-            src="/TPI-logo-2025-169-nen-trang-cham-xanh-la.webp"
-            width={90}
-            height={60}
-            alt="logo"
-            className="w-14 md:w-[90px]"
-          />
-        </Link>
-        <div className="hidden md:flex gap-3 ml-8">
-          <Navigation megaMenuSlot={megaMenuSlot} />
-        </div>
-        <div className="hidden md:block">
-          <Field orientation="horizontal">
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="w-80 px-3 py-4 rounded-2xl placeholder:text-gray-300"
-            />
-          </Field>
-        </div>
-        <div className="flex items-center gap-0.5 ml-auto md:ml-0">
-          <Link
-            href="https://www.facebook.com/TPIVN"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-6 w-6 items-center justify-center rounded-full text-white transition-all duration-300 hover:text-gray-500"
-          >
-            <FaFacebookF size={18} />
-          </Link>
-
-          <Link
-            href="https://www.tiktok.com/@tpivn.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-6 w-6 items-center justify-center rounded-full text-white transition-all duration-300 hover:text-gray-500"
-          >
-            <FaTiktok size={18} />
-          </Link>
-
+      <div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Đóng menu" : "Mở menu"}
@@ -68,9 +11,6 @@ function Navbar({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
-        </div>
-      </nav>
-
       {mobileMenuOpen && (
         <div
           className="md:hidden fixed inset-0 top-0 left-0 z-40 h-screen w-full bg-black/60 backdrop-blur-sm"
@@ -136,7 +76,7 @@ function Navbar({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
           </div>
         </div>
       )}
-    </header>
+    </div>
   );
 }
 
@@ -151,4 +91,4 @@ function MobileMenuItem({ href, label }: { href: string; label: string }) {
   );
 }
 
-export default Navbar;
+export default MobiNavbar;

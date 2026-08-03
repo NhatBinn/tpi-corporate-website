@@ -44,7 +44,6 @@ export type SolutionCardProps = {
   title: string;
   desc: string;
   span?: string;
-  descWidth?: string;
   titleLine2?: string;
   titleTight?: boolean;
 };

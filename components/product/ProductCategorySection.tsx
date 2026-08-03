@@ -1,8 +1,8 @@
-import { getProductsByCategoryId } from "@/services/product.service";
+import { getProductsByCategory } from "@/services/product.service";
 import ProductsList from "./ProductsList";
 
 async function ProductCategorySection() {
-  const products = await getProductsByCategoryId("cat-thao-khuon");
+  const products = await getProductsByCategory("cat-chat-thao-khuon");
   if (!products.success) return <div>Không tìm thấy sản phẩm</div>;
 
   return (
@@ -13,7 +13,7 @@ async function ProductCategorySection() {
         </h1>
       </div>
       <div className="mt-8">
-        <ProductsList products={products.data}/>
+        <ProductsList products={products.data} />
       </div>
     </section>
   );

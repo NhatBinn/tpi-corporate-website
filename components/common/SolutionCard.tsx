@@ -10,7 +10,6 @@ function SolutionCard({
   titleLine2,
   desc,
   span,
-  descWidth,
   titleTight,
 }: SolutionCardProps) {
   return (
@@ -41,7 +40,7 @@ function SolutionCard({
           )}
         </h4>
         <p
-          className={`mt-1 ${descWidth} text-[12px] md:text-[13px] leading-snug text-[#696969]`}
+          className={`mt-1 md:max-w-50 text-[12px] md:text-[13px] leading-snug text-[#696969] max-w-`}
         >
           {desc}
         </p>

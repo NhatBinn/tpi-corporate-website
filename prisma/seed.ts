@@ -201,44 +201,11 @@ async function main() {
     { name: "TPI EPOXY PRIMER WB", cat: "son-epoxy", tags: ["epoxy", "son-phu"], new: true, price: 520000, stock: 130, desc: "Sơn lót epoxy gốc nước, thân thiện môi trường, tăng bám dính cho hệ thống sơn.", pack: "6 kg/bộ" },
   ];
 
-  // Danh sách ảnh thật từ thư mục public/
+  // Ảnh sản phẩm dùng chung cho tất cả sản phẩm
   const realProductImages = [
-    "/Mockup-San-Pham-Chong-Tham.jpeg",
-    "/Vua-tu-san.webp",
-    "/Do-beton-tuoi-280x280-1.jpg",
-    "/Grouting-580-280.jpg",
-    "/Lab-green-700x700.webp",
-    "/San-xuat-grayscale.jpg",
-    "/Betong-duc-san.webp",
-    "/Beton-Duc-san-cong-2-280x280-1.webp",
-    "/Non-bao-ho.webp",
-    "/Cua-hang-vlxd.jpg",
-    "/oncrete-in-the-construction-e1736084881793.webp",
-    "/Tham-quan-nha-may.jpg",
-    "/Coteccons-250x250.webp",
-    "/Ricons-250x250.webp",
-    "/Hoa-Binh-250x250.webp",
-    "/Unicons-250x250.webp",
-    "/Delta-250x250.webp",
-    "/Delta-V-250x250.webp",
-    "/Ecoba-250x250.webp",
-    "/Newtecons-250x250.webp",
-    "/Phuoc-Thanh-250x250.webp",
-    "/Central-250x250.webp",
-    "/Tuan-Le-250x250.webp",
-    "/Duy-Nguyen.webp",
-    "/Duy-Nguyen-150x150.webp",
-    "/Tu-Nguyen.webp",
-    "/CUONG-NGUYEN-02.webp",
-    "/AQS-ISO-9001.webp",
-    "/AQS-VGBC.webp",
-    "/VGBC-TRANS-300-X-250-150x125.webp",
-    "/tpi-logo-2015-jpg.webp",
-    "/TPI-logo-2025-169-nen-trang-cham-xanh-la.webp",
-    "/tpi-logo-2025-jpg.webp",
-    "/TPI-logo-2025-original-nen-trong-02-150x48.webp",
-    "/ytb-poster.png",
+    "/products/list/TPI-SPR4-25L-800x800-1-300x300.webp",
   ];
+
 
   const products = await Promise.all(
     productDefs.map((p, i) => {
@@ -567,18 +534,12 @@ async function main() {
   console.log("    ✓ " + feedbacks.length + " feedback");
 
   // ----------------------------------------------------------
-  // 12. SOLUTION CATEGORIES (20 records)
+  // 12. SOLUTION CATEGORIES (3 records)
   // ----------------------------------------------------------
   console.log("  → Tạo danh mục giải pháp...");
 
   const solCatNames = [
-    "Chống Thấm", "Sửa Chữa Bê Tông", "Bảo Vệ Kết Cấu",
-    "Sàn Công Nghiệp", "Vữa Rót Chịu Lực", "Keo Dán Chuyên Dụng",
-    "Bảo Dưỡng Bê Tông", "Chống Rỉ Sét", "Chống Nóng",
-    "Trang Trí Nội Thất", "Trang Trí Ngoại Thất", "Chống Thấm Hồ Bơi",
-    "Chống Thấm Mái", "Chống Thấm Tường", "Chống Thấm Sàn",
-    "Sàn Epoxy", "Sơn Nước Cao Cấp", "Vữa Tự San",
-    "Phụ Gia Bê Tông", "Giải Pháp Tổng Thể",
+    "Công Nghiệp", "Nhà Máy", "Dân Dụng",
   ];
 
   const solCategories = await Promise.all(
@@ -592,42 +553,64 @@ async function main() {
   console.log("    ✓ " + solCategories.length + " danh mục giải pháp");
 
   // ----------------------------------------------------------
-  // 13. SOLUTIONS (20 records)
+  // 13. SOLUTIONS (6 records)
   // ----------------------------------------------------------
   console.log("  → Tạo giải pháp...");
 
   const solutionDefs = [
-    { name: "Giải Pháp Chống Thấm Toàn Diện", cat: "chong-tham", desc: "Giải pháp chống thấm cho mọi hạng mục công trình từ mái, tường, sàn đến hồ bơi." },
-    { name: "Giải Pháp Sửa Chữa Bê Tông", cat: "sua-chua-be-tong", desc: "Sửa chữa bê tông hư hỏng, trám khe nứt, phục hồi kết cấu." },
-    { name: "Giải Pháp Bảo Vệ Kết Cấu Thép", cat: "bao-ve-ket-cau", desc: "Bảo vệ kết cấu thép khỏi ăn mòn, rỉ sét và tác động môi trường." },
-    { name: "Giải Pháp Sàn Công Nghiệp", cat: "san-cong-nghiep", desc: "Sàn bê tông chịu lực, chống bụi, chống thấm cho nhà máy, kho xưởng." },
-    { name: "Giải Pháp Vữa Rót Chịu Lực", cat: "vua-rot-chiu-luc", desc: "Vữa rót bù co ngót cường độ cao cho chân máy, kết cấu thép." },
-    { name: "Giải Pháp Keo Dán Chuyên Dụng", cat: "keo-dan-chuyen-dung", desc: "Keo dán gạch đá, keo dán sàn vinyl, keo dán chuyên dụng." },
-    { name: "Giải Pháp Bảo Dưỡng Bê Tông", cat: "bao-duong-be-tong", desc: "Bảo dưỡng bê tông tươi, giúp bê tông đạt cường độ tối ưu." },
-    { name: "Giải Pháp Chống Rỉ Sét", cat: "chong-ri-set", desc: "Chống rỉ cho kết cấu thép, cốt thép và các chi tiết kim loại." },
-    { name: "Giải Pháp Chống Nóng", cat: "chong-nong", desc: "Sơn chống nóng phản xạ nhiệt, giảm nhiệt độ bề mặt." },
-    { name: "Giải Pháp Trang Trí Nội Thất", cat: "trang-tri-noi-that", desc: "Sơn nước nội thất cao cấp, màu sắc đa dạng, bền đẹp." },
-    { name: "Giải Pháp Trang Trí Ngoại Thất", cat: "trang-tri-ngoai-that", desc: "Sơn nước ngoại thất chống UV, chống kiềm, độ bền màu cao." },
-    { name: "Giải Pháp Chống Thấm Hồ Bơi", cat: "chong-tham-ho-boi", desc: "Chống thấm hồ bơi với màng PU siêu đàn hồi, chịu áp lực nước." },
-    { name: "Giải Pháp Chống Thấm Mái", cat: "chong-tham-mai", desc: "Chống thấm mái bê tông, mái tôn với giải pháp phù hợp." },
-    { name: "Giải Pháp Chống Thấm Tường", cat: "chong-tham-tuong", desc: "Chống thấm tường ngoại thất, chống kiềm, chống nấm mốc." },
-    { name: "Giải Pháp Chống Thấm Sàn", cat: "chong-tham-san", desc: "Chống thấm sàn vệ sinh, sàn ban công, sàn tầng hầm." },
-    { name: "Giải Pháp Sàn Epoxy", cat: "san-epoxy", desc: "Sơn epoxy sàn công nghiệp, chịu mài mòn, chịu hóa chất." },
-    { name: "Giải Pháp Sơn Nước Cao Cấp", cat: "son-nuoc-cao-cap", desc: "Sơn nước nội thất và ngoại thất cao cấp, bền màu, an toàn." },
-    { name: "Giải Pháp Vữa Tự San", cat: "vua-tu-san", desc: "Vữa tự san phẳng sàn, thi công nhanh, bề mặt nhẵn mịn." },
-    { name: "Giải Pháp Phụ Gia Bê Tông", cat: "phu-gia-be-tong", desc: "Phụ gia bê tông tăng cường độ, chống thấm, kéo dài thời gian đông kết." },
-    { name: "Giải Pháp Tổng Thể Cho Công Trình", cat: "giai-phap-tong-the", desc: "Giải pháp tổng thể từ chống thấm, sửa chữa đến bảo vệ và trang trí." },
+    {
+      name: "Nhà Xưởng",
+      slug: "nha-xuong",
+      cat: "cong-nghiep",
+      imageUrl: "/Grouting-580-280.jpg",
+      desc: "Vữa rót, vữa tự san, trám khe, sơn sàn, bột xoa nền...",
+    },
+    {
+      name: "Cao Tầng",
+      slug: "cao-tang",
+      cat: "cong-nghiep",
+      imageUrl: "/Building-Cao-tang.webp",
+      desc: "Tháo cốp pha, chống thấm, vữa tô, xử lý nứt...",
+    },
+    {
+      name: "Bê Tông Tươi",
+      slug: "be-tong-tuoi",
+      cat: "nha-may",
+      imageUrl: "/Do-beton-tuoi-280x280-1.jpg",
+      desc: "Phụ gia giảm nước, hoá dẻo, silicafume...",
+    },
+    {
+      name: "Bê Tông Đúc Sẵn",
+      slug: "be-tong-duc-san",
+      cat: "nha-may",
+      imageUrl: "/Beton-Duc-san-cong-2-280x280-1.webp",
+      desc: "Tháo khuôn, bảo dưỡng, tẩy rỉ cốt thép...",
+    },
+    {
+      name: "Cửa Hàng VLXD",
+      slug: "cua-hang-vlxd",
+      cat: "dan-dung",
+      imageUrl: "/Cua-hang-vlxd.jpg",
+      desc: "Latex, chống thấm 2 thành phần, vữa grout, phụ gia...",
+    },
+    {
+      name: "Thầu Thợ",
+      slug: "thau-tho",
+      cat: "dan-dung",
+      imageUrl: "/Non-bao-ho.webp",
+      desc: "Latex, chống thấm 2 thành phần, vữa grout, phụ gia...",
+    },
   ];
 
   const solutions = await Promise.all(
     solutionDefs.map((s, i) => {
-      const slug = slugify(s.name);
       return prisma.solution.create({
         data: {
-          id: `sol-${slug}`,
+          id: `sol-${s.slug}`,
           name: s.name,
-          slug,
+          slug: s.slug,
           description: s.desc,
+          imageUrl: s.imageUrl,
           isPublished: true,
           sortOrder: i + 1,
           categoryId: "solcat-" + s.cat,

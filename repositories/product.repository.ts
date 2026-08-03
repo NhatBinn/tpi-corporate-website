@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 
-export async function findProductsByCategoryId(categoryId: string) {
+export async function findProductsByCategory(categoryId: string) {
   return prisma.product.findMany({
     where: {
       categoryId,

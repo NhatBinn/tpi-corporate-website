@@ -9,10 +9,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
 import Link from "next/link";
-import ProductMegaMenu from "./ProductMegaMenu";
-import { NavigationProps } from "@/types/common";
 
-function Navigation({ categories }: NavigationProps) {
+function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -21,7 +19,7 @@ function Navigation({ categories }: NavigationProps) {
             <Link href={"/san-pham"}>SẢN PHẨM</Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent className={`p-2`}>
-            <ProductMegaMenu categories={categories} />
+            {megaMenuSlot}
           </NavigationMenuContent>
         </NavigationMenuItem>
 

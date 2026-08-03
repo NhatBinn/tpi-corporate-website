@@ -6,12 +6,8 @@ import { err, ok } from "@/types/result";
 import { cacheTag } from "next/cache";
 
 export async function getProductsByCategoryId(categoryId: string) {
-  "use cache";
-
   try {
     const data = await findProductsByCategoryId(categoryId);
-    cacheTag("products");
-
     return ok(data);
   } catch (error) {
     console.log("~getProductsByCategoryId~", error);
@@ -22,8 +18,6 @@ export async function getProductsByCategoryId(categoryId: string) {
 export async function getCategoriesWithProducts() {
   try {
     const data = await findCategoriesWithProducts();
-    cacheTag("products");
-
     return ok(data);
   } catch (error) {
     console.log("~getCategoriesWithProducts~", error);

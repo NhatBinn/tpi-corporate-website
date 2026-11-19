@@ -26,6 +26,37 @@ const CONTACTS = [
   },
 ];
 
+// [x, rộng, cao] của từng toà nhà trên đường chân trời (viewBox 1440 × 240, đáy y = 240).
+const BUILDINGS = [
+  [0, 70, 110], [70, 50, 160], [120, 90, 90], [210, 60, 200], [270, 40, 140], [310, 110, 120],
+  [420, 70, 185], [490, 50, 215], [540, 100, 100], [640, 60, 170], [700, 80, 130], [780, 50, 210],
+  [830, 120, 95], [950, 70, 175], [1020, 40, 120], [1060, 90, 150], [1150, 60, 205], [1210, 100, 110],
+  [1310, 70, 165], [1380, 60, 120],
+];
+
+// Phác hoạ đường nét thành phố mờ ở đáy footer, thay ảnh sketch toà nhà của web gốc.
+function Skyline() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full text-black opacity-[0.06] md:h-60"
+      viewBox="0 0 1440 240"
+      preserveAspectRatio="xMidYMax slice"
+      fill="none"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      {BUILDINGS.map(([x, w, h]) => (
+        <g key={x} strokeWidth="1.5" vectorEffect="non-scaling-stroke">
+          <rect x={x + 4} y={240 - h} width={w - 8} height={h} />
+          {Array.from({ length: Math.floor((h - 16) / 18) }, (_, i) => (
+            <line key={i} x1={x + 12} x2={x + w - 12} y1={240 - h + 16 + i * 18} y2={240 - h + 16 + i * 18} strokeWidth="0.75" />
+          ))}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 const mapLocations = {
   "nha-may": {
     label: "Nhà Máy",
@@ -53,21 +84,10 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative overflow-hidden border-t border-[#e5e5e5] bg-white px-4 md:px-6 py-12 md:py-16">
-      <svg
-        className="pointer-events-none absolute bottom-0 left-0 h-[160px] md:h-[220px] w-[350px] md:w-[500px] opacity-[0.04]"
-        viewBox="0 0 500 220"
-        fill="none"
-        aria-hidden="true"
-      >
-        <rect x="20" y="60" width="80" height="160" stroke="#000" strokeWidth="2" />
-        <rect x="120" y="30" width="60" height="190" stroke="#000" strokeWidth="2" />
-        <rect x="200" y="80" width="100" height="140" stroke="#000" strokeWidth="2" />
-        <rect x="320" y="10" width="70" height="210" stroke="#000" strokeWidth="2" />
-        <rect x="410" y="70" width="80" height="150" stroke="#000" strokeWidth="2" />
-      </svg>
+    <footer className="relative overflow-hidden border-t border-[#e5e5e5] bg-white py-12 md:py-16">
+      <Skyline />
 
-      <div className="relative z-10 mx-auto grid max-w-[1280px] grid-cols-1 gap-10 md:grid-cols-[380px_320px_1fr]">
+      <div className="container-site relative z-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,380px)_minmax(0,320px)_1fr]">
         <div>
           <SectionTitle as="h3" className={FOOTER_TITLE}>
             Cty TNHH Đầu Tư Phát Triển TPI

@@ -19,7 +19,7 @@ export async function findProjectsByCategory(categorySlug: string) {
         },
       },
     },
-    take: 12,
+    orderBy: { sortOrder: "asc" },
   });
 }
 
@@ -41,14 +41,12 @@ export async function findSearchableProjects() {
   });
 }
 
+// Chỉ danh mục có dự án đang công khai — tab rỗng không có ý nghĩa.
 export async function findProjectsCategories() {
   return prisma.projectCategory.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-    },
-    take: 4,
+    where: { projects: { some: { isPublished: true } } },
+    select: { id: true, name: true, slug: true },
+    orderBy: { sortOrder: "asc" },
   });
 }
 

@@ -46,14 +46,15 @@ export function ParallaxLogo({ position = false }: { position: boolean }) {
     };
   }, []);
 
+  // Chỉ hiện từ lg (màn hẹp hơn thì hai vạch đỏ đè lên chữ). Bên trái: góc trên như web gốc, tránh khối chữ bên phải.
   return (
     <div
       ref={wrapperRef}
       style={{ transform: `translate3d(0, ${offset}px, 0)` }}
-      className={`absolute top-1/2 z-10 hidden md:block h-[70px] w-[120px] -translate-y-1/2 sm:h-[100px] sm:w-[160px] md:h-[140px] md:w-[220px]
-         ${position ? "right-[22%]" : "left-[8%]"}`}
+      className={`absolute z-10 hidden lg:block h-35 w-55
+         ${position ? "top-1/2 -translate-y-1/2 right-[14%]" : "top-10 left-[9%]"}`}
     >
-      <RedStripes className="h-[80px] w-[250px] md:h-[120px] md:w-[450px]" />
+      <RedStripes className="h-30 w-75 xl:w-112.5" />
     </div>
   );
 }

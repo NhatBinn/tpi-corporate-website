@@ -45,7 +45,7 @@ const FAQS = [
 
 export default function AccordionList() {
   return (
-    <div className="py-2 md:px-4">
+    <div className="py-2">
       <h2 className="text-[#a5a5a5] text-[16px]">FAQs</h2>
       <h3 className="text-[24px] font-medium my-2">NHỮNG VẤN ĐỀ THƯỜNG ĐƯỢC QUAN TÂM</h3>
       <Accordion defaultValue={["0"]} className="max-w-lg">

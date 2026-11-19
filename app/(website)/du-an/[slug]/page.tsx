@@ -51,7 +51,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       />
 
       {/* Ảnh xếp dọc bên trái, thông tin dính theo khi cuộn bên phải */}
-      <section className="mx-auto max-w-[1380px] px-4 md:px-6 py-8 md:py-12">
+      <section className="container-site py-8 md:py-12">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-10 lg:gap-14">
           <div className="flex flex-col gap-4 md:gap-6 md:flex-1">
             {galleryImages.map((img, i) => (
@@ -75,7 +75,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       </section>
 
       <section className={cn("border-t border-[#e5e5e5]", description && "bg-[#f8f8f8]")}>
-        <div className="mx-auto max-w-[1380px] px-4 md:px-6 py-10 md:py-14">
+        <div className="container-site py-10 md:py-14">
           <div className="flex flex-col gap-10 md:flex-row md:gap-12 lg:gap-16">
             {description && (
               <div className="flex-1 min-w-0">
@@ -94,7 +94,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {relatedProjects.length > 0 && (
         <section className="border-t border-[#e5e5e5]">
-          <div className="mx-auto max-w-[1380px] px-4 md:px-6 py-10 md:py-14">
+          <div className="container-site py-10 md:py-14">
             <SectionTitle>Các dự án liên quan</SectionTitle>
             <div className="mt-6 md:mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
               {relatedProjects.map((p) => (

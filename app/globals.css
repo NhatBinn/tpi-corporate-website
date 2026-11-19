@@ -40,6 +40,12 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+@theme {
+  --color-brand: #0a8a3f;
+  --color-brand-dark: #097535;
+  --color-brand-red: #e5173f;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -87,6 +93,28 @@
 body {
   font-family: var(--font-sans);
   overflow-x: hidden;
+}
+
+/* Khung nội dung chung: 1200px + padding 1rem mỗi bên → mép trái mọi section thẳng hàng với logo trên Navbar. */
+@utility container-site {
+  width: 100%;
+  max-width: 77rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* Bề mặt trình duyệt mang màu thương hiệu thay vì mặc định. */
+::selection {
+  background-color: color-mix(in oklab, var(--color-brand) 22%, transparent);
+}
+
+html {
+  accent-color: var(--color-brand);
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
 }
 
 /* Responsive base */

@@ -9,7 +9,7 @@ const features = [
       <svg
         viewBox="0 0 40 46"
         fill="none"
-        className="h-10 w-12 md:h-16 md:w-20 shrink-0"
+        className="h-10 w-12 md:h-14 md:w-16 shrink-0"
       >
         <path
           d="M4 32V14a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v18"
@@ -35,7 +35,7 @@ const features = [
       <svg
         viewBox="0 0 40 46"
         fill="none"
-        className="h-10 w-12 md:h-16 md:w-20 shrink-0"
+        className="h-10 w-12 md:h-14 md:w-16 shrink-0"
       >
         <rect
           x="5"
@@ -74,7 +74,7 @@ const features = [
       <svg
         viewBox="0 0 40 46"
         fill="none"
-        className="h-10 w-12 md:h-16 md:w-20 shrink-0"
+        className="h-10 w-12 md:h-14 md:w-16 shrink-0"
       >
         <circle cx="24" cy="15" r="7" stroke="#0a8a3f" strokeWidth="2" />
         <path
@@ -94,7 +94,7 @@ const features = [
       <svg
         viewBox="0 0 40 46"
         fill="none"
-        className="h-10 w-12 md:h-16 md:w-20 shrink-0"
+        className="h-10 w-12 md:h-14 md:w-16 shrink-0"
       >
         <path
           d="M24 5l16 6v11c0 10-7 17-16 21-9-4-16-11-16-21V11z"
@@ -120,7 +120,7 @@ const features = [
       <svg
         viewBox="0 0 40 46"
         fill="none"
-        className="h-10 w-12 md:h-16 md:w-20 shrink-0"
+        className="h-10 w-12 md:h-14 md:w-16 shrink-0"
       >
         <path
           d="M8 18l16-9 16 9-16 9-16-9z"
@@ -150,17 +150,17 @@ const features = [
 
 function Features() {
   return (
-    <section className="mx-auto max-w-[1380px] px-4 md:px-6 py-10 md:py-13">
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 md:gap-x-6 gap-y-6 md:gap-y-8">
+    <section className="container-site py-10 md:py-13">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 md:gap-x-4 gap-y-6 md:gap-y-8">
         {features.map((feature) => (
-          <Link href={feature.link} key={feature.label}>
+          <Link href={feature.link} key={feature.label} className="group">
             <div className="flex items-center gap-2 md:gap-3">
-              <div className="shrink-0">{feature.icon}</div>
+              <div className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5">{feature.icon}</div>
               <div className="min-w-0">
-                <p className="text-[13px] md:text-[16px] font-bold uppercase text-black leading-tight">
+                <p className="text-[13px] md:text-[15px] font-bold uppercase text-black leading-tight transition-colors group-hover:text-brand">
                   {feature.label}
                 </p>
-                <p className="text-[11px] md:text-[14px] text-[#9a9a9a] leading-tight mt-0.5">
+                <p className="text-[11px] md:text-[13px] text-[#6f6f6f] leading-tight mt-0.5 lg:whitespace-nowrap">
                   {feature.sub}
                 </p>
               </div>

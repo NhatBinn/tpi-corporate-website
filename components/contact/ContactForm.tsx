@@ -70,7 +70,7 @@ function ContactForm() {
   }, [state.success, reset]);
 
   return (
-    <div className="py-2 md:px-4 flex flex-col gap-4">
+    <div className="py-2 flex flex-col gap-4">
       <div>
         <h3 className="text-[#a5a5a5] text-[16px]">LEAVE YOUR MESSAGE</h3>
         <h2 className="text-[24px] font-medium my-2">ĐỂ LẠI LỜI NHẮN</h2>

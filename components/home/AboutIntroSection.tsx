@@ -14,7 +14,8 @@ export default function AboutIntroSection() {
 
   return (
     <section className="relative flex flex-col lg:flex-row items-center py-12 md:py-16">
-      <div className="relative z-0 flex w-full max-w-[1280px] flex-col justify-center gap-8 md:gap-10 bg-[#0a8a3f] px-4 md:px-16 py-10 md:py-14">
+      {/* Khối xanh tràn mép trái nhưng chữ thẳng hàng với khung container-site (cùng mép với logo). */}
+      <div className="relative z-0 flex w-full max-w-[1280px] flex-col justify-center gap-8 md:gap-10 bg-brand px-4 md:px-16 lg:pl-[max(4rem,calc((100vw-75rem)/2))] py-10 md:py-14">
         <div>
           <span className="text-[48px] md:text-[80px] font-bold leading-none text-white/10">
             01
@@ -24,7 +25,7 @@ export default function AboutIntroSection() {
           </p>
         </div>
 
-        <div className="max-w-[600px]">
+        <div className="max-w-[600px] lg:max-w-[min(540px,calc(50vw-6rem))]">
           <h2 className="text-[24px] md:text-[32px] font-bold text-white">
             Tin Cậy, Nhiệt Huyết, Sáng Tạo
           </h2>
@@ -44,7 +45,7 @@ export default function AboutIntroSection() {
           </p>
         </div>
 
-        <div className="grid max-w-[600px] grid-cols-2 gap-x-6 md:gap-x-10 gap-y-6 md:gap-y-8">
+        <div className="grid max-w-[600px] lg:max-w-[min(540px,calc(50vw-6rem))] grid-cols-2 gap-x-6 md:gap-x-10 gap-y-6 md:gap-y-8">
           <div>
             <p className="text-[28px] md:text-[36px] font-bold text-white">300+</p>
             <p className="mt-1 text-[13px] md:text-[15px] text-white/80">

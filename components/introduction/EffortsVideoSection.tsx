@@ -26,7 +26,7 @@ export default function EffortsVideoSection() {
       />
       <div className="absolute inset-0 bg-black/60" />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
+      <div className="container-site relative z-10 grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-2">
         <div>
           <h2 className="text-[32px] font-bold leading-tight text-white sm:text-[38px]">
             Nỗ lực của chúng tôi qua các con số

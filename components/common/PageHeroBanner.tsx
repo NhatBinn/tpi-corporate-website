@@ -41,8 +41,7 @@ export default function PageHeroBanner({
         )}
       />
 
-      {/* Cùng khung max-w-300 với Navbar để tiêu đề thẳng hàng với logo ở mọi kích thước màn hình. */}
-      <div className="relative z-10 mx-auto mt-26 w-full max-w-300 px-4 xl:px-0">
+      <div className="container-site relative z-10 mt-26">
         <h1 className="-mt-2 text-[36px] md:text-[60px] lg:text-[68px] leading-tight text-white font-medium">
           {title}
         </h1>

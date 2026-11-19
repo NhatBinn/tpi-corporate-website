@@ -9,19 +9,11 @@ function IntroductionPage() {
   return (
     <>
       <PageHeroBanner title="Giới thiệu" breadcrumbs={[{ label: "Giới thiệu" }]} />
-      <section>
-        <div className="mx-auto max-w-350">
-          <FirstElement />
-        </div>
-        <JustDoItSection />
-        <div className="mx-auto max-w-350">
-          <KeyPeopleSection />
-        </div>
-        <EffortsVideoSection />
-        <div className="mx-auto max-w-350">
-          <Features />
-        </div>
-      </section>
+      <FirstElement />
+      <JustDoItSection />
+      <KeyPeopleSection />
+      <EffortsVideoSection />
+      <Features />
     </>
   );
 }

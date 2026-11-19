@@ -22,7 +22,7 @@ function Navbar({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50 mx-auto mt-2 flex w-full max-w-300 flex-col bg-transparent px-4 text-white xl:px-0">
+    <header className="container-site absolute inset-x-0 top-0 z-50 mt-2 flex flex-col bg-transparent text-white">
       {/* Căn giữa bằng inset-x-0 + mx-auto, KHÔNG dùng translate: transform làm overlay `fixed` của menu mobile bị neo theo header thay vì viewport. */}
       <div className="hidden md:flex items-center text-[11px] font-bold tracking-wide">
         <span>TRUST - PASSION - INNOVATION</span>

@@ -2,7 +2,7 @@ import SolutionForm from "../common/SolutionForm";
 
 export default function SolutionsOverviewSection() {
   return (
-    <section className="mx-auto max-w-350 px-4 md:px-6 py-12 md:py-16">
+    <section className="container-site py-12 md:py-16">
       <div className="flex items-baseline gap-3">
         <span className="text-[40px] md:text-[56px] font-black leading-none text-[#e9e9e9]">
           03

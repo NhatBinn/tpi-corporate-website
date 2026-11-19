@@ -34,7 +34,7 @@ const keyPeople: KeyPerson[] = [
 
 export default function KeyPeopleSection() {
   return (
-    <section className="mx-auto max-w-[1200px] px-6 py-16">
+    <section className="container-site py-16">
       <h2 className="text-center text-[32px] font-bold uppercase text-black">
         Nhân Sự Chủ Chốt
       </h2>

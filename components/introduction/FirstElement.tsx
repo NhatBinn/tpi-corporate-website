@@ -44,7 +44,7 @@ const socials = [
 
 function FirstElement() {
   return (
-    <div className="mt-14 flex flex-col gap-8 px-4 md:mx-8 md:flex-row md:gap-6 md:px-6">
+    <div className="container-site mt-14 flex flex-col gap-8 md:flex-row md:items-center md:gap-12">
       <div className="flex-1">
         <Image
           src={"/Lab-green-700x700.webp"}

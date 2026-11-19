@@ -68,21 +68,33 @@ export async function findProductsByCategory(categoryId: string) {
   });
 }
 
+const productCardSelect = {
+  id: true,
+  name: true,
+  slug: true,
+  imageUrl: true,
+  description: true,
+} as const;
+
+// Chỉ lấy danh mục có sản phẩm: danh mục rỗng hiện thành tab trống.
 export async function findCategoriesWithProducts() {
   return await prisma.productCategory.findMany({
+    where: { products: { some: {} } },
     select: {
       id: true,
       name: true,
-      products: {
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          imageUrl: true,
-          description: true,
-        },
-      },
+      slug: true,
+      products: { select: productCardSelect, orderBy: { name: "asc" } },
     },
+    orderBy: { createdAt: "asc" },
+  });
+}
+
+export async function findHighlightedProducts() {
+  return await prisma.product.findMany({
+    where: { OR: [{ isFeatured: true }, { isNew: true }] },
+    select: { ...productCardSelect, isFeatured: true, isNew: true },
+    orderBy: { name: "asc" },
   });
 }
 

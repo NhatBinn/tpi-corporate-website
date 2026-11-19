@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function NewIdentitySection() {
   return (
-    <section className="mx-auto grid max-w-[1200px] grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-8 md:gap-y-10 px-4 md:px-6 py-12 md:py-16">
+    <section className="container-site grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-8 md:gap-y-10 py-12 md:py-16">
       <div className="flex items-center gap-4">
         <div className="relative h-20 w-20 md:h-30 md:w-30 overflow-hidden rounded-full">
           <Image

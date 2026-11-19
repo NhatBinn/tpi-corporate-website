@@ -14,14 +14,15 @@ function HeroBanner() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
 
-      <div className="relative z-10 mx-auto md:mr-auto w-full max-w-[960px] px-4 sm:px-6 md:pr-16 md:ml-20 md:mt-10">
-        <h2 className="-mt-2 text-[28px] md:text-[40px] leading-tight text-white font-normal">
+      <div className="container-site relative z-10 md:mt-10">
+        <div className="max-w-180">
+        <h1 className="-mt-2 text-[28px] md:text-[40px] leading-tight text-white font-normal">
           <span>Giải pháp tháo khuôn</span>
           <br />
           <strong>NHÀ MÁY</strong>
           <span> đến </span>
           <strong>CÔNG TRÌNH</strong>
-        </h2>
+        </h1>
 
         <p className="mt-4 md:mt-5 text-[14px] md:text-[15px] leading-relaxed text-white/85">
           <span>
@@ -38,8 +39,8 @@ function HeroBanner() {
             – Tháo khuôn cấu kiện bê tông đúc sẵn, bê tông nghệ thuật, gạch bê
             tông...
           </span>
-          <br />
         </p>
+        </div>
       </div>
 
       <ParallaxLogo position={true} />

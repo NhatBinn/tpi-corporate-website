@@ -49,10 +49,10 @@ function ProjectsCarousel() {
 export default function ProjectsAndPartnersSection() {
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto flex max-w-[1380px] items-center justify-between px-4 md:px-6 py-8 md:py-10">
-        <RedStripes className="hidden md:block h-[120px] w-[450px]" />
+      <div className="container-site flex items-center justify-between py-8 md:py-10">
+        <RedStripes className="hidden md:block h-30 w-75 lg:w-112.5" />
 
-        <div className="md:mr-10 md:text-right">
+        <div className="md:text-right">
           <h2 className="text-[28px] md:text-[50px] leading-tight text-black">
             <span className="font-extrabold">Dự Án</span>
             <span className="font-normal"> và </span>

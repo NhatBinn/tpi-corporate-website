@@ -30,6 +30,7 @@ export type CategoryWithProducts = Prisma.ProductCategoryGetPayload<{
   select: {
     id: true;
     name: true;
+    slug: true;
     products: {
       select: {
         id: true;
@@ -50,6 +51,7 @@ export interface ProductCategoryBrowserProps {
   pageSize?: number;
   variant?: "nav" | "section";
   interaction?: "hover" | "click";
+  initialCategoryId?: string;
 }
 
 interface CategoriesProps {

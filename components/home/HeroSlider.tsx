@@ -193,12 +193,10 @@ export default function HeroSlider() {
       <div className="absolute inset-0 bg-black/35" />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 md:px-6 text-center">
-        <p className="text-[14px] md:text-[16px] text-white/80">{current.eyebrow}</p>
-        <h2 className="mt-2 text-[28px] font-light leading-none text-white sm:text-[40px] md:text-[64px]">
-          {current.titleLight}
-        </h2>
-        <h2 className="mt-1 text-[28px] font-black leading-none text-white sm:text-[40px] md:text-[64px]">
-          {current.titleBold}
+        <p className="text-[15px] font-light text-white/85 md:text-[26px]">{current.eyebrow}</p>
+        <h2 className="mt-2 max-w-5xl text-balance text-[30px] leading-tight text-white sm:text-[44px] md:mt-3 md:text-[64px] lg:text-[72px]">
+          <span className="font-light">{current.titleLight}</span>{" "}
+          <span className="font-black">{current.titleBold}</span>
         </h2>
 
         <div className="mt-6 md:mt-8 flex items-center gap-3 md:gap-4">

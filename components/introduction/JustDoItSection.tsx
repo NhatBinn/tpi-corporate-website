@@ -1,7 +1,7 @@
 export default function JustDoItSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#0a8a3f] via-[#0fa84a] to-[#0a8a3f] px-6 py-20 sm:px-12 lg:px-20 my-10">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1px_1fr_1px_1fr]">
+    <section className="relative my-10 overflow-hidden bg-linear-to-br from-brand via-[#0fa84a] to-brand py-16 md:py-20">
+      <div className="container-site grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1px_1fr_1px_1fr] lg:gap-12">
         {/* Cột trái - tiêu đề chính */}
         <div>
           <p className="text-[15px] font-semibold uppercase tracking-[0.1em] text-white/80">

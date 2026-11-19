@@ -9,15 +9,13 @@ async function ProjectListSection({ cats }: { cats: string }) {
   if (!res.success) return notFound();
 
   return (
-    <section className="my-14">
-      <div className="flex flex-col justify-center items-center">
-        <ProjectLink active={cats} />
-        {res.data.length > 0 ? (
-          <ProjectGrid projectList={res.data} />
-        ) : (
-          <p className="py-16 text-[15px] text-[#9a9a9a]">Chưa có dự án nào trong danh mục này.</p>
-        )}
-      </div>
+    <section className="container-site py-12 md:py-14">
+      <ProjectLink active={cats} />
+      {res.data.length > 0 ? (
+        <ProjectGrid projectList={res.data} />
+      ) : (
+        <p className="py-16 text-center text-[15px] text-[#9a9a9a]">Chưa có dự án nào trong danh mục này.</p>
+      )}
     </section>
   );
 }

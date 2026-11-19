@@ -11,10 +11,8 @@ async function ProjectPage({
   return (
     <>
       <PageHeroBanner title="Dự án" breadcrumbs={[{ label: "Dự án" }]} />
-      <section className="mx-auto max-w-350">
-        <ProjectListSection cats={cats ?? "all"} />
-        <Features />
-      </section>
+      <ProjectListSection cats={cats ?? "all"} />
+      <Features />
     </>
   );
 }

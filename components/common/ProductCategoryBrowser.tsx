@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import type { ProductCategoryBrowserProps } from "@/types/common";
+import { cn } from "@/lib/utils";
 import ProductCardBody from "./ProductCard";
 
 export default function ProductCategoryBrowser({
@@ -12,8 +13,13 @@ export default function ProductCategoryBrowser({
   pageSize,
   variant = "nav",
   interaction = variant === "nav" ? "hover" : "click",
+  initialCategoryId,
 }: ProductCategoryBrowserProps) {
-  const [activeCategory, setActiveCategory] = useState(categories[0]?.id ?? "");
+  const [activeCategory, setActiveCategory] = useState(
+    initialCategoryId && categories.some((c) => c.id === initialCategoryId)
+      ? initialCategoryId
+      : (categories[0]?.id ?? ""),
+  );
   const [page, setPage] = useState(0);
   const activeCategoryData = categories.find((c) => c.id === activeCategory);
 
@@ -21,6 +27,7 @@ export default function ProductCategoryBrowser({
   const allProducts = activeCategoryData?.products ?? [];
   const totalPages = Math.max(1, Math.ceil(allProducts.length / size));
   const visibleProducts = allProducts.slice(page * size, page * size + size);
+  const isSection = variant === "section";
 
   function selectCategory(key: string) {
     setActiveCategory(key);
@@ -29,72 +36,63 @@ export default function ProductCategoryBrowser({
 
   const categoryTriggerProps = (key: string) =>
     interaction === "hover"
-      ? {
-          onMouseEnter: () => selectCategory(key),
-          onFocus: () => selectCategory(key),
-        }
+      ? { onMouseEnter: () => selectCategory(key), onFocus: () => selectCategory(key) }
       : { onClick: () => selectCategory(key) };
 
   return (
-    <div
-      className={`flex flex-col md:flex-row ${variant === "nav" ? "w-full max-w-[1240px]" : "w-full"}`}
-    >
-      {variant === "nav" ? (
-        <div className="flex w-full md:w-[280px] flex-row md:flex-col overflow-x-auto">
-          {categories.map((cat) => {
-            const isActive = cat.id === activeCategory;
-            return (
-              <button
-                key={cat.id}
-                {...categoryTriggerProps(cat.id)}
-                className={`shrink-0 flex items-center justify-between px-4 md:px-6 py-3 md:py-4 text-left text-[13px] md:text-[15px] font-bold transition-colors ${
-                  isActive
-                    ? "bg-white text-black"
-                    : "bg-[#0a8a3f] text-white hover:bg-[#097535]"
-                }`}
-              >
-                {cat.name}
-              </button>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="flex w-full md:w-[300px] flex-row md:flex-col overflow-x-auto gap-1 bg-[#f2f2f2] px-4 md:px-6 py-4 md:py-6">
-          {categories.map((cat) => {
-            const isActive = cat.id === activeCategory;
-            return (
-              <button
-                key={cat.id}
-                {...categoryTriggerProps(cat.id)}
-                className={`shrink-0 py-2 px-3 md:px-0 text-left text-[13px] md:text-[14px] font-bold uppercase tracking-wide transition-colors ${
-                  isActive
-                    ? "text-[#e5173f]"
-                    : "text-black hover:text-[#0a8a3f]"
-                }`}
-              >
-                {cat.name}
-              </button>
-            );
-          })}
-        </div>
-      )}
-
+    <div className={cn("flex w-full flex-col md:flex-row", isSection ? "md:gap-5" : "max-w-310")}>
       <div
-        className={`flex flex-1 flex-col justify-between ${
-          variant === "section"
-            ? "border border-t-0 md:border-t md:border-l-0 border-[#e5e5e5] p-4 md:p-8"
-            : ""
-        }`}
+        className={cn(
+          "flex w-full flex-row overflow-x-auto md:flex-col",
+          isSection ? "gap-1 bg-[#f2f2f2] px-4 py-4 md:w-75 md:shrink-0 md:px-6 md:py-6" : "md:w-70",
+        )}
       >
+        {categories.map((cat) => {
+          const isActive = cat.id === activeCategory;
+          return (
+            <button
+              key={cat.id}
+              type="button"
+              aria-pressed={isActive}
+              {...categoryTriggerProps(cat.id)}
+              className={cn(
+                "shrink-0 cursor-pointer text-left font-bold transition-colors",
+                isSection
+                  ? cn(
+                      "px-3 py-2 text-[13px] uppercase tracking-wide md:px-0 md:text-[14px]",
+                      isActive ? "text-brand-red" : "text-black hover:text-brand",
+                    )
+                  : cn(
+                      "flex items-center justify-between px-4 py-3 text-[13px] md:px-6 md:py-4 md:text-[15px]",
+                      isActive ? "bg-white text-black" : "bg-brand text-white hover:bg-brand-dark",
+                    ),
+              )}
+            >
+              {cat.name}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Bản section: lưới có kẻ ô như web gốc (viền trái/trên ở khung, viền phải/dưới ở từng ô). */}
         <div
-          className={`grid gap-x-4 md:gap-x-6 gap-y-6 md:gap-y-8 ${
-            columns === 4
-              ? "grid-cols-2 md:grid-cols-4"
-              : "grid-cols-2 md:grid-cols-5"
-          }`}
+          className={cn(
+            "grid",
+            columns === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-2 md:grid-cols-5",
+            isSection ? "border-l border-t border-[#e5e5e5]" : "gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8",
+          )}
         >
           {visibleProducts.map((p) =>
-            variant === "nav" ? (
+            isSection ? (
+              <Link
+                key={p.id}
+                href={`/san-pham/${p.slug}`}
+                className="group flex flex-col items-center border-b border-r border-[#e5e5e5] p-3 text-center transition-colors hover:bg-[#fafafa] md:p-5"
+              >
+                <ProductCardBody product={p} />
+              </Link>
+            ) : (
               <NavigationMenuLink
                 key={p.id}
                 className="group flex flex-col items-center text-center"
@@ -104,14 +102,6 @@ export default function ProductCategoryBrowser({
                   </Link>
                 }
               />
-            ) : (
-              <Link
-                key={p.id}
-                href={`/san-pham/${p.slug}`}
-                className="group flex flex-col items-center text-center"
-              >
-                <ProductCardBody product={p} />
-              </Link>
             ),
           )}
         </div>
@@ -121,13 +111,14 @@ export default function ProductCategoryBrowser({
             {Array.from({ length: totalPages }).map((_, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => setPage(i)}
                 aria-label={`Trang ${i + 1}`}
-                className={`h-2.5 w-2.5 rounded-full border transition-colors ${
-                  i === page
-                    ? "border-black bg-black"
-                    : "border-[#c4c4c4] bg-transparent hover:border-black"
-                }`}
+                aria-current={i === page}
+                className={cn(
+                  "h-2.5 w-2.5 cursor-pointer rounded-full border transition-colors",
+                  i === page ? "border-black bg-black" : "border-[#c4c4c4] bg-transparent hover:border-black",
+                )}
               />
             ))}
           </div>
@@ -136,4 +127,3 @@ export default function ProductCategoryBrowser({
     </div>
   );
 }
-

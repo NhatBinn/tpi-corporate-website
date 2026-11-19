@@ -52,12 +52,12 @@ export default async function ProductDetailPage({ params }: Props) {
         darken
         breadcrumbs={[
           { label: "Sản phẩm", href: "/san-pham" },
-          { label: product.category.name },
+          { label: product.category.name, href: `/san-pham?danh-muc=${product.category.slug}#danh-muc` },
           { label: product.name },
         ]}
       />
 
-      <section className="mx-auto max-w-[1380px] px-4 md:px-6 py-8 md:py-12">
+      <section className="container-site py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[45%_1fr] md:gap-12 lg:gap-16">
           <ProductDetailGallery images={galleryImages} productName={product.name} />
 
@@ -75,9 +75,12 @@ export default async function ProductDetailPage({ params }: Props) {
               </div>
             )}
 
-            <p className="mb-2 text-[12px] md:text-[13px] font-semibold uppercase tracking-wide text-[#0a8a3f]">
+            <Link
+              href={`/san-pham?danh-muc=${product.category.slug}#danh-muc`}
+              className="mb-2 w-fit text-[12px] md:text-[13px] font-semibold uppercase tracking-wide text-brand hover:underline"
+            >
               {product.category.name}
-            </p>
+            </Link>
 
             <SectionTitle as="h1" className="text-[22px] md:text-[28px] lg:text-[32px]">
               {product.name}
@@ -154,7 +157,7 @@ export default async function ProductDetailPage({ params }: Props) {
       </section>
 
       <section className="border-t border-[#e5e5e5]">
-        <div className="mx-auto max-w-[1380px] px-4 md:px-6">
+        <div className="container-site">
           <div className="flex border-b border-[#e5e5e5]">
             <div className="border-b-2 border-[#0a8a3f] px-6 py-3.5 text-[13px] md:text-[14px] font-bold text-[#0a8a3f]">
               Mô tả
@@ -170,7 +173,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
       {relatedProducts.length > 0 && (
         <section className="border-t border-[#e5e5e5] bg-[#f8f8f8]">
-          <div className="mx-auto max-w-[1380px] px-4 md:px-6 py-10 md:py-14">
+          <div className="container-site py-10 md:py-14">
             <SectionTitle>Sản phẩm tương tự</SectionTitle>
             <div className="mt-6 md:mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6">
               {relatedProducts.map((p) => (

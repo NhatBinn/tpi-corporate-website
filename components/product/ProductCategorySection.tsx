@@ -3,16 +3,16 @@ import ProductsList from "./ProductsList";
 
 async function ProductCategorySection() {
   const products = await getProductsByCategory("cat-chat-thao-khuon");
-  if (!products.success) return <div>Không tìm thấy sản phẩm</div>;
+  if (!products.success || products.data.length === 0) return null;
 
   return (
     <section>
       <div className="border-b border-gray-300">
-        <h1 className="inline-block border-b-[2px] border-[#1fa247] pb-2 text-[24px] font-medium uppercase">
-          CHẤT THÁO KHUÔN
-        </h1>
+        <h2 className="-mb-px inline-block border-b-2 border-brand pb-2 text-[20px] md:text-[24px] font-medium uppercase">
+          Chất tháo khuôn
+        </h2>
       </div>
-      <div className="mt-8">
+      <div className="mt-6 md:mt-8">
         <ProductsList products={products.data} />
       </div>
     </section>

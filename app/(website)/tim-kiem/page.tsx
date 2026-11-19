@@ -29,7 +29,7 @@ export default async function SearchPage({ searchParams }: Props) {
     <>
       <PageHeroBanner title="Tìm kiếm" breadcrumbs={[{ label: "Tìm kiếm" }]} />
 
-      <section className="mx-auto max-w-[1380px] px-4 md:px-6 py-10 md:py-14">
+      <section className="container-site py-10 md:py-14">
         <SearchForm
           defaultValue={q}
           className="mx-auto max-w-2xl"

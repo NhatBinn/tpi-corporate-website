@@ -1,13 +1,14 @@
 import Link from "next/link";
 import ProductCategoryBrowser from "../common/ProductCategoryBrowser";
 import RedStripes from "../common/RedStripes";
-import { getCategoriesWithProducts } from "@/services/product.service";
+import { getProductCatalog } from "@/services/product.service";
 
 export default async function HomeProductsSection() {
-  const category = await getCategoriesWithProducts();
-  if (!category.success) return null;
+  const catalog = await getProductCatalog();
+  if (!catalog.success) return null;
+
   return (
-    <section className="mx-auto max-w-[1400px] px-4 md:px-6 py-12 md:py-16">
+    <section className="container-site py-12 md:py-16">
       <div className="mb-6 md:mb-8 flex items-start justify-between">
         <div>
           <p className="text-[13px] md:text-[14px] text-[#4a4a4a]">
@@ -18,18 +19,18 @@ export default async function HomeProductsSection() {
             <span className="font-normal"> của chúng tôi</span>
           </h2>
           <Link
-            href="/san-pham"
-            className="mt-2 inline-block text-[13px] md:text-[14px] font-semibold text-[#0a8a3f] hover:underline"
+            href="/san-pham#danh-muc"
+            className="mt-2 inline-block text-[13px] md:text-[14px] font-semibold text-brand hover:underline"
           >
             Xem tất cả →
           </Link>
         </div>
 
-        <RedStripes className="hidden md:block h-[120px] w-[450px]" />
+        <RedStripes className="hidden md:block h-30 w-75 lg:w-112.5" />
       </div>
 
       <ProductCategoryBrowser
-        categories={category.data}
+        categories={catalog.data}
         columns={4}
         pageSize={8}
         variant="section"

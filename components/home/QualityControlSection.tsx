@@ -1,12 +1,10 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ParallaxLogo } from "../common/ParallaxLogo";
 
 export default function QualityControlSection() {
   return (
-    <section className="relative flex min-h-[400px] md:min-h-[1000px] items-center overflow-hidden">
+    <section className="relative flex min-h-[400px] items-center overflow-hidden py-16 md:min-h-[900px] md:py-0">
       <Image
         src="/San-xuat-grayscale.jpg"
         alt="Nhà máy TPI tại Lái Thiêu, Bình Dương"
@@ -18,7 +16,8 @@ export default function QualityControlSection() {
 
       <ParallaxLogo position={false} />
 
-      <div className="relative z-10 mx-auto md:ml-auto w-full max-w-[960px] px-4 sm:px-6 md:pr-16 md:mr-20">
+      <div className="container-site relative z-10">
+        <div className="lg:ml-auto lg:w-[52%]">
         <div className="flex items-baseline gap-3">
           <span
             className="text-[40px] md:text-[64px] font-black leading-none text-[#0a8a3f]/30"
@@ -56,7 +55,7 @@ export default function QualityControlSection() {
           </Link>
           <Link
             href="/du-an"
-            className="rounded-full bg-white px-6 py-2.5 md:px-7 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide text-black transition-colors hover:bg-white/90"
+            className="rounded-full border border-white px-6 py-2.5 md:px-7 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-white hover:text-black"
           >
             View More
           </Link>
@@ -70,6 +69,7 @@ export default function QualityControlSection() {
             height={120}
             className="object-contain w-[160px] md:w-[260px] h-auto"
           />
+        </div>
         </div>
       </div>
     </section>

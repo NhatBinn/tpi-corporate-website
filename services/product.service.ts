@@ -2,12 +2,14 @@ import { cache } from "react";
 import {
   findAllProducts,
   findCategoriesWithProducts,
+  findHighlightedProducts,
   findProductsByCategory,
   findProductBySlug,
   findRelatedProducts,
 } from "@/repositories/product.repository";
 import { err, ok } from "@/types/result";
 import type { Product, ProductStatus } from "@/types/product";
+import type { CategoryWithProducts } from "@/types/common";
 
 function deriveStatus(stock: number): ProductStatus {
   if (stock === 0) return "out_of_stock";
@@ -25,15 +27,30 @@ export async function getProductsByCategory(categoryId: string) {
   }
 }
 
-export async function getCategoriesWithProducts() {
+// Danh mục thật + 2 tab ảo "Nổi bật" / "Mới" (theo cờ isFeatured / isNew) như web gốc.
+// cache(): Header (mega menu) và trang chủ / trang sản phẩm dùng chung trong 1 request.
+export const getProductCatalog = cache(async () => {
   try {
-    const data = await findCategoriesWithProducts();
-    return ok(data);
+    const [categories, highlighted] = await Promise.all([
+      findCategoriesWithProducts(),
+      findHighlightedProducts(),
+    ]);
+    const pick = (flag: "isFeatured" | "isNew") =>
+      highlighted
+        .filter((p) => p[flag])
+        .map(({ id, name, slug, imageUrl, description }) => ({ id, name, slug, imageUrl, description }));
+
+    const virtual: CategoryWithProducts[] = [
+      { id: "noi-bat", name: "Nổi bật", slug: "noi-bat", products: pick("isFeatured") },
+      { id: "moi", name: "Mới", slug: "moi", products: pick("isNew") },
+    ].filter((c) => c.products.length > 0);
+
+    return ok([...virtual, ...categories]);
   } catch (error) {
-    console.log("~getCategoriesWithProducts~", error);
-    return err("Failed to get Category");
+    console.log("~getProductCatalog~", error);
+    return err("Failed to get product catalog");
   }
-}
+});
 
 // cache(): generateMetadata và page gọi cùng slug trong 1 request → chỉ query DB 1 lần.
 export const getProductBySlug = cache(async (slug: string) => {

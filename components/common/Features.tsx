@@ -4,7 +4,7 @@ const features = [
   {
     label: "Giao hàng",
     sub: "Toàn quốc",
-    link: "/giao-hang",
+    link: "/chinh-sach-ban-hang#giao-hang",
     icon: (
       <svg
         viewBox="0 0 40 46"
@@ -30,7 +30,7 @@ const features = [
   {
     label: "Thanh toán",
     sub: "Linh hoạt",
-    link: "/thanh-toan",
+    link: "/chinh-sach-ban-hang#thanh-toan",
     icon: (
       <svg
         viewBox="0 0 40 46"
@@ -69,7 +69,7 @@ const features = [
   {
     label: "Dịch vụ",
     sub: "Hướng dẫn mua hàng",
-    link: "/dich-vu",
+    link: "/chinh-sach-ban-hang#huong-dan-mua-hang",
     icon: (
       <svg
         viewBox="0 0 40 46"
@@ -89,7 +89,7 @@ const features = [
   {
     label: "Bảo mật",
     sub: "Thông tin khách hàng",
-    link: "/bao-mat",
+    link: "/chinh-sach-bao-mat-thong-tin",
     icon: (
       <svg
         viewBox="0 0 40 46"
@@ -115,7 +115,7 @@ const features = [
   {
     label: "Đổi trả",
     sub: "Chính sách đổi trả",
-    link: "/doi-tra",
+    link: "/chinh-sach-doi-tra-hang",
     icon: (
       <svg
         viewBox="0 0 40 46"

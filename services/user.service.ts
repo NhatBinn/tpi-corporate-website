@@ -1,25 +1,21 @@
 import { auth } from "@/lib/auth";
-import { loginSchema } from "@/schemas/Login";
+import type { LoginInput } from "@/schemas/Login";
+import { findUserRoleByEmail } from "@/repositories/user.repository";
 import { err, ok } from "@/types/result";
 
-export async function ChkLogin(formData: FormData) {
-  const res = loginSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+const INVALID_LOGIN = "Email hoặc mật khẩu không đúng";
 
-  if (!res.success) return err("Invalid data form");
+export async function ChkLogin({ email, password }: LoginInput) {
   try {
-    const data = await auth.api.signInEmail({
-      body: {
-        email: res.data.email,
-        password: res.data.password,
-      },
-    });
+    // Chỉ tài khoản admin mới được vào /admin. Cùng một thông báo lỗi với sai mật khẩu
+    // để không lộ email nào tồn tại trong hệ thống.
+    const user = await findUserRoleByEmail(email);
+    if (user?.role !== "admin") return err(INVALID_LOGIN);
 
+    const data = await auth.api.signInEmail({ body: { email, password } });
     return ok(data);
   } catch (error) {
     console.log("~ChkLogin~", error);
-    return err("Failed to login");
+    return err(INVALID_LOGIN);
   }
 }

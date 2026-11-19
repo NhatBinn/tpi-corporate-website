@@ -8,22 +8,12 @@
 import { PrismaClient } from "@/prisma/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
+import { slugify } from "@/lib/utils";
+import { postCategoryDefs, postDefs, solutionDetails } from "./seed-content";
 
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
-
-// ============================================================
-// HELPER: tạo slug từ tên
-// ============================================================
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
 
 // ============================================================
 // MAIN SEED FUNCTION
@@ -36,6 +26,9 @@ async function main() {
   // ----------------------------------------------------------
   console.log("  → Xoá dữ liệu cũ...");
   await prisma.$transaction([
+    prisma.post.deleteMany(),
+    prisma.postCategory.deleteMany(),
+    prisma.solutionProduct.deleteMany(),
     prisma.projectProduct.deleteMany(),
     prisma.projectImage.deleteMany(),
     prisma.project.deleteMany(),
@@ -610,6 +603,7 @@ async function main() {
           name: s.name,
           slug: s.slug,
           description: s.desc,
+          content: solutionDetails[s.slug]?.content ?? null,
           imageUrl: s.imageUrl,
           isPublished: true,
           sortOrder: i + 1,
@@ -619,6 +613,52 @@ async function main() {
     }),
   );
   console.log("    ✓ " + solutions.length + " giải pháp");
+
+  // ----------------------------------------------------------
+  // 14. SẢN PHẨM ĐỀ XUẤT CHO GIẢI PHÁP
+  // ----------------------------------------------------------
+  console.log("  → Liên kết giải pháp - sản phẩm...");
+
+  const productIdByName = new Map(products.map((p) => [p.name, p.id]));
+  const solutionProductData = Object.entries(solutionDetails).flatMap(([slug, detail]) =>
+    detail.products.map((name, i) => {
+      const productId = productIdByName.get(name);
+      if (!productId) throw new Error(`seed-content: không có sản phẩm "${name}" (giải pháp ${slug})`);
+      return { solutionId: `sol-${slug}`, productId, sortOrder: i + 1 };
+    }),
+  );
+  await prisma.solutionProduct.createMany({ data: solutionProductData });
+  console.log("    ✓ " + solutionProductData.length + " liên kết giải pháp - sản phẩm");
+
+  // ----------------------------------------------------------
+  // 15. BLOG: CHUYÊN MỤC + BÀI VIẾT
+  // ----------------------------------------------------------
+  console.log("  → Tạo blog...");
+
+  await prisma.postCategory.createMany({
+    data: postCategoryDefs.map((c, i) => ({
+      id: `postcat-${c.slug}`,
+      name: c.name,
+      slug: c.slug,
+      sortOrder: i + 1,
+    })),
+  });
+
+  await prisma.post.createMany({
+    data: postDefs.map((p) => ({
+      id: `post-${p.slug}`,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt,
+      content: p.content,
+      thumbnailUrl: p.thumbnailUrl,
+      author: p.author,
+      publishedAt: new Date(`${p.publishedAt}T08:00:00+07:00`),
+      seoDescription: p.excerpt,
+      categoryId: `postcat-${p.category}`,
+    })),
+  });
+  console.log(`    ✓ ${postCategoryDefs.length} chuyên mục, ${postDefs.length} bài viết`);
 
   // ----------------------------------------------------------
   // KẾT THÚC
@@ -638,6 +678,7 @@ async function main() {
   console.log("  💬 Feedback: " + feedbacks.length);
   console.log("  📁 Danh mục giải pháp: " + solCategories.length);
   console.log("  💡 Giải pháp: " + solutions.length);
+  console.log("  📰 Bài viết: " + postDefs.length);
 }
 
 main()

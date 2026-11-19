@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Plus, ChevronUp } from "lucide-react";
 import SectionTitle from "@/components/common/SectionTitle";
-import { ZALO_BUSINESS, ZALO_RETAIL } from "@/lib/constants";
+import { POLICY_LINKS, ZALO_BUSINESS, ZALO_RETAIL } from "@/lib/constants";
+
+const BOTTOM_LINKS = [...POLICY_LINKS, { label: "Blog", href: "/blog" }];
 
 const FOOTER_TITLE = "text-[15px] md:text-[16px] uppercase text-black";
 
@@ -215,6 +217,21 @@ export default function Footer() {
             />
           </div>
         </div>
+      </div>
+
+      <div className="container-site relative z-10 mt-10 md:mt-12 flex flex-col gap-3 border-t border-[#e5e5e5] pt-6 text-[12px] md:text-[13px] text-[#696969] md:flex-row md:items-center md:justify-between">
+        <p>© {new Date().getFullYear()} Cty TNHH Đầu Tư Phát Triển TPI.</p>
+        <nav aria-label="Liên kết chân trang">
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {BOTTOM_LINKS.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="transition-colors hover:text-brand">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
       {showScrollTop && (

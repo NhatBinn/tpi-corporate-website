@@ -1,4 +1,3 @@
-import type { ProductStatus } from "@/types/product";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -6,41 +5,30 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// "Bệnh Viện Nhi" → "benh-vien-nhi" (bỏ dấu tiếng Việt).
-export function slugify(text: string) {
+// Bỏ dấu tiếng Việt + chữ thường, dùng để tìm kiếm: "Vữa Tự San" → "vua tu san".
+// "đ" không tách dấu được bằng NFD nên phải đổi tay.
+export function normalizeText(text: string) {
   return text
     .toLowerCase()
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .replace(/đ/g, "d")
+    .trim();
+}
+
+// "Bệnh Viện Nhi Đồng" → "benh-vien-nhi-dong" (dùng cho slug URL, cả trong prisma/seed.ts).
+export function slugify(text: string) {
+  return normalizeText(text)
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 }
 
-export const STATUS_MAP: Record<
-  ProductStatus,
-  { label: string; dot: string; text: string; bg: string }
-> = {
-  active: {
-    label: "Đang bán",
-    dot: "bg-emerald-500",
-    text: "text-emerald-700",
-    bg: "bg-emerald-50",
-  },
-  low_stock: {
-    label: "Sắp hết",
-    dot: "bg-amber-500",
-    text: "text-amber-700",
-    bg: "bg-amber-50",
-  },
-  out_of_stock: {
-    label: "Hết hàng",
-    dot: "bg-rose-500",
-    text: "text-rose-700",
-    bg: "bg-rose-50",
-  },
-};
-
-export function formatVND(n: number) {
-  return new Intl.NumberFormat("vi-VN").format(n) + "đ";
+// 2026-11-20 → "20/11/2026"
+export function formatDateVN(date: Date) {
+  return new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "Asia/Ho_Chi_Minh",
+  }).format(date);
 }

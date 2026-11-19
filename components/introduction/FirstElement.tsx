@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import {
   FaFacebookF,
   FaXTwitter,
@@ -8,35 +7,46 @@ import {
   FaWhatsapp,
   FaTelegram,
 } from "react-icons/fa6";
+import { SITE_URL } from "@/lib/constants";
+
+// Link chia sẻ thật của từng mạng xã hội cho trang /gioi-thieu (trước đây chỉ trỏ về trang chủ của mạng xã hội).
+const PAGE_URL = encodeURIComponent(`${SITE_URL}/gioi-thieu`);
+const PAGE_TEXT = encodeURIComponent("TPI – Nhà sản xuất hoá chất xây dựng");
 
 const socials = [
   {
-    href: "https://facebook.com",
+    name: "Facebook",
+    href: `https://www.facebook.com/sharer/sharer.php?u=${PAGE_URL}`,
     icon: FaFacebookF,
     hover: "hover:bg-[#1877F2]",
   },
   {
-    href: "https://x.com",
+    name: "X",
+    href: `https://x.com/intent/post?url=${PAGE_URL}&text=${PAGE_TEXT}`,
     icon: FaXTwitter,
     hover: "hover:bg-black",
   },
   {
-    href: "https://pinterest.com",
+    name: "Pinterest",
+    href: `https://www.pinterest.com/pin/create/button/?url=${PAGE_URL}&description=${PAGE_TEXT}`,
     icon: FaPinterestP,
     hover: "hover:bg-[#E60023]",
   },
   {
-    href: "https://linkedin.com",
+    name: "LinkedIn",
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${PAGE_URL}`,
     icon: FaLinkedinIn,
     hover: "hover:bg-[#0A66C2]",
   },
   {
-    href: "https://wa.me",
+    name: "WhatsApp",
+    href: `https://wa.me/?text=${PAGE_TEXT}%20${PAGE_URL}`,
     icon: FaWhatsapp,
     hover: "hover:bg-[#25D366]",
   },
   {
-    href: "https://t.me",
+    name: "Telegram",
+    href: `https://t.me/share/url?url=${PAGE_URL}&text=${PAGE_TEXT}`,
     icon: FaTelegram,
     hover: "hover:bg-[#229ED9]",
   },
@@ -59,7 +69,7 @@ function FirstElement() {
           <h2 className="text-[#339966] text-[16px] font-medium">
             TRUST - PASSION - INNOVATION{" "}
           </h2>
-          <h4 className="font-medium text-[28px] md:text-[36px]">
+          <h4 className="mt-2 mb-4 font-medium text-[28px] leading-tight md:text-[36px]">
             TIN CẬY
             <br />
             NHIỆT HUYẾT
@@ -87,16 +97,17 @@ function FirstElement() {
             </p>
             <div className="border-t border-gray-100">
               <div className="flex items-center gap-2">
-                {socials.map(({ href, icon: Icon, hover }) => (
-                  <Link
-                    key={href}
+                {socials.map(({ name, href, icon: Icon, hover }) => (
+                  <a
+                    key={name}
                     href={href}
+                    aria-label={`Chia sẻ lên ${name}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-all duration-300 hover:text-white ${hover}`}
                   >
                     <Icon size={15} />
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>

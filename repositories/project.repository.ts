@@ -23,6 +23,16 @@ export async function findProjectsByCategory(categorySlug: string) {
   });
 }
 
+// Carousel trang chủ: ưu tiên dự án nổi bật, sau đó theo thứ tự hiển thị.
+export async function findFeaturedProjects(take: number) {
+  return prisma.project.findMany({
+    where: { isPublished: true },
+    select: { id: true, name: true, slug: true, thumbnailUrl: true, category: { select: { name: true } } },
+    orderBy: [{ isFeatured: "desc" }, { sortOrder: "asc" }],
+    take,
+  });
+}
+
 export async function findSearchableProjects() {
   return prisma.project.findMany({
     where: { isPublished: true },
@@ -50,9 +60,10 @@ export async function findProjectsCategories() {
   });
 }
 
+// Dự án đã ẩn (isPublished = false) không được xem qua URL trực tiếp.
 export async function findProjectsBySlug(slug: string) {
-  return prisma.project.findUnique({
-    where: { slug },
+  return prisma.project.findFirst({
+    where: { slug, isPublished: true },
     select: {
       id: true,
       name: true,

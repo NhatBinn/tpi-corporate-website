@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cardo, Geist, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { SITE_URL } from "@/lib/constants";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   keywords: ["TPI", "PAPA", "PAPA KIM", "NHAN TRAN"],
   authors: [{ name: "Binn" }],
   creator: "Binn",
-  metadataBase: new URL("https://tpi-corporate-website.vercel.app/"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "TPI | Demo Website For Papa",
     description: "A modern corporate website demo.",

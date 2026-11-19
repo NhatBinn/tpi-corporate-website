@@ -1,5 +1,6 @@
 import { cache } from "react";
 import {
+  findFeaturedProjects,
   findProjectsByCategory,
   findProjectsBySlug,
   findProjectsCategories,
@@ -38,6 +39,16 @@ export const getProjectsBySlug = cache(async (slug: string) => {
     return err("Failed to get project");
   }
 });
+
+export async function getFeaturedProjects(take = 10) {
+  try {
+    const data = await findFeaturedProjects(take);
+    return ok(data);
+  } catch (error) {
+    console.log("~getFeaturedProjects~", error);
+    return err("Failed to get featured projects");
+  }
+}
 
 export async function getRelatedProjects(categoryId: string, excludeSlug: string) {
   try {

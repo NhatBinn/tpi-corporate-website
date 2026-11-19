@@ -92,6 +92,21 @@ export type SolutionCategory = Prisma.SolutionCategoryModel
  */
 export type Solution = Prisma.SolutionModel
 /**
+ * Model SolutionProduct
+ * 
+ */
+export type SolutionProduct = Prisma.SolutionProductModel
+/**
+ * Model PostCategory
+ * 
+ */
+export type PostCategory = Prisma.PostCategoryModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel
+/**
  * Model Feedback
  * 
  */

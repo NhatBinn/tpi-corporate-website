@@ -61,6 +61,9 @@ export const ModelName = {
   ProductImage: 'ProductImage',
   SolutionCategory: 'SolutionCategory',
   Solution: 'Solution',
+  SolutionProduct: 'SolutionProduct',
+  PostCategory: 'PostCategory',
+  Post: 'Post',
   Feedback: 'Feedback',
   Project: 'Project',
   ProjectCategory: 'ProjectCategory',
@@ -222,6 +225,7 @@ export const SolutionScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   description: 'description',
+  content: 'content',
   imageUrl: 'imageUrl',
   sortOrder: 'sortOrder',
   isPublished: 'isPublished',
@@ -231,6 +235,47 @@ export const SolutionScalarFieldEnum = {
 } as const
 
 export type SolutionScalarFieldEnum = (typeof SolutionScalarFieldEnum)[keyof typeof SolutionScalarFieldEnum]
+
+
+export const SolutionProductScalarFieldEnum = {
+  solutionId: 'solutionId',
+  productId: 'productId',
+  sortOrder: 'sortOrder'
+} as const
+
+export type SolutionProductScalarFieldEnum = (typeof SolutionProductScalarFieldEnum)[keyof typeof SolutionProductScalarFieldEnum]
+
+
+export const PostCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostCategoryScalarFieldEnum = (typeof PostCategoryScalarFieldEnum)[keyof typeof PostCategoryScalarFieldEnum]
+
+
+export const PostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  excerpt: 'excerpt',
+  content: 'content',
+  thumbnailUrl: 'thumbnailUrl',
+  author: 'author',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoryId: 'categoryId'
+} as const
+
+export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
 export const FeedbackScalarFieldEnum = {

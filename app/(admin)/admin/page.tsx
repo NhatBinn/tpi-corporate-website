@@ -1,41 +1,34 @@
 "use client";
 
 import { signUp } from "@/lib/auth-client";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginInput, loginSchema } from "@/schemas/Login";
-import { useActionState, useEffect, useRef } from "react";
+import { loginSchema } from "@/schemas/Login";
+import { useEffect } from "react";
 import { ChkLoginForm } from "./actions/auth";
 import { LoginActionState } from "@/types/common";
 import { useRouter } from "next/navigation";
 import SubmitButton from "@/components/common/SubmitButton";
+import { useActionForm } from "@/hooks/useActionForm";
 
 const initialState: LoginActionState = {};
 
 function LoginPage() {
   const router = useRouter();
-  const formRef = useRef<HTMLFormElement>(null);
-  const [state, formAction] = useActionState(ChkLoginForm, initialState);
+  const { state, pending, form, onSubmit } = useActionForm(ChkLoginForm, initialState, zodResolver(loginSchema));
   const {
     register,
-    trigger,
-    reset,
     formState: { errors },
-  } = useForm<LoginInput>({
-    resolver: zodResolver(loginSchema),
-    mode: "onBlur",
-  });
+  } = form;
 
+  // Chỉ dùng khi dev (signUp bị tắt trên production). Tài khoản mới có role "user":
+  // muốn vào được /admin phải đổi role thành "admin" trong DB.
   const registerAdminUser = async () => {
-    const { data, error } = await signUp.email({
+    const { error } = await signUp.email({
       name: "Papa Kim",
       email: "papa.kim@TPI.com",
       password: "password1234",
     });
-
-    console.log("data: ", data);
-    console.log("error: ", error);
-    alert("OK!!!");
+    alert(error ? `Lỗi: ${error.message}` : "Đã tạo user. Nhớ đặt role = admin trong DB để đăng nhập.");
   };
 
   const getAdminUser = async () => {
@@ -47,13 +40,8 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    if (state.success) {
-      reset();
-      router.push("/admin/dashboard");
-    } else if (!state.success && state.message) {
-      alert("Error login!!!");
-    }
-  }, [state.success, reset, router, state.message]);
+    if (state.success) router.push("/admin/dashboard");
+  }, [state, router]);
 
   return (
     <section className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#0a0d12] px-4 py-16">
@@ -97,7 +85,7 @@ function LoginPage() {
             </h1>
           </div>
 
-          <form ref={formRef} action={formAction} className="space-y-6">
+          <form onSubmit={onSubmit} noValidate className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -140,9 +128,14 @@ function LoginPage() {
               )}
             </div>
 
+            {state.message && !state.success && (
+              <p role="alert" className="text-center text-[13px] text-red-400">
+                {state.message}
+              </p>
+            )}
+
             <SubmitButton
-              onValidate={trigger}
-              formRef={formRef}
+              pending={pending}
               label="Đăng nhập"
               pendingLabel="Đang đăng nhập..."
               showSpinner

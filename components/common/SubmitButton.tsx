@@ -1,39 +1,28 @@
-"use client";
-
-import { useFormStatus } from "react-dom";
-import type { MouseEvent, RefObject } from "react";
 import { cn } from "@/lib/utils";
 
 interface SubmitButtonProps {
-  onValidate: () => Promise<boolean>;
-  formRef: RefObject<HTMLFormElement | null>;
+  // Lấy từ phần tử thứ 3 của useActionState.
+  pending: boolean;
   label: string;
   pendingLabel: string;
   className?: string;
   showSpinner?: boolean;
 }
 
+// Nút submit thuần: việc validate (react-hook-form) và gọi Server Action do form cha xử lý
+// qua handleSubmit — xem useActionForm trong hooks/useActionForm.ts.
 export default function SubmitButton({
-  onValidate,
-  formRef,
+  pending,
   label,
   pendingLabel,
   className,
   showSpinner = false,
 }: SubmitButtonProps) {
-  const { pending } = useFormStatus();
-
-  // Validate phía client (react-hook-form) trước, hợp lệ mới submit sang Server Action.
-  async function handleClick(e: MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (await onValidate()) formRef.current?.requestSubmit();
-  }
-
   return (
     <button
       type="submit"
-      onClick={handleClick}
       disabled={pending}
+      aria-busy={pending}
       className={cn("cursor-pointer disabled:cursor-not-allowed", className)}
     >
       {pending && showSpinner && (

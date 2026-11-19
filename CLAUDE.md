@@ -44,13 +44,35 @@ page / Server Component / Server Action
 
 - **Repositories** only talk to Prisma. Name functions `findX`. Always use `select` to shape the payload; matching TS types live in `types/common.ts` (often derived via `Prisma.XGetPayload<...>`).
 - **Services** wrap repository calls, log with `console.log("~fnName~", error)`, and return `ok(data)` / `err(message)` from `types/result.ts`. Name functions `getX` / `submitX`. Callers branch on `res.success` (e.g. `notFound()` on failure in detail pages).
-- **Server Actions** (`"use server"`) live next to the route that uses them (`app/(website)/lien-he/actions.ts`, `app/(admin)/admin/actions/auth.ts`). Pattern: `(prevState, formData) => ActionState`, validate with the zod schema from `schemas/`, return `{ success, message?, errors? }` using `error.flatten().fieldErrors`. Action state types are in `types/common.ts`.
+- **Server Actions** (`"use server"`) live next to the route that uses them (`app/(website)/lien-he/actions.ts`, `app/(admin)/admin/actions/auth.ts`) or in root `actions/` (admin product CRUD). Pattern: `(prevState, formData) => ActionState`, validate with the zod schema from `schemas/`, return `{ success, message?, errors? }` using `error.flatten().fieldErrors`. Action state types are in `types/common.ts`.
+- **Forms** use `hooks/useActionForm.ts` (react-hook-form validation + `useActionState` dispatched in `startTransition`) with `<form onSubmit>` — not `<form action>`, because React 19 auto-resets the form after every action, wiping input even when the server returns an error. Call `form.reset()` yourself on success; key effects on the whole `state` object so repeated identical results still fire.
+- **Admin auth**: `User.role` is exposed in the Better Auth session (`additionalFields` in `lib/auth.ts`). Mutating admin actions must call `getAdminSession()` from `lib/session.ts` (role `"admin"`), not just check for a session. `proxy.ts` and `app/(admin)/admin/dashboard/layout.tsx` both redirect non-admins to `/admin`.
+- **Revalidation**: the header (mega menus), home and other static pages are prerendered at build. Any admin mutation must call `revalidatePath("/", "layout")`, otherwise changes only appear after the next deploy.
+- **`app/loading.tsx` is kept on purpose**: because pages stream, `notFound()` renders the 404 UI with HTTP status 200 (Next adds `<meta name="robots" content="noindex">`). This trade-off was accepted — don't "fix" it by removing the loading page.
+
+### Admin CRUD (`/admin/dashboard/*`)
+
+Every content table (products, product categories, tags, projects, project categories, solutions, solution categories, posts, post categories, feedback) is managed by one generic client component, `components/admin/crud/CrudManager.tsx`, configured per page with `ColumnDef[]` / `FieldDef[]` / `CrudRow[]` (types in `types/admin.ts`, row helpers in `lib/admin-rows.ts`). To add a table, follow the same chain:
+
+```
+app/(admin)/admin/dashboard/<x>/page.tsx   builds rows + fields, passes the actions
+  → actions/admin/<group>.ts               "use server"; adminSave/adminDelete (lib/admin-action.ts): admin check, zod parse, revalidatePath
+    → services/admin/<group>.service.ts    upsert()/runMutation()/runQuery() from services/admin/shared.ts → Result<T>
+      → repositories/admin/<group>.repository.ts   Prisma only
+```
+
+- Form values are strings / booleans / string[]; `schemas/admin.ts` coerces them (empty → `null`, numbers, dates, image lists "url | alt" per line). Empty slug → generated from the name.
+- Images must be local paths under `public/` (starting with `/`) because `next/image` has no `remotePatterns` configured.
+- Prisma errors through `@prisma/adapter-pg` can arrive as `DriverAdapterError` with a Postgres code in `cause` (23001/23503 restrict, 23505 unique) instead of P2002/P2003 — `services/admin/shared.ts` maps both.
+- Admin login and logout run as Server Actions (`actions/admin/session.ts`), so they don't depend on Better Auth's `trustedOrigins` check.
 - **Zod schemas** in `schemas/` are shared by the client form (`zodResolver`) and the server action.
 
 ### Routes (`app/`)
 
 - `(website)/` — public site, wrapped by `Header` (async server component that fetches product categories for the mega menu) / `Main` / `Footer`.
-  - `/` home, `/gioi-thieu` (about), `/san-pham` (products), `/du-an` + `/du-an/[slug]` (projects), `/lien-he` (contact form → `Feedback` table).
+  - `/` home, `/gioi-thieu` (about) + `/gioi-thieu/dien-mao-moi` (logo 2025 announcement), `/san-pham` + `/san-pham/[slug]` (products), `/du-an` + `/du-an/[slug]` (projects), `/giai-phap` + `/giai-phap/[slug]` (solutions, `Solution` + `SolutionProduct`), `/blog` + `/blog/[slug]` (`Post` / `PostCategory`, filter `?danh-muc=` and `?trang=`), `/tai-lieu` (documents), `/chinh-sach-*` (static policy pages via `components/common/LegalPage.tsx`), `/tim-kiem` (search), `/lien-he` (contact form → `Feedback` table).
+  - Long-form text (`Post.content`, `Solution.content`, policy sections) is plain text rendered by `components/common/RichText.tsx`: blocks separated by a blank line, `## `/`### ` headings, `- ` lists, `> ` quotes, `**bold**`. No HTML/markdown library.
+  - Shared link lists (Drive documents, blog shortcuts, policy links) live in `lib/constants.ts`; seed data for solutions/blog is in `prisma/seed-content.ts`.
 - `(admin)/admin/` — `/admin` is the login page (client component; contains dev helpers that sign up / copy a hard-coded demo admin account). `/admin/dashboard/*` (products, projects, tags) uses `components/admin/Sidebar`.
 - `api/auth/[...all]` — Better Auth handler. `lib/auth.ts` = server instance (`auth.api.*`), `lib/auth-client.ts` = React client.
 - Root `app/` has `layout.tsx` (fonts: Inter, Cardo, Geist; `lang="vi"`; site metadata), `error.tsx`, `loading.tsx`, `not-found.tsx`.
@@ -70,7 +92,3 @@ Organized by page/feature: `home/`, `introduction/`, `product/`, `project/`, `co
 - Path alias `@/*` → repo root. Use `cn()` from `lib/utils.ts` for class merging.
 - Images live in `public/` and are referenced by path (often `.webp`).
 - Commit messages are short and informal; no enforced format.
-
-## Work in progress
-
-The admin product CRUD (`app/(admin)/admin/dashboard/products/page.tsx`, `lib/utils.ts`) currently imports modules that do not exist yet (`@/actions/product`, `@/lib/product-utils`, `@/types/product`); the root `actions/` directory is empty. Expect type errors there until that feature is finished.

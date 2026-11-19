@@ -1,6 +1,5 @@
 import { cache } from "react";
 import {
-  findAllProducts,
   findCategoriesWithProducts,
   findHighlightedProducts,
   findProductsByCategory,
@@ -8,14 +7,7 @@ import {
   findRelatedProducts,
 } from "@/repositories/product.repository";
 import { err, ok } from "@/types/result";
-import type { Product, ProductStatus } from "@/types/product";
 import type { CategoryWithProducts } from "@/types/common";
-
-function deriveStatus(stock: number): ProductStatus {
-  if (stock === 0) return "out_of_stock";
-  if (stock < 10) return "low_stock";
-  return "active";
-}
 
 export async function getProductsByCategory(categoryId: string) {
   try {
@@ -71,24 +63,5 @@ export async function getRelatedProducts(categoryId: string, excludeSlug: string
   } catch (error) {
     console.log("~getRelatedProducts~", error);
     return err("Lỗi khi lấy sản phẩm liên quan");
-  }
-}
-
-export async function getAllProducts() {
-  try {
-    const data = await findAllProducts();
-    return ok(
-      data.map((p): Product => ({
-        id: p.id,
-        name: p.name,
-        category: p.category.name,
-        price: Number(p.price ?? 0),
-        stock: p.stock ?? 0,
-        status: deriveStatus(p.stock ?? 0),
-      }))
-    );
-  } catch (error) {
-    console.log("~getAllProducts~", error);
-    return err("Failed to get All Products");
   }
 }

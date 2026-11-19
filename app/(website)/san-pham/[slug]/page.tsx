@@ -86,10 +86,12 @@ export default async function ProductDetailPage({ params }: Props) {
               {product.name}
             </SectionTitle>
 
-            {product.description && (
-              <p className="mt-4 text-[13px] md:text-[14px] leading-relaxed text-[#4a4a4a] line-clamp-4">
+            {product.description ? (
+              <p className="mt-4 whitespace-pre-wrap text-[13px] md:text-[14px] leading-relaxed text-[#4a4a4a]">
                 {product.description}
               </p>
+            ) : (
+              <p className="mt-4 text-[13px] italic text-[#969696]">Chưa có mô tả cho sản phẩm này.</p>
             )}
 
             <InfoTable
@@ -151,21 +153,6 @@ export default async function ProductDetailPage({ params }: Props) {
               <p className="mt-4 text-[12px] text-[#969696]">
                 Mã sản phẩm: <span className="font-medium text-[#4a4a4a]">{product.sku}</span>
               </p>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-[#e5e5e5]">
-        <div className="container-site">
-          <div className="flex border-b border-[#e5e5e5]">
-            <div className="border-b-2 border-[#0a8a3f] px-6 py-3.5 text-[13px] md:text-[14px] font-bold text-[#0a8a3f]">
-              Mô tả
-            </div>
-          </div>
-          <div className="py-8 md:py-10 text-[13px] md:text-[14px] leading-relaxed text-[#4a4a4a] whitespace-pre-wrap">
-            {product.description ?? (
-              <span className="italic text-[#969696]">Chưa có mô tả cho sản phẩm này.</span>
             )}
           </div>
         </div>

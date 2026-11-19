@@ -41,10 +41,14 @@ export default function ProductCategoryBrowser({
 
   return (
     <div className={cn("flex w-full flex-col md:flex-row", isSection ? "md:gap-5" : "max-w-310")}>
+      {/* Nhiều danh mục (20+) → cột dọc cuộn riêng: mega menu không vượt quá chiều cao màn hình,
+          bản section không kéo dài hơn lưới sản phẩm để lại khoảng trắng lớn. */}
       <div
         className={cn(
-          "flex w-full flex-row overflow-x-auto md:flex-col",
-          isSection ? "gap-1 bg-[#f2f2f2] px-4 py-4 md:w-75 md:shrink-0 md:px-6 md:py-6" : "md:w-70",
+          "flex w-full flex-row overflow-x-auto md:flex-col md:overflow-x-hidden md:overflow-y-auto overscroll-contain",
+          isSection
+            ? "gap-1 bg-[#f2f2f2] px-4 py-4 md:max-h-150 md:w-75 md:shrink-0 md:px-6 md:py-6"
+            : "md:max-h-[calc(100dvh-8rem)] md:w-70",
         )}
       >
         {categories.map((cat) => {

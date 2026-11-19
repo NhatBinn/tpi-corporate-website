@@ -32,14 +32,16 @@ export default function PageHeroBanner({
         alt={title}
         fill
         priority
-        className={cn("object-cover object-bottom", darken ? "brightness-75" : "brightness-125")}
+        className={cn("object-cover object-bottom", darken ? "brightness-75" : "brightness-95")}
       />
+      {/* Ảnh mặc định rất sáng → luôn phủ đủ tối để chữ trắng, breadcrumb và ô tìm kiếm trên header đọc được. */}
       <div
         className={cn(
           "absolute inset-0 bg-linear-to-r",
-          darken ? "from-black/50 via-black/30 to-black/10" : "from-black/20 via-black/15 to-black/10",
+          darken ? "from-black/60 via-black/40 to-black/20" : "from-black/55 via-black/35 to-black/20",
         )}
       />
+      <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-black/35 to-transparent" />
 
       <div className="container-site relative z-10 mt-26">
         <h1 className="-mt-2 text-[36px] md:text-[60px] lg:text-[68px] leading-tight text-white font-medium">
@@ -54,7 +56,10 @@ export default function PageHeroBanner({
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-white/75">{crumb.label}</span>
+                // Mục cuối thường là tên bài viết/sản phẩm dài → cắt 1 dòng để breadcrumb không chiếm 2–3 dòng trên mobile.
+                <span className="max-w-full truncate text-white/80 sm:max-w-md" title={crumb.label}>
+                  {crumb.label}
+                </span>
               )}
             </Fragment>
           ))}

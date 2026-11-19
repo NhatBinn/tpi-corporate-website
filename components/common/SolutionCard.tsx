@@ -24,7 +24,7 @@ function SolutionCard({
         sizes="(max-width: 768px) 100vw, 33vw"
         className="object-cover transition-transform duration-500 group-hover:scale-110"
       />
-      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-gray via-gray/85 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/85 to-transparent" />
       <div className="absolute bottom-0 left-0 p-4 md:p-5">
         <p className="text-[12px] md:text-[13px] text-[#696969]">{label}</p>
         <h4

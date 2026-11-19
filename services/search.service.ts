@@ -1,27 +1,20 @@
 import { findSearchableProducts } from "@/repositories/product.repository";
 import { findSearchableProjects } from "@/repositories/project.repository";
 import { err, ok } from "@/types/result";
+import { normalizeText } from "@/lib/utils";
 
 const MAX_RESULTS = 24;
 
-// Bỏ dấu tiếng Việt để "vua tu san" khớp "Vữa tự san" (Postgres không bỏ dấu nếu chưa bật unaccent).
-function normalize(text: string) {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/đ/g, "d");
-}
-
 // Khớp khi MỌI từ trong câu tìm kiếm đều xuất hiện trong ít nhất một trường.
+// Bỏ dấu cả hai phía để "vua tu san" khớp "Vữa tự san" (Postgres không bỏ dấu nếu chưa bật unaccent).
 function matches(fields: (string | null | undefined)[], words: string[]) {
-  const haystack = normalize(fields.filter(Boolean).join(" "));
+  const haystack = normalizeText(fields.filter(Boolean).join(" "));
   return words.every((word) => haystack.includes(word));
 }
 
 // Catalog nhỏ (vài trăm bản ghi) nên lọc trong bộ nhớ; nếu dữ liệu lớn nên chuyển sang full-text search của Postgres.
 export async function searchSite(query: string) {
-  const words = normalize(query).split(/\s+/).filter(Boolean);
+  const words = normalizeText(query).split(/\s+/).filter(Boolean);
   if (words.length === 0) return ok({ products: [], projects: [] });
 
   try {

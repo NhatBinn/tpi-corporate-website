@@ -15,10 +15,16 @@ const MOBILE_MENU = [
   { href: "/du-an", label: "DỰ ÁN" },
   { href: "/gioi-thieu", label: "GIỚI THIỆU" },
   { href: "/tai-lieu", label: "TÀI LIỆU & ỨNG DỤNG" },
+  { href: "/blog", label: "BLOG" },
   { href: "/lien-he", label: "LIÊN HỆ" },
 ];
 
-function Navbar({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
+interface NavbarProps {
+  megaMenuSlot: React.ReactNode;
+  solutionMenuSlot: React.ReactNode;
+}
+
+function Navbar({ megaMenuSlot, solutionMenuSlot }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -42,7 +48,7 @@ function Navbar({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
         </Link>
         {/* Menu đầy đủ cần ~1100px → từ lg mới hiện, tablet dùng menu hamburger như mobile. */}
         <div className="hidden lg:flex gap-3 ml-4 xl:ml-8">
-          <Navigation megaMenuSlot={megaMenuSlot} />
+          <Navigation megaMenuSlot={megaMenuSlot} solutionMenuSlot={solutionMenuSlot} />
         </div>
         <SearchForm
           className="hidden lg:block"

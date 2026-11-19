@@ -39,6 +39,7 @@ export type SolutionMinAggregateOutputType = {
   name: string | null
   slug: string | null
   description: string | null
+  content: string | null
   imageUrl: string | null
   sortOrder: number | null
   isPublished: boolean | null
@@ -52,6 +53,7 @@ export type SolutionMaxAggregateOutputType = {
   name: string | null
   slug: string | null
   description: string | null
+  content: string | null
   imageUrl: string | null
   sortOrder: number | null
   isPublished: boolean | null
@@ -65,6 +67,7 @@ export type SolutionCountAggregateOutputType = {
   name: number
   slug: number
   description: number
+  content: number
   imageUrl: number
   sortOrder: number
   isPublished: number
@@ -88,6 +91,7 @@ export type SolutionMinAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  content?: true
   imageUrl?: true
   sortOrder?: true
   isPublished?: true
@@ -101,6 +105,7 @@ export type SolutionMaxAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  content?: true
   imageUrl?: true
   sortOrder?: true
   isPublished?: true
@@ -114,6 +119,7 @@ export type SolutionCountAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  content?: true
   imageUrl?: true
   sortOrder?: true
   isPublished?: true
@@ -214,6 +220,7 @@ export type SolutionGroupByOutputType = {
   name: string
   slug: string
   description: string | null
+  content: string | null
   imageUrl: string | null
   sortOrder: number
   isPublished: boolean
@@ -250,6 +257,7 @@ export type SolutionWhereInput = {
   name?: Prisma.StringFilter<"Solution"> | string
   slug?: Prisma.StringFilter<"Solution"> | string
   description?: Prisma.StringNullableFilter<"Solution"> | string | null
+  content?: Prisma.StringNullableFilter<"Solution"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Solution"> | string | null
   sortOrder?: Prisma.IntFilter<"Solution"> | number
   isPublished?: Prisma.BoolFilter<"Solution"> | boolean
@@ -257,6 +265,7 @@ export type SolutionWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Solution"> | Date | string
   categoryId?: Prisma.StringFilter<"Solution"> | string
   category?: Prisma.XOR<Prisma.SolutionCategoryScalarRelationFilter, Prisma.SolutionCategoryWhereInput>
+  solutionProducts?: Prisma.SolutionProductListRelationFilter
 }
 
 export type SolutionOrderByWithRelationInput = {
@@ -264,6 +273,7 @@ export type SolutionOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  content?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
@@ -271,6 +281,7 @@ export type SolutionOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   category?: Prisma.SolutionCategoryOrderByWithRelationInput
+  solutionProducts?: Prisma.SolutionProductOrderByRelationAggregateInput
 }
 
 export type SolutionWhereUniqueInput = Prisma.AtLeast<{
@@ -281,6 +292,7 @@ export type SolutionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SolutionWhereInput | Prisma.SolutionWhereInput[]
   name?: Prisma.StringFilter<"Solution"> | string
   description?: Prisma.StringNullableFilter<"Solution"> | string | null
+  content?: Prisma.StringNullableFilter<"Solution"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Solution"> | string | null
   sortOrder?: Prisma.IntFilter<"Solution"> | number
   isPublished?: Prisma.BoolFilter<"Solution"> | boolean
@@ -288,6 +300,7 @@ export type SolutionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Solution"> | Date | string
   categoryId?: Prisma.StringFilter<"Solution"> | string
   category?: Prisma.XOR<Prisma.SolutionCategoryScalarRelationFilter, Prisma.SolutionCategoryWhereInput>
+  solutionProducts?: Prisma.SolutionProductListRelationFilter
 }, "id" | "slug">
 
 export type SolutionOrderByWithAggregationInput = {
@@ -295,6 +308,7 @@ export type SolutionOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  content?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
@@ -316,6 +330,7 @@ export type SolutionScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Solution"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Solution"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Solution"> | string | null
+  content?: Prisma.StringNullableWithAggregatesFilter<"Solution"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Solution"> | string | null
   sortOrder?: Prisma.IntWithAggregatesFilter<"Solution"> | number
   isPublished?: Prisma.BoolWithAggregatesFilter<"Solution"> | boolean
@@ -329,12 +344,14 @@ export type SolutionCreateInput = {
   name: string
   slug: string
   description?: string | null
+  content?: string | null
   imageUrl?: string | null
   sortOrder?: number
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.SolutionCategoryCreateNestedOneWithoutSolutionsInput
+  solutionProducts?: Prisma.SolutionProductCreateNestedManyWithoutSolutionInput
 }
 
 export type SolutionUncheckedCreateInput = {
@@ -342,12 +359,14 @@ export type SolutionUncheckedCreateInput = {
   name: string
   slug: string
   description?: string | null
+  content?: string | null
   imageUrl?: string | null
   sortOrder?: number
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   categoryId: string
+  solutionProducts?: Prisma.SolutionProductUncheckedCreateNestedManyWithoutSolutionInput
 }
 
 export type SolutionUpdateInput = {
@@ -355,12 +374,14 @@ export type SolutionUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.SolutionCategoryUpdateOneRequiredWithoutSolutionsNestedInput
+  solutionProducts?: Prisma.SolutionProductUpdateManyWithoutSolutionNestedInput
 }
 
 export type SolutionUncheckedUpdateInput = {
@@ -368,12 +389,14 @@ export type SolutionUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  solutionProducts?: Prisma.SolutionProductUncheckedUpdateManyWithoutSolutionNestedInput
 }
 
 export type SolutionCreateManyInput = {
@@ -381,6 +404,7 @@ export type SolutionCreateManyInput = {
   name: string
   slug: string
   description?: string | null
+  content?: string | null
   imageUrl?: string | null
   sortOrder?: number
   isPublished?: boolean
@@ -394,6 +418,7 @@ export type SolutionUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -406,6 +431,7 @@ export type SolutionUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -429,6 +455,7 @@ export type SolutionCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  content?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
@@ -446,6 +473,7 @@ export type SolutionMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  content?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
@@ -459,6 +487,7 @@ export type SolutionMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  content?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
@@ -469,6 +498,11 @@ export type SolutionMinOrderByAggregateInput = {
 
 export type SolutionSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
+}
+
+export type SolutionScalarRelationFilter = {
+  is?: Prisma.SolutionWhereInput
+  isNot?: Prisma.SolutionWhereInput
 }
 
 export type SolutionCreateNestedManyWithoutCategoryInput = {
@@ -513,16 +547,32 @@ export type SolutionUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.SolutionScalarWhereInput | Prisma.SolutionScalarWhereInput[]
 }
 
+export type SolutionCreateNestedOneWithoutSolutionProductsInput = {
+  create?: Prisma.XOR<Prisma.SolutionCreateWithoutSolutionProductsInput, Prisma.SolutionUncheckedCreateWithoutSolutionProductsInput>
+  connectOrCreate?: Prisma.SolutionCreateOrConnectWithoutSolutionProductsInput
+  connect?: Prisma.SolutionWhereUniqueInput
+}
+
+export type SolutionUpdateOneRequiredWithoutSolutionProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.SolutionCreateWithoutSolutionProductsInput, Prisma.SolutionUncheckedCreateWithoutSolutionProductsInput>
+  connectOrCreate?: Prisma.SolutionCreateOrConnectWithoutSolutionProductsInput
+  upsert?: Prisma.SolutionUpsertWithoutSolutionProductsInput
+  connect?: Prisma.SolutionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SolutionUpdateToOneWithWhereWithoutSolutionProductsInput, Prisma.SolutionUpdateWithoutSolutionProductsInput>, Prisma.SolutionUncheckedUpdateWithoutSolutionProductsInput>
+}
+
 export type SolutionCreateWithoutCategoryInput = {
   id?: string
   name: string
   slug: string
   description?: string | null
+  content?: string | null
   imageUrl?: string | null
   sortOrder?: number
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  solutionProducts?: Prisma.SolutionProductCreateNestedManyWithoutSolutionInput
 }
 
 export type SolutionUncheckedCreateWithoutCategoryInput = {
@@ -530,11 +580,13 @@ export type SolutionUncheckedCreateWithoutCategoryInput = {
   name: string
   slug: string
   description?: string | null
+  content?: string | null
   imageUrl?: string | null
   sortOrder?: number
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  solutionProducts?: Prisma.SolutionProductUncheckedCreateNestedManyWithoutSolutionInput
 }
 
 export type SolutionCreateOrConnectWithoutCategoryInput = {
@@ -571,6 +623,7 @@ export type SolutionScalarWhereInput = {
   name?: Prisma.StringFilter<"Solution"> | string
   slug?: Prisma.StringFilter<"Solution"> | string
   description?: Prisma.StringNullableFilter<"Solution"> | string | null
+  content?: Prisma.StringNullableFilter<"Solution"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Solution"> | string | null
   sortOrder?: Prisma.IntFilter<"Solution"> | number
   isPublished?: Prisma.BoolFilter<"Solution"> | boolean
@@ -579,11 +632,84 @@ export type SolutionScalarWhereInput = {
   categoryId?: Prisma.StringFilter<"Solution"> | string
 }
 
+export type SolutionCreateWithoutSolutionProductsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  content?: string | null
+  imageUrl?: string | null
+  sortOrder?: number
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  category: Prisma.SolutionCategoryCreateNestedOneWithoutSolutionsInput
+}
+
+export type SolutionUncheckedCreateWithoutSolutionProductsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  content?: string | null
+  imageUrl?: string | null
+  sortOrder?: number
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  categoryId: string
+}
+
+export type SolutionCreateOrConnectWithoutSolutionProductsInput = {
+  where: Prisma.SolutionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SolutionCreateWithoutSolutionProductsInput, Prisma.SolutionUncheckedCreateWithoutSolutionProductsInput>
+}
+
+export type SolutionUpsertWithoutSolutionProductsInput = {
+  update: Prisma.XOR<Prisma.SolutionUpdateWithoutSolutionProductsInput, Prisma.SolutionUncheckedUpdateWithoutSolutionProductsInput>
+  create: Prisma.XOR<Prisma.SolutionCreateWithoutSolutionProductsInput, Prisma.SolutionUncheckedCreateWithoutSolutionProductsInput>
+  where?: Prisma.SolutionWhereInput
+}
+
+export type SolutionUpdateToOneWithWhereWithoutSolutionProductsInput = {
+  where?: Prisma.SolutionWhereInput
+  data: Prisma.XOR<Prisma.SolutionUpdateWithoutSolutionProductsInput, Prisma.SolutionUncheckedUpdateWithoutSolutionProductsInput>
+}
+
+export type SolutionUpdateWithoutSolutionProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.SolutionCategoryUpdateOneRequiredWithoutSolutionsNestedInput
+}
+
+export type SolutionUncheckedUpdateWithoutSolutionProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type SolutionCreateManyCategoryInput = {
   id?: string
   name: string
   slug: string
   description?: string | null
+  content?: string | null
   imageUrl?: string | null
   sortOrder?: number
   isPublished?: boolean
@@ -596,11 +722,13 @@ export type SolutionUpdateWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  solutionProducts?: Prisma.SolutionProductUpdateManyWithoutSolutionNestedInput
 }
 
 export type SolutionUncheckedUpdateWithoutCategoryInput = {
@@ -608,11 +736,13 @@ export type SolutionUncheckedUpdateWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  solutionProducts?: Prisma.SolutionProductUncheckedUpdateManyWithoutSolutionNestedInput
 }
 
 export type SolutionUncheckedUpdateManyWithoutCategoryInput = {
@@ -620,6 +750,7 @@ export type SolutionUncheckedUpdateManyWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -628,12 +759,42 @@ export type SolutionUncheckedUpdateManyWithoutCategoryInput = {
 }
 
 
+/**
+ * Count Type SolutionCountOutputType
+ */
+
+export type SolutionCountOutputType = {
+  solutionProducts: number
+}
+
+export type SolutionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  solutionProducts?: boolean | SolutionCountOutputTypeCountSolutionProductsArgs
+}
+
+/**
+ * SolutionCountOutputType without action
+ */
+export type SolutionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SolutionCountOutputType
+   */
+  select?: Prisma.SolutionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SolutionCountOutputType without action
+ */
+export type SolutionCountOutputTypeCountSolutionProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SolutionProductWhereInput
+}
+
 
 export type SolutionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   slug?: boolean
   description?: boolean
+  content?: boolean
   imageUrl?: boolean
   sortOrder?: boolean
   isPublished?: boolean
@@ -641,6 +802,8 @@ export type SolutionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
   categoryId?: boolean
   category?: boolean | Prisma.SolutionCategoryDefaultArgs<ExtArgs>
+  solutionProducts?: boolean | Prisma.Solution$solutionProductsArgs<ExtArgs>
+  _count?: boolean | Prisma.SolutionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["solution"]>
 
 export type SolutionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -648,6 +811,7 @@ export type SolutionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   slug?: boolean
   description?: boolean
+  content?: boolean
   imageUrl?: boolean
   sortOrder?: boolean
   isPublished?: boolean
@@ -662,6 +826,7 @@ export type SolutionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   slug?: boolean
   description?: boolean
+  content?: boolean
   imageUrl?: boolean
   sortOrder?: boolean
   isPublished?: boolean
@@ -676,6 +841,7 @@ export type SolutionSelectScalar = {
   name?: boolean
   slug?: boolean
   description?: boolean
+  content?: boolean
   imageUrl?: boolean
   sortOrder?: boolean
   isPublished?: boolean
@@ -684,9 +850,11 @@ export type SolutionSelectScalar = {
   categoryId?: boolean
 }
 
-export type SolutionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "imageUrl" | "sortOrder" | "isPublished" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["solution"]>
+export type SolutionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "content" | "imageUrl" | "sortOrder" | "isPublished" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["solution"]>
 export type SolutionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.SolutionCategoryDefaultArgs<ExtArgs>
+  solutionProducts?: boolean | Prisma.Solution$solutionProductsArgs<ExtArgs>
+  _count?: boolean | Prisma.SolutionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SolutionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.SolutionCategoryDefaultArgs<ExtArgs>
@@ -699,12 +867,14 @@ export type $SolutionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Solution"
   objects: {
     category: Prisma.$SolutionCategoryPayload<ExtArgs>
+    solutionProducts: Prisma.$SolutionProductPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     slug: string
     description: string | null
+    content: string | null
     imageUrl: string | null
     sortOrder: number
     isPublished: boolean
@@ -1106,6 +1276,7 @@ readonly fields: SolutionFieldRefs;
 export interface Prisma__SolutionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   category<T extends Prisma.SolutionCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SolutionCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__SolutionCategoryClient<runtime.Types.Result.GetResult<Prisma.$SolutionCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  solutionProducts<T extends Prisma.Solution$solutionProductsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Solution$solutionProductsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SolutionProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1139,6 +1310,7 @@ export interface SolutionFieldRefs {
   readonly name: Prisma.FieldRef<"Solution", 'String'>
   readonly slug: Prisma.FieldRef<"Solution", 'String'>
   readonly description: Prisma.FieldRef<"Solution", 'String'>
+  readonly content: Prisma.FieldRef<"Solution", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Solution", 'String'>
   readonly sortOrder: Prisma.FieldRef<"Solution", 'Int'>
   readonly isPublished: Prisma.FieldRef<"Solution", 'Boolean'>
@@ -1543,6 +1715,30 @@ export type SolutionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Solutions to delete.
    */
   limit?: number
+}
+
+/**
+ * Solution.solutionProducts
+ */
+export type Solution$solutionProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SolutionProduct
+   */
+  select?: Prisma.SolutionProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SolutionProduct
+   */
+  omit?: Prisma.SolutionProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SolutionProductInclude<ExtArgs> | null
+  where?: Prisma.SolutionProductWhereInput
+  orderBy?: Prisma.SolutionProductOrderByWithRelationInput | Prisma.SolutionProductOrderByWithRelationInput[]
+  cursor?: Prisma.SolutionProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SolutionProductScalarFieldEnum | Prisma.SolutionProductScalarFieldEnum[]
 }
 
 /**

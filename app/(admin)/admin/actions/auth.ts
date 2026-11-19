@@ -20,23 +20,8 @@ export async function ChkLoginForm(
     };
   }
 
-  try {
-    const res = await ChkLogin(formData);
+  const res = await ChkLogin(result.data);
+  if (!res.success) return { success: false, message: res.error };
 
-    if (res.success) {
-      return {
-        success: true,
-      };
-    } else {
-      return {
-        success: false,
-        message: res.error,
-      };
-    }
-  } catch {
-    return {
-      success: false,
-      message: "Có lỗi xảy ra.",
-    };
-  }
+  return { success: true };
 }

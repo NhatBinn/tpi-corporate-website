@@ -8,11 +8,17 @@ export async function sendFeedback(
   _prevState: FeedbackActionState,
   formData: FormData,
 ): Promise<FeedbackActionState> {
+  // Honeypot: ô "website" bị ẩn với người dùng thật, chỉ bot mới điền.
+  // Trả về thành công giả để bot không thử lại, nhưng không lưu gì.
+  if (formData.get("website")) {
+    return { success: true, message: "Cảm ơn bạn đã liên hệ! TPI sẽ phản hồi trong thời gian sớm nhất." };
+  }
+
   const result = feedbackSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
-    phone: formData.get("phone"),
-    company: formData.get("company"),
+    phone: formData.get("phone") ?? "",
+    company: formData.get("company") ?? undefined,
     message: formData.get("message"),
   });
 

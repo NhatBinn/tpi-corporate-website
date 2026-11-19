@@ -323,6 +323,9 @@ model Product {
   // Một Product có nhiều project.
   projectProducts ProjectProduct[]
 
+  // Product được đề xuất trong những giải pháp nào.
+  solutionProducts SolutionProduct[]
+
   //------------------------------------------------------
   // INDEX
   //------------------------------------------------------
@@ -516,6 +519,10 @@ model Solution {
   // Mô tả ngắn.
   description String?
 
+  // Nội dung chi tiết trang /giai-phap/[slug].
+  // Định dạng: đoạn văn cách nhau 1 dòng trống, "## " = tiêu đề, "- " = gạch đầu dòng.
+  content String? @db.Text
+
   // Ảnh đại diện.
   imageUrl String? @map("image_url")
 
@@ -542,6 +549,9 @@ model Solution {
   // onDelete Restrict: không cho xóa Category nếu vẫn còn Solution.
   category SolutionCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
+  // Sản phẩm đề xuất cho giải pháp.
+  solutionProducts SolutionProduct[]
+
   //------------------------------------------------------
   // INDEX
   //------------------------------------------------------
@@ -549,6 +559,90 @@ model Solution {
   @@index([categoryId])
   @@index([isPublished])
   @@map("solution")
+}
+
+// Bảng nối nhiều-nhiều Solution ↔ Product (giống ProjectProduct).
+model SolutionProduct {
+  solutionId String @map("solution_id")
+  productId  String @map("product_id")
+
+  // Thứ tự sản phẩm trong trang giải pháp.
+  sortOrder Int @default(0) @map("sort_order")
+
+  // onDelete Cascade: xóa Solution / Product thì xóa luôn liên kết.
+  solution Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([solutionId, productId])
+  @@index([productId])
+  @@map("solution_product")
+}
+
+// ============================================================
+// BLOG
+// Tin tức, hoạt động, hướng dẫn thi công... (trang /blog).
+// ============================================================
+
+model PostCategory {
+  id String @id @default(uuid())
+
+  // Ví dụ: Tin tức, Hoạt động, Hướng dẫn thi công.
+  name String
+
+  // Dùng cho bộ lọc /blog?danh-muc=<slug>.
+  slug String @unique
+
+  // Thứ tự tab trên trang blog.
+  sortOrder Int @default(0) @map("sort_order")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  posts Post[]
+
+  @@map("post_category")
+}
+
+model Post {
+  id String @id @default(uuid())
+
+  title String
+
+  // URL: /blog/<slug>.
+  slug String @unique
+
+  // Tóm tắt hiển thị trên card.
+  excerpt String?
+
+  // Nội dung bài viết.
+  // Định dạng: đoạn văn cách nhau 1 dòng trống, "## " = tiêu đề, "- " = gạch đầu dòng.
+  content String @db.Text
+
+  // Ảnh đại diện.
+  thumbnailUrl String @map("thumbnail_url")
+
+  // Tên người viết hiển thị.
+  author String?
+
+  isPublished Boolean @default(true) @map("is_published")
+
+  // Ngày đăng hiển thị (khác createdAt: có thể đặt lùi/tiến).
+  publishedAt DateTime @default(now()) @map("published_at")
+
+  seoTitle String? @map("seo_title")
+  seoDescription String? @map("seo_description")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  categoryId String @map("category_id")
+
+  // onDelete Restrict: không cho xóa Category nếu vẫn còn Post.
+  category PostCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@index([categoryId])
+  @@index([isPublished, publishedAt])
+  @@map("post")
 }
 
 // ============================================================

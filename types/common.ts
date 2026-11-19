@@ -1,31 +1,5 @@
 import { Prisma } from "@/prisma/generated/prisma/client";
 
-export type ProductDetail = Prisma.ProductGetPayload<{
-  select: {
-    id: true;
-    name: true;
-    slug: true;
-    sku: true;
-    description: true;
-    imageUrl: true;
-    pdfUrl: true;
-    compressiveStrength: true;
-    waterDilutionRatio: true;
-    pack: true;
-    price: true;
-    salePrice: true;
-    isFeatured: true;
-    isNew: true;
-    isBestSeller: true;
-    seoTitle: true;
-    seoDescription: true;
-    category: { select: { id: true; name: true; slug: true } };
-    tags: { select: { id: true; name: true; slug: true } };
-    productImages: {
-      select: { id: true; url: true; alt: true; sortOrder: true };
-    };
-  };
-}>;
 export type CategoryWithProducts = Prisma.ProductCategoryGetPayload<{
   select: {
     id: true;
@@ -54,15 +28,9 @@ export interface ProductCategoryBrowserProps {
   initialCategoryId?: string;
 }
 
-interface CategoriesProps {
+export interface ProductMegaProps {
   categories: CategoryWithProducts[];
 }
-
-export type NavbarProps = CategoriesProps;
-
-export type NavigationProps = CategoriesProps;
-
-export type ProductMegaProps = CategoriesProps;
 
 export type SolutionCardProps = {
   href: string;

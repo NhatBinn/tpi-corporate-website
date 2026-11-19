@@ -97,18 +97,3 @@ export async function findHighlightedProducts() {
     orderBy: { name: "asc" },
   });
 }
-
-export async function findAllProducts() {
-  return await prisma.product.findMany({
-    select: {
-      id: true,
-      name: true,
-      price: true,
-      stock: true,
-      category: {
-        select: { name: true },
-      },
-    },
-    orderBy: { createdAt: "desc" },
-  });
-}

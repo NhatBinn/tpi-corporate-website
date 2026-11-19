@@ -1,19 +1,19 @@
+import { redirect } from "next/navigation";
 import Sidebar from "@/components/admin/Sidebar";
+import { getAdminSession } from "@/lib/session";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <section className="min-h-dvh flex flex-row p-2 my-2">
-        <div className="flex-1/7">
-          <Sidebar />
-        </div>
+  // proxy.ts đã chặn trước; kiểm tra lại ở đây để trang admin không phụ thuộc duy nhất vào proxy.
+  if (!(await getAdminSession())) redirect("/admin");
 
-        <div className="flex-6/7">{children}</div>
-      </section>
-    </>
+  return (
+    <section className="flex min-h-dvh flex-col bg-neutral-50 md:flex-row">
+      <Sidebar />
+      <div className="min-w-0 flex-1">{children}</div>
+    </section>
   );
 }

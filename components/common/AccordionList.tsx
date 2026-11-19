@@ -10,14 +10,14 @@ const FAQS = [
     question: "TPI có chính sách dành cho đại lý, nhà phân phối không?",
     answers: [
       "Hiện nay, với nhu cầu mở rộng hệ thống kinh doanh, TPI hân hạnh chào đón tất cả các đối tác có năng lực phù hợp, niềm tin và mong muốn hợp tác phân phối các sản phẩm do chúng tôi cung cấp.",
-      "Nếu bạn thực sự quan tâm, hãy liên hệ ngay với TPI qua số hotline hoặc nhận viên kinh doanh phía cuối trang.",
+      "Nếu bạn thực sự quan tâm, hãy liên hệ ngay với TPI qua số hotline hoặc nhân viên kinh doanh phía cuối trang.",
     ],
   },
   {
     question: "TPI có giao sản phẩm toàn quốc không?",
     answers: [
-      "TPI hiện đang cung cấp cho các khách hàng, đại lý, nhà máy, dự án trên toàn quốc. Phương thức vận chuyển đa dạnh, linh hoạt từ truyền thống như chành xe, tàu hoả, xe tải cẩu... đến hiện đại (Viettelpost, Grab, Lalamove...)",
-      "Để tìm hiểu rõ hơn, quý khách vui lòng liên hệ hotline hoặc xem thêm trong phần chính sách giao hàng.",
+      "TPI hiện đang cung cấp cho các khách hàng, đại lý, nhà máy, dự án trên toàn quốc. Phương thức vận chuyển đa dạng, linh hoạt từ truyền thống như chành xe, tàu hoả, xe tải cẩu... đến hiện đại (Viettelpost, Grab, Lalamove...)",
+      "Để tìm hiểu rõ hơn, quý khách vui lòng liên hệ hotline hoặc xem thêm trong phần Chính sách bán hàng (mục Giao hàng).",
     ],
   },
   {
@@ -31,7 +31,7 @@ const FAQS = [
     question: "TPI nhận thanh toán như thế nào, có chính sách công nợ không?",
     answers: [
       "TPI chấp nhận thanh toán chuyển khoản công ty, tiền mặt dưới 20tr, bảo lãnh ngân hàng.",
-      "Dựa vào lịch sử thanh toán, giao dịch TPI có thể cấp hạn mức công nợ phù hợp. Chúng tôi áp dụng chính sách sách chiết khấu rất tốt cho các đơn hàng thanh toán trước, sớm. Quý khách hàng có thể cân đối tuỳ vào nhu cầu của mình.",
+      "Dựa vào lịch sử thanh toán, giao dịch TPI có thể cấp hạn mức công nợ phù hợp. Chúng tôi áp dụng chính sách chiết khấu rất tốt cho các đơn hàng thanh toán trước, sớm. Quý khách hàng có thể cân đối tuỳ vào nhu cầu của mình.",
     ],
   },
   {

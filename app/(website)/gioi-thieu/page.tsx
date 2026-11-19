@@ -1,15 +1,14 @@
 import Features from "@/components/common/Features";
-import EffortsImageSection from "@/components/introduction/EffortsImageSection";
+import PageHeroBanner from "@/components/common/PageHeroBanner";
 import EffortsVideoSection from "@/components/introduction/EffortsVideoSection";
 import FirstElement from "@/components/introduction/FirstElement";
-import HeroBanner from "@/components/introduction/HeroBanner";
 import JustDoItSection from "@/components/introduction/JustDoItSection";
 import KeyPeopleSection from "@/components/introduction/KeyPeopleSection";
 
 function IntroductionPage() {
   return (
     <>
-      <HeroBanner />
+      <PageHeroBanner title="Giới thiệu" breadcrumbs={[{ label: "Giới thiệu" }]} />
       <section>
         <div className="mx-auto max-w-350">
           <FirstElement />
@@ -18,7 +17,6 @@ function IntroductionPage() {
         <div className="mx-auto max-w-350">
           <KeyPeopleSection />
         </div>
-        <EffortsImageSection />
         <EffortsVideoSection />
         <div className="mx-auto max-w-350">
           <Features />

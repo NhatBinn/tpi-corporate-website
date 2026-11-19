@@ -20,7 +20,7 @@ export default function EffortsVideoSection() {
     <section className="relative flex min-h-[680px] items-center overflow-hidden bg-black">
       <YouTubeBackground
         videoId="JVbWAoOlT1Y"
-        fallbackImage="/no-luc-qua-con-so-bg-2.jpg"
+        fallbackImage="/Tham-quan-nha-may.jpg"
         fallbackAlt="Nhà xưởng TPI"
         grayscale
       />

@@ -1,7 +1,9 @@
+import { cache } from "react";
 import {
   findProjectsByCategory,
   findProjectsBySlug,
   findProjectsCategories,
+  findRelatedProjects,
 } from "@/repositories/project.repository";
 import { err, ok } from "@/types/result";
 
@@ -15,9 +17,9 @@ export async function getProjectsCategories() {
   }
 }
 
-export async function getProjectsByCategory(categoryId: string) {
+export async function getProjectsByCategory(categorySlug: string) {
   try {
-    const data = await findProjectsByCategory(categoryId);
+    const data = await findProjectsByCategory(categorySlug);
     return ok(data);
   } catch (error) {
     console.log("~getProjectsByCategory~", error);
@@ -25,13 +27,24 @@ export async function getProjectsByCategory(categoryId: string) {
   }
 }
 
-export async function getProjectsBySlug(slug: string) {
+// cache(): generateMetadata và page gọi cùng slug trong 1 request → chỉ query DB 1 lần.
+export const getProjectsBySlug = cache(async (slug: string) => {
   try {
     const data = await findProjectsBySlug(slug);
-    if (!data) return err("Cant get projects");
+    if (!data) return err("Không tìm thấy dự án");
     return ok(data);
   } catch (error) {
-    console.log("~getProjectsByCategory~", error);
-    return err("Failed to get projects");
+    console.log("~getProjectsBySlug~", error);
+    return err("Failed to get project");
+  }
+});
+
+export async function getRelatedProjects(categoryId: string, excludeSlug: string) {
+  try {
+    const data = await findRelatedProjects(categoryId, excludeSlug);
+    return ok(data);
+  } catch (error) {
+    console.log("~getRelatedProjects~", error);
+    return err("Failed to get related projects");
   }
 }

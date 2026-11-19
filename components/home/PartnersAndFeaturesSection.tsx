@@ -20,6 +20,9 @@ const partners: PartnerItem[] = [
   { name: "Ricons", imageUrl: "/Ricons-250x250.webp" },
 ];
 
+const ARROW_CLASS =
+  "hidden md:flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center text-[#1a1a1a] transition-colors hover:text-[#0a8a3f]";
+
 function PartnersCarousel() {
   const {
     goNext,
@@ -33,54 +36,45 @@ function PartnersCarousel() {
 
   return (
     <div
-      className="mx-auto flex w-full items-center justify-center gap-2"
+      className="mx-auto flex w-full max-w-310 items-center justify-center gap-2 px-4"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <button
         onClick={goPrev}
         aria-label="Xem đối tác trước"
-        className="hidden md:flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-full 
-                bg-transparent text-[#1a1a1a] shadow-lg duration-200 
-                hover:border-[#0a8a3f] hover:text-[#0a8a3f] hover:shadow-xl
-                opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
+        className={ARROW_CLASS}
       >
-        <ChevronLeft size={30} strokeWidth={2} />
+        <ChevronLeft size={30} strokeWidth={1.5} />
       </button>
 
-      <div className="w-full max-w-[calc(100vw-3rem)] overflow-hidden px-2 md:px-0 md:max-w-none">
-        <div className="overflow-hidden py-10">
-          <div onTransitionEnd={handleTransitionEnd} style={trackStyle}>
-            {tripled.map((partner, i) => (
-              <div
-                key={i}
-                ref={i === 0 ? firstCardRef : undefined}
-                className="flex w-[120px] md:w-[150px] lg:w-[170px] shrink-0 items-center justify-center bg-white shadow-sm"
-                style={{ height: 130 }}
-              >
-                <Image
-                  src={partner.imageUrl!}
-                  alt={partner.name}
-                  width={140}
-                  height={90}
-                  priority
-                  className="h-auto w-auto max-h-[90px] object-contain"
-                />
-              </div>
-            ))}
-          </div>
+      <div className="min-w-0 flex-1 overflow-hidden py-10">
+        <div onTransitionEnd={handleTransitionEnd} style={trackStyle}>
+          {tripled.map((partner, i) => (
+            <div
+              key={i}
+              ref={i === 0 ? firstCardRef : undefined}
+              className="flex h-32.5 w-30 shrink-0 items-center justify-center bg-white shadow-sm md:w-37.5 lg:w-42.5"
+            >
+              <Image
+                src={partner.imageUrl!}
+                alt={partner.name}
+                width={140}
+                height={90}
+                loading="eager"
+                className="h-auto max-h-22.5 w-auto object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
       <button
         onClick={goNext}
         aria-label="Xem đối tác tiếp theo"
-        className="hidden md:flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-full
-                bg-transparent text-[#1a1a1a] shadow-lg duration-200
-                hover:border-[#0a8a3f] hover:text-[#0a8a3f] hover:shadow-xl
-                opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
+        className={ARROW_CLASS}
       >
-        <ChevronRight size={30} strokeWidth={2} />
+        <ChevronRight size={30} strokeWidth={1.5} />
       </button>
     </div>
   );

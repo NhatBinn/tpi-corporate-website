@@ -21,6 +21,7 @@ function SolutionCard({
         src={image}
         alt={title}
         fill
+        sizes="(max-width: 768px) 100vw, 33vw"
         className="object-cover transition-transform duration-500 group-hover:scale-110"
       />
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-gray via-gray/85 to-transparent" />
@@ -40,7 +41,7 @@ function SolutionCard({
           )}
         </h4>
         <p
-          className={`mt-1 md:max-w-50 text-[12px] md:text-[13px] leading-snug text-[#696969] max-w-`}
+          className="mt-1 md:max-w-50 text-[12px] md:text-[13px] leading-snug text-[#696969]"
         >
           {desc}
         </p>

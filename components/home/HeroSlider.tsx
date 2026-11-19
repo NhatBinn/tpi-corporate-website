@@ -17,26 +17,26 @@ interface Slide {
 const slides: Slide[] = [
   {
     image: "/Slider-8.webp",
-    eyebrow: "Hệ sản phẩm cho",
-    titleLight: "Nhà máy bê tông",
-    titleBold: "ĐÚC SẴN",
-    readMoreHref: "/giai-phap/be-tong-duc-san",
+    eyebrow: "Hệ giải pháp",
+    titleLight: "Nhà Xưởng",
+    titleBold: "CÔNG NGHIỆP",
+    readMoreHref: "/giai-phap/nha-xuong",
     viewMoreHref: "/san-pham",
   },
   {
     image: "/Slider-3.webp",
-    eyebrow: "Hệ sản phẩm cho",
-    titleLight: "Nhà máy bê tông",
-    titleBold: "ĐÚC SẴN",
-    readMoreHref: "/giai-phap/be-tong-duc-san",
+    eyebrow: "Hệ sản phẩm",
+    titleLight: "Đại lý, cửa hàng",
+    titleBold: "VLXD",
+    readMoreHref: "/giai-phap/cua-hang-vlxd",
     viewMoreHref: "/san-pham",
   },
   {
     image: "/alternative-energy-slide-2.webp",
-    eyebrow: "Hệ sản phẩm cho",
-    titleLight: "Nhà máy bê tông",
-    titleBold: "ĐÚC SẴN",
-    readMoreHref: "/giai-phap/be-tong-duc-san",
+    eyebrow: "Đồng hành cùng",
+    titleLight: "Phát triển công trình",
+    titleBold: "NĂNG LƯỢNG XANH",
+    readMoreHref: "/giai-phap",
     viewMoreHref: "/san-pham",
   },
   {
@@ -49,18 +49,18 @@ const slides: Slide[] = [
   },
   {
     image: "/oncrete-in-the-construction-e1736084881793.webp",
-    eyebrow: "Hệ sản phẩm cho",
-    titleLight: "Nhà máy bê tông",
-    titleBold: "ĐÚC SẴN",
-    readMoreHref: "/giai-phap/be-tong-duc-san",
+    eyebrow: "Hệ sản phẩm",
+    titleLight: "Thầu thợ công trình",
+    titleBold: "DÂN DỤNG",
+    readMoreHref: "/giai-phap/thau-tho",
     viewMoreHref: "/san-pham",
   },
   {
     image: "/Vua-tu-san.webp",
-    eyebrow: "Hệ sản phẩm cho",
-    titleLight: "Nhà máy bê tông",
-    titleBold: "ĐÚC SẴN",
-    readMoreHref: "/giai-phap/be-tong-duc-san",
+    eyebrow: "Hệ sản phẩm",
+    titleLight: "Từ móng đến mái",
+    titleBold: "NHÀ CAO TẦNG",
+    readMoreHref: "/giai-phap/cao-tang",
     viewMoreHref: "/san-pham",
   },
 ];
@@ -111,7 +111,9 @@ export default function HeroSlider() {
     ).matches;
     if (prefersReducedMotion || isPaused) return;
 
-    const timer = setInterval(goNext, AUTO_INTERVAL_MS);
+    const timer = setInterval(() => {
+      if (!document.hidden) goNext();
+    }, AUTO_INTERVAL_MS);
     return () => clearInterval(timer);
   }, [goNext, isPaused]);
 
@@ -130,13 +132,19 @@ export default function HeroSlider() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <Image
-        src={current.image}
-        alt=""
-        fill
-        priority
-        className="object-cover"
-      />
+      {/* Mount sẵn mọi slide để ảnh đã tải xong trước khi hiệu ứng dải mở ra (tránh nháy trắng). */}
+      {slides.map((slide, i) => (
+        <Image
+          key={slide.image}
+          src={slide.image}
+          alt=""
+          fill
+          sizes="100vw"
+          priority={i === 0}
+          loading={i === 0 ? undefined : "eager"}
+          className={`object-cover ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
+        />
+      ))}
 
       {incoming && (
         <div className="absolute inset-0 flex">
@@ -171,6 +179,8 @@ export default function HeroSlider() {
                     src={incoming.image}
                     alt=""
                     fill
+                    sizes="100vw"
+                    loading="eager"
                     className="object-cover"
                   />
                 </div>

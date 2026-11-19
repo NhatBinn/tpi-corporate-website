@@ -1,5 +1,5 @@
 import Features from "@/components/common/Features";
-import HeroBanner from "@/components/project/HeroBanner";
+import PageHeroBanner from "@/components/common/PageHeroBanner";
 import ProjectListSection from "@/components/project/ProjectListSection";
 
 async function ProjectPage({
@@ -10,7 +10,7 @@ async function ProjectPage({
   const { cats } = await searchParams;
   return (
     <>
-      <HeroBanner />
+      <PageHeroBanner title="Dự án" breadcrumbs={[{ label: "Dự án" }]} />
       <section className="mx-auto max-w-350">
         <ProjectListSection cats={cats ?? "all"} />
         <Features />

@@ -8,7 +8,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { ChkLoginForm } from "./actions/auth";
 import { LoginActionState } from "@/types/common";
 import { useRouter } from "next/navigation";
-import SubmitLoginBtn from "@/components/admin/SubmitLoginBtn";
+import SubmitButton from "@/components/common/SubmitButton";
 
 const initialState: LoginActionState = {};
 
@@ -140,11 +140,19 @@ function LoginPage() {
               )}
             </div>
 
-            <SubmitLoginBtn onValidate={trigger} formRef={formRef} />
+            <SubmitButton
+              onValidate={trigger}
+              formRef={formRef}
+              label="Đăng nhập"
+              pendingLabel="Đang đăng nhập..."
+              showSpinner
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#ececec] px-8 py-3.5 text-[13px] font-bold uppercase tracking-[0.15em] text-black transition-all hover:bg-white active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100"
+            />
           </form>
         </div>
 
-        {/* khu vực dev-only, tách biệt hẳn khỏi card đăng nhập thật */}
+        {/* khu vực dev-only: ẩn trên production vì copy được mật khẩu admin */}
+        {process.env.NODE_ENV !== "production" && (
         <div className="mt-6 rounded-xl border border-dashed border-white/10 p-4">
           <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-white/30">
             Dev only
@@ -170,6 +178,7 @@ function LoginPage() {
             Get user admin password thử nghiệm
           </button>
         </div>
+        )}
       </div>
     </section>
   );

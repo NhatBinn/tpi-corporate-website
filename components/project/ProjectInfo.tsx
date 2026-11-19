@@ -1,139 +1,69 @@
-import { ProjectDetail } from "@/types/common";
-import Image from "next/image";
 import Link from "next/link";
-import { FaFacebookF, FaTiktok } from "react-icons/fa6";
+import { MapPin } from "lucide-react";
+import type { ProjectDetail } from "@/types/common";
+import SectionTitle from "@/components/common/SectionTitle";
+import InfoTable from "@/components/common/InfoTable";
+import SocialLinks from "@/components/common/SocialLinks";
 
 export default function ProjectInfo({ project }: { project: ProjectDetail }) {
-  const images =
-    project.images.length > 0
-      ? [...project.images].sort((a, b) => a.sortOrder - b.sortOrder)
-      : [
-          {
-            id: "thumbnail",
-            url: project.thumbnailUrl,
-            alt: project.name,
-            sortOrder: 0,
-          },
-        ];
-
-  const metaRows = [
-    { label: "Chủ đầu tư", value: project.investor },
-    { label: "Tổng thầu", value: project.contractor },
-    { label: "Phát triển dự án", value: "" },
-    { label: "Tư vấn giám sát", value: "" },
-    { label: "Tư vấn thiết kế", value: "" },
-    { label: "Quản lý vận hành", value: "" },
-    { label: "Thời gian thi công", value: project.constructionTime },
-    {
-      label: "Năm hoàn thành",
-      value: project.completedYear ? String(project.completedYear) : null,
-    },
-  ];
-
   return (
-    <div className="mx-auto grid grid-cols-1 gap-10 px-4 py-10 lg:grid-cols-[1.5fr_1fr] lg:px-0">
-      {/* ---------- Gallery ---------- */}
-      <div className="flex flex-col gap-5">
-        {images.map((image, index) => {
-          const isLast = index === images.length - 1 && images.length > 1;
-          return (
-            <div
-              key={image.id}
-              className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gray-200"
-            >
-              <Image
-                src={image.url}
-                alt={image.alt ?? project.name}
-                fill
-                sizes="(min-width: 1024px) 55vw, 100vw"
-                className="object-cover"
-              />
-              {isLast && (
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-6 pb-5 pt-10">
-                  <p className="text-[17px] font-extrabold tracking-wide text-white">
-                    THÁP 1 DỰ ÁN {project.name.toUpperCase()}
-                  </p>
-                  <p className="text-[13px] font-bold tracking-widest text-white/85">
-                    CHÍNH THỨC ĐƯỢC CẤT NÓC
-                  </p>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+    <div className="flex flex-col">
+      <p className="mb-2 text-[13px] font-semibold uppercase tracking-widest text-[#0a8a3f]">
+        {project.category.name}
+        {project.completedYear ? ` · ${project.completedYear}` : ""}
+      </p>
 
-      {/* ---------- Info ---------- */}
-      <div className="pt-1">
-        <p className="mb-2 text-[18px] text-[#a5a5a5] font-semibold">
-          {project.category.name}
-          {project.completedYear ? ` (${project.completedYear})` : ""}
+      <SectionTitle as="h1" className="text-[32px] md:text-[38px] lg:text-[44px] tracking-tight">
+        {project.name}
+      </SectionTitle>
+
+      {project.location && (
+        <p className="mt-4 flex items-start gap-1.5 text-[14px] md:text-[15px] font-semibold text-[#696969]">
+          <MapPin size={16} className="mt-0.5 shrink-0 text-[#0a8a3f]" />
+          {project.location}
         </p>
+      )}
 
-        <h1 className="mb-3 text-[40px] font-bold leading-tight tracking-tight text-[#242424]">
-          {project.name}
-        </h1>
-
-        {project.location && (
-          <p className="mb-6 text-[16px] font-bold text-[#808080]">
-            {project.location}
-          </p>
-        )}
-
-        <div className="my-4 border-r-8 border-r-emerald-500 pr-6">
-          <span className="text-[14px] inline-block px-1 py-0.5 font-semibold text-black">
+      {project.projectProducts.length > 0 && (
+        <div className="mt-5 border-r-4 border-[#0a8a3f] pr-4">
+          <p className="text-[13px] font-bold uppercase tracking-wide text-[#1a1a1a]">
             Sản phẩm TPI đã được sử dụng:
-          </span>
-
-          <ul className="mt-4 list-disc space-y-3 pl-5 text-gray-700">
-            {project.projectProducts.map((el) => (
-              <li key={el.product.id}>
+          </p>
+          <ul className="mt-3 space-y-2">
+            {project.projectProducts.map(({ product }) => (
+              <li key={product.id} className="flex items-start gap-2">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#1a1a1a]" />
                 <Link
-                  href={`/san-pham/${el.product.slug}`}
-                  className="transition-colors hover:text-green-600"
+                  href={`/san-pham/${product.slug}`}
+                  className="text-[13px] md:text-[14px] font-medium text-[#1a1a1a] transition-colors hover:text-[#0a8a3f]"
                 >
-                  {el.product.name}
+                  {product.name}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <dl className="mt-1.5 border-t border-gray-200">
-          {metaRows.map(({ label, value }) => (
-            <div
-              key={label}
-              className="grid grid-cols-[180px_1fr] gap-4 border-b border-gray-200 py-4"
-            >
-              <dt className="text-[16px] font-semibold text-gray-900">
-                {label}
-              </dt>
-              <dd className="text-[15px] text-gray-900">{value || "—"}</dd>
-            </div>
-          ))}
-          <div className="flex flex-row justify-between items-center mt-3">
-            <button className="px-4 md:px-6 py-2.5 md:py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-wide transition-colors bg-[#212121] text-white cursor-pointer">
-              Dự án khác
-            </button>
-            <div className="flex items-center gap-3">
-              <Link
-                href="https://www.facebook.com/TPIVN"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-white"
-              >
-                <FaFacebookF size={16} />
-              </Link>
-              <Link
-                href="https://www.tiktok.com/@tpivn.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white"
-              >
-                <FaTiktok size={16} />
-              </Link>
-            </div>
-          </div>
-        </dl>
+      )}
+
+      <InfoTable
+        className="mt-5"
+        rows={[
+          { label: "Chủ đầu tư", value: project.investor },
+          { label: "Tổng thầu", value: project.contractor },
+          { label: "Diện tích", value: project.area },
+          { label: "Thời gian thi công", value: project.constructionTime },
+          { label: "Năm hoàn thành", value: project.completedYear?.toString() },
+        ]}
+      />
+
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <Link
+          href="/du-an"
+          className="inline-flex items-center rounded-sm bg-[#1a1a1a] px-5 py-3 text-[12px] md:text-[13px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#333]"
+        >
+          Dự án khác
+        </Link>
+        <SocialLinks brandColors className="gap-2.5" linkClassName="h-9 w-9 hover:opacity-80" iconSize={15} />
       </div>
     </div>
   );

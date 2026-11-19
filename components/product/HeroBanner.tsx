@@ -3,7 +3,7 @@ import { ParallaxLogo } from "../common/ParallaxLogo";
 
 function HeroBanner() {
   return (
-    <section className="relative flex min-h-[300px] md:min-h-[500px] items-center overflow-hidden mt-">
+    <section className="relative flex min-h-[300px] md:min-h-[500px] items-center overflow-hidden pt-24 pb-10 md:py-0">
       <Image
         src="/Cong-Truong-tong-hop-1398x606-BW.webp"
         alt="Công trường tổng hợp"
@@ -14,7 +14,7 @@ function HeroBanner() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
 
-      <div className="relative z-10 mx-auto md:mr-auto w-full max-w-[960px] px-4 sm:px-6 md:pr-16 md:ml-20 mt-10">
+      <div className="relative z-10 mx-auto md:mr-auto w-full max-w-[960px] px-4 sm:px-6 md:pr-16 md:ml-20 md:mt-10">
         <h2 className="-mt-2 text-[28px] md:text-[40px] leading-tight text-white font-normal">
           <span>Giải pháp tháo khuôn</span>
           <br />

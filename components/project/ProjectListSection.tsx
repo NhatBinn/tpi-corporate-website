@@ -12,7 +12,11 @@ async function ProjectListSection({ cats }: { cats: string }) {
     <section className="my-14">
       <div className="flex flex-col justify-center items-center">
         <ProjectLink active={cats} />
-        <ProjectGrid projectList={ res.data } />
+        {res.data.length > 0 ? (
+          <ProjectGrid projectList={res.data} />
+        ) : (
+          <p className="py-16 text-[15px] text-[#9a9a9a]">Chưa có dự án nào trong danh mục này.</p>
+        )}
       </div>
     </section>
   );

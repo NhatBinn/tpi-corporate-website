@@ -1,14 +1,56 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { feedbackSchema, type FeedbackInput } from "@/schemas/Feedback";
-import SubmitContactBtn from "./SubmitContactBtn";
+import SubmitButton from "@/components/common/SubmitButton";
 import { sendFeedback } from "@/app/(website)/lien-he/actions";
-import { FeedbackActionState } from "@/types/common";
+import type { FeedbackActionState } from "@/types/common";
+import { cn } from "@/lib/utils";
 
 const initialState: FeedbackActionState = {};
+
+const FIELDS: {
+  name: keyof FeedbackInput;
+  label: string;
+  type?: string;
+  multiline?: boolean;
+}[] = [
+  { name: "name", label: "Họ và Tên / Your Name" },
+  { name: "email", label: "Email", type: "email" },
+  { name: "phone", label: "SĐT / Phone Number", type: "tel" },
+  { name: "company", label: "Công ty / Company" },
+  { name: "message", label: "Lời nhắn / Your Message", multiline: true },
+];
+
+interface FormFieldProps {
+  field: (typeof FIELDS)[number];
+  register: UseFormRegister<FeedbackInput>;
+  error?: string;
+}
+
+function FormField({ field, register, error }: FormFieldProps) {
+  const inputClass = cn(
+    "w-full border px-5 text-[14px] text-black outline-none transition-colors focus:border-[#0a8a3f]",
+    error ? "border-red-400" : "border-[#d4d4d4]",
+    field.multiline ? "resize-y rounded-3xl py-4" : "rounded-full py-3",
+  );
+
+  return (
+    <div className={field.multiline ? "sm:col-span-2" : undefined}>
+      <label htmlFor={field.name} className="mb-2 block text-[14px] font-medium text-[#0f5c5c]">
+        {field.label}
+      </label>
+      {field.multiline ? (
+        <textarea id={field.name} rows={6} {...register(field.name)} className={inputClass} />
+      ) : (
+        <input id={field.name} type={field.type ?? "text"} {...register(field.name)} className={inputClass} />
+      )}
+      {error && <p className="mt-1 text-[12px] text-red-600">{error}</p>}
+    </div>
+  );
+}
 
 function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -28,139 +70,45 @@ function ContactForm() {
   }, [state.success, reset]);
 
   return (
-    <div className="px-4 py-2 flex flex-col gap-4">
+    <div className="py-2 md:px-4 flex flex-col gap-4">
       <div>
         <h3 className="text-[#a5a5a5] text-[16px]">LEAVE YOUR MESSAGE</h3>
         <h2 className="text-[24px] font-medium my-2">ĐỂ LẠI LỜI NHẮN</h2>
       </div>
 
-      <div>
-        <form
-          ref={formRef}
-          action={formAction}
-          className="w-full max-w-[700px]"
-        >
-          <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
-            <div>
-              <label
-                htmlFor="name"
-                className="mb-2 block text-[14px] font-medium text-[#0f5c5c]"
-              >
-                Họ và Tên / Your Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                {...register("name")}
-                className={`w-full rounded-full border px-5 py-3 text-[14px] text-black outline-none transition-colors focus:border-[#0a8a3f] ${
-                  errors.name ? "border-red-400" : "border-[#d4d4d4]"
-                }`}
-              />
-              {errors.name && (
-                <p className="mt-1 text-[12px] text-red-600">
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
+      <form ref={formRef} action={formAction} className="w-full max-w-[700px]">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
+          {FIELDS.map((field) => (
+            <FormField
+              key={field.name}
+              field={field}
+              register={register}
+              error={errors[field.name]?.message}
+            />
+          ))}
+        </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-[14px] font-medium text-[#0f5c5c]"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                {...register("email")}
-                className={`w-full rounded-full border px-5 py-3 text-[14px] text-black outline-none transition-colors focus:border-[#0a8a3f] ${
-                  errors.email ? "border-red-400" : "border-[#d4d4d4]"
-                }`}
-              />
-              {errors.email && (
-                <p className="mt-1 text-[12px] text-red-600">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
+        {state.message && (
+          <p
+            className={cn(
+              "mt-4 text-[14px] font-medium",
+              state.success ? "text-[#0a8a3f]" : "text-red-600",
+            )}
+          >
+            {state.message}
+          </p>
+        )}
 
-            <div>
-              <label
-                htmlFor="phone"
-                className="mb-2 block text-[14px] font-medium text-[#0f5c5c]"
-              >
-                SĐT / Phone Number
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                {...register("phone")}
-                className={`w-full rounded-full border px-5 py-3 text-[14px] text-black outline-none transition-colors focus:border-[#0a8a3f] ${
-                  errors.phone ? "border-red-400" : "border-[#d4d4d4]"
-                }`}
-              />
-              {errors.phone && (
-                <p className="mt-1 text-[12px] text-red-600">
-                  {errors.phone.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="company"
-                className="mb-2 block text-[14px] font-medium text-[#0f5c5c]"
-              >
-                Công ty / Company
-              </label>
-              <input
-                id="company"
-                type="text"
-                {...register("company")}
-                className="w-full rounded-full border border-[#d4d4d4] px-5 py-3 text-[14px] text-black outline-none transition-colors focus:border-[#0a8a3f]"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="message"
-                className="mb-2 block text-[14px] font-medium text-[#0f5c5c]"
-              >
-                Lời nhắn / Your Message
-              </label>
-              <textarea
-                id="message"
-                rows={6}
-                {...register("message")}
-                className={`w-full resize-y rounded-3xl border px-5 py-4 text-[14px] text-black outline-none transition-colors focus:border-[#0a8a3f] ${
-                  errors.message ? "border-red-400" : "border-[#d4d4d4]"
-                }`}
-              />
-              {errors.message && (
-                <p className="mt-1 text-[12px] text-red-600">
-                  {errors.message.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {state.success === true && (
-            <p className="mt-4 text-[14px] font-medium text-[#0a8a3f]">
-              {state.message}
-            </p>
-          )}
-          {state.success === false && state.message && (
-            <p className="mt-4 text-[14px] font-medium text-red-600">
-              {state.message}
-            </p>
-          )}
-
-          <div className="mt-6">
-            <SubmitContactBtn onValidate={trigger} formRef={formRef} />
-          </div>
-        </form>
-      </div>
+        <div className="mt-6">
+          <SubmitButton
+            onValidate={trigger}
+            formRef={formRef}
+            label="GỬI / SEND"
+            pendingLabel="ĐANG GỬI / Sending..."
+            className="rounded-full bg-[#ececec] px-8 py-3 text-[13px] font-bold uppercase tracking-wide text-black transition-colors hover:bg-[#dcdcdc] disabled:opacity-60"
+          />
+        </div>
+      </form>
     </div>
   );
 }

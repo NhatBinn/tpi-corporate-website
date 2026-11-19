@@ -30,7 +30,7 @@ export async function ChkLoginForm(
     } else {
       return {
         success: false,
-        message: res.error
+        message: res.error,
       };
     }
   } catch {

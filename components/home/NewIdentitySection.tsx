@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-function HeroBanner() {
+function NewIdentitySection() {
   return (
     <section className="mx-auto grid max-w-[1200px] grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-8 md:gap-y-10 px-4 md:px-6 py-12 md:py-16">
       <div className="flex items-center gap-4">
@@ -19,14 +19,14 @@ function HeroBanner() {
         </p>
       </div>
 
-      <div className="flex items-start justify-center gap-6 md:gap-16">
+      <div className="flex items-start justify-center gap-6 md:gap-8 lg:gap-16">
         <div className="flex flex-col items-center gap-3 md:gap-4">
           <Image
             src="/tpi-logo-2015-jpg.webp"
             alt="Logo cũ 2015 - TPI Development"
             width={300}
             height={200}
-            className="object-contain max-w-[100px] md:max-w-[300px]"
+            className="h-auto w-full max-w-25 md:max-w-40 lg:max-w-75 object-contain"
           />
           <p className="text-[12px] md:text-[16px] font-bold text-black">Logo cũ 2015</p>
         </div>
@@ -36,7 +36,7 @@ function HeroBanner() {
             alt="Logo mới 2025 - TPI Trust Passion Innovation"
             width={300}
             height={200}
-            className="object-contain max-w-[100px] md:max-w-[300px]"
+            className="h-auto w-full max-w-25 md:max-w-40 lg:max-w-75 object-contain"
           />
           <p className="text-[12px] md:text-[16px] font-bold text-black">Logo mới 2025</p>
         </div>
@@ -69,4 +69,4 @@ function HeroBanner() {
   );
 }
 
-export default HeroBanner;
+export default NewIdentitySection;

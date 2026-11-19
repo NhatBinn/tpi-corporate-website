@@ -1,7 +1,14 @@
-// hooks/useInfiniteList.ts
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type TransitionEvent,
+} from "react";
 
 interface UseInfiniteListOptions {
   gap?: number;
@@ -9,25 +16,25 @@ interface UseInfiniteListOptions {
   transitionMs?: number;
 }
 
+// Render 3 bản sao danh sách và luôn giữ index trong bản giữa: trượt ra ngoài
+// thì nhảy về vị trí tương ứng ở bản giữa (không animation) → vòng lặp vô hạn.
 function useInfiniteList<T>(items: T[], options: UseInfiniteListOptions = {}) {
-  const gap = options.gap ?? 16;
-  const intervalMs = options.intervalMs ?? 5000;
-  const transitionMs = options.transitionMs ?? 700;
-
-  const realLength = items.length;
+  const { gap = 16, intervalMs = 5000, transitionMs = 700 } = options;
+  const length = items.length;
   const tripled = useMemo(() => [...items, ...items, ...items], [items]);
 
-  const [index, setIndex] = useState(realLength);
+  const [index, setIndex] = useState(length);
   const [withTransition, setWithTransition] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
   const [cardWidth, setCardWidth] = useState(0);
   const [firstCardEl, setFirstCardEl] = useState<HTMLElement | null>(null);
 
-  const isAnimating = useRef(false);
-  const cycleToken = useRef(0);
-  const fallbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Ref thay vì state để setInterval / setTimeout luôn đọc giá trị mới nhất.
+  const indexRef = useRef(length);
+  const animating = useRef(false);
+  const settleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const STEP = cardWidth > 0 ? cardWidth + gap : 0;
+  const step = cardWidth > 0 ? cardWidth + gap : 0;
 
   useEffect(() => {
     if (!firstCardEl) return;
@@ -39,87 +46,79 @@ function useInfiniteList<T>(items: T[], options: UseInfiniteListOptions = {}) {
     return () => observer.disconnect();
   }, [firstCardEl]);
 
-  function settleCycle(token: number) {
-    if (token !== cycleToken.current) return;
-    if (fallbackTimer.current) {
-      clearTimeout(fallbackTimer.current);
-      fallbackTimer.current = null;
+  const settle = useCallback(() => {
+    if (settleTimer.current) {
+      clearTimeout(settleTimer.current);
+      settleTimer.current = null;
     }
-
-    const needsWrap = index < realLength || index >= realLength * 2;
-
-    if (needsWrap) {
-      const offsetFromStart = index - realLength;
-      const wrapped =
-        ((offsetFromStart % realLength) + realLength) % realLength;
-
-      setWithTransition(false);
-      setIndex(realLength + wrapped);
-    } else {
-      isAnimating.current = false;
+    const current = indexRef.current;
+    if (current >= length && current < length * 2) {
+      animating.current = false;
+      return;
     }
-  }
+    const wrapped = length + ((((current - length) % length) + length) % length);
+    indexRef.current = wrapped;
+    setWithTransition(false);
+    setIndex(wrapped);
+  }, [length]);
 
-  function startCycle(nextIndex: number) {
-    if (isAnimating.current) return;
-    isAnimating.current = true;
-    cycleToken.current += 1;
-    const token = cycleToken.current;
+  const move = useCallback(
+    (delta: number) => {
+      if (animating.current || length === 0) return;
+      animating.current = true;
+      indexRef.current += delta;
+      setIndex(indexRef.current);
+      // transitionend không bắn khi tab bị ẩn → timer dự phòng để index không trôi mãi.
+      settleTimer.current = setTimeout(settle, transitionMs + 100);
+    },
+    [length, settle, transitionMs],
+  );
 
-    setIndex(nextIndex);
-    if (fallbackTimer.current) clearTimeout(fallbackTimer.current);
-    fallbackTimer.current = setTimeout(() => settleCycle(token), transitionMs + 100);
-  }
-
-  function goNext() {
-    startCycle(index + 1);
-  }
-
-  function goPrev() {
-    startCycle(index - 1);
-  }
+  const goNext = useCallback(() => move(1), [move]);
+  const goPrev = useCallback(() => move(-1), [move]);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReducedMotion || isPaused || STEP === 0) return;
+    if (isPaused || step === 0) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const timer = setInterval(goNext, intervalMs);
+    const timer = setInterval(() => {
+      if (!document.hidden) goNext();
+    }, intervalMs);
     return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused, STEP, intervalMs]);
+  }, [isPaused, step, intervalMs, goNext]);
 
-  function handleTransitionEnd(e: React.TransitionEvent<HTMLDivElement>) {
-    if (e.target !== e.currentTarget) return;
-    settleCycle(cycleToken.current);
+  function handleTransitionEnd(e: TransitionEvent<HTMLElement>) {
+    // Bỏ qua transition của phần tử con (hover ảnh...) bubble lên.
+    if (e.target !== e.currentTarget || e.propertyName !== "transform") return;
+    settle();
   }
 
   useEffect(() => {
-    if (!withTransition) {
-      const raf1 = requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setWithTransition(true);
-          isAnimating.current = false;
-        });
+    if (withTransition) return;
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        setWithTransition(true);
+        animating.current = false;
       });
-      return () => cancelAnimationFrame(raf1);
-    }
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
   }, [withTransition]);
 
   useEffect(() => {
     return () => {
-      if (fallbackTimer.current) clearTimeout(fallbackTimer.current);
+      if (settleTimer.current) clearTimeout(settleTimer.current);
     };
   }, []);
 
   const trackStyle: CSSProperties = {
     display: "flex",
     gap,
-    transform: `translateX(-${index * STEP}px)`,
-    transition: withTransition
-      ? `transform ${transitionMs}ms cubic-bezier(0.65,0,0.35,1)`
-      : "none",
+    transform: `translateX(-${index * step}px)`,
+    transition: withTransition ? `transform ${transitionMs}ms cubic-bezier(0.65,0,0.35,1)` : "none",
   };
 
   return {

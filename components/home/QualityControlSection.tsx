@@ -11,7 +11,6 @@ export default function QualityControlSection() {
         src="/San-xuat-grayscale.jpg"
         alt="Nhà máy TPI tại Lái Thiêu, Bình Dương"
         fill
-        priority
         className="object-cover"
       />
 

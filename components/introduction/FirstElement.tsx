@@ -7,7 +7,6 @@ import {
   FaLinkedinIn,
   FaWhatsapp,
   FaTelegram,
-  FaTiktok,
 } from "react-icons/fa6";
 
 const socials = [
@@ -45,14 +44,14 @@ const socials = [
 
 function FirstElement() {
   return (
-    <div className="flex gap-6 px-4 md:px-6 mx-8 mt-14">
+    <div className="mt-14 flex flex-col gap-8 px-4 md:mx-8 md:flex-row md:gap-6 md:px-6">
       <div className="flex-1">
         <Image
           src={"/Lab-green-700x700.webp"}
-          alt="Lab green"
+          alt="Phòng thí nghiệm TPI"
           width={590}
           height={590}
-          className="mx-auto rounded-sm"
+          className="mx-auto h-auto w-full max-w-147.5 rounded-sm"
         />
       </div>
       <div className="flex-1 mx-auto my-auto">
@@ -60,7 +59,7 @@ function FirstElement() {
           <h2 className="text-[#339966] text-[16px] font-medium">
             TRUST - PASSION - INNOVATION{" "}
           </h2>
-          <h4 className="font-medium text-[36px]">
+          <h4 className="font-medium text-[28px] md:text-[36px]">
             TIN CẬY
             <br />
             NHIỆT HUYẾT
@@ -82,7 +81,7 @@ function FirstElement() {
             trường trong nước và dần vươn ra quốc tế.
           </p>
           <div className="border-t-2 my-7"></div>
-          <div className="text-[#353535] text-[14px] flex flex-row gap-1 items-center justify-between">
+          <div className="text-[#353535] text-[14px] flex flex-wrap gap-3 items-center justify-between">
             <p>
               <strong>Đồng hành cùng TPI</strong>
             </p>

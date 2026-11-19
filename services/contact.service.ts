@@ -1,22 +1,13 @@
-import { feedbackSchema } from "@/schemas/Feedback";
+import type { FeedbackInput } from "@/schemas/Feedback";
 import { createFeedback } from "@/repositories/contact.repository";
 import { ok, err } from "@/types/result";
 
-export async function submitFeedback(formData: FormData) {
-  const result = feedbackSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    phone: formData.get("phone"),
-    company: formData.get("company"),
-    message: formData.get("message"),
-  });
-
-  if (!result.success) return err("Invalid data form");
+export async function submitFeedback(data: FeedbackInput) {
   try {
-    const feedback = await createFeedback(result.data);
-    return ok(feedback);
+    await createFeedback(data);
+    return ok(null);
   } catch (error) {
-    console.error(error);
+    console.log("~submitFeedback~", error);
     return err("Failed to create feedback");
   }
 }

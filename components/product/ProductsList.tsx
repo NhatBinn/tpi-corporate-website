@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useInfiniteList from "@/hooks/useInfiniteList";
 import type { ProductItem } from "@/types/common";
+import { PRODUCT_PLACEHOLDER_IMAGE } from "@/lib/constants";
 
 function ProductsList({ products }: { products: ProductItem[] }) {
   const {
@@ -46,11 +47,11 @@ function ProductsList({ products }: { products: ProductItem[] }) {
               >
                 <div className="relative flex h-[140px] w-full items-center justify-center overflow-hidden bg-white shadow-sm">
                   <Image
-                    src={product.imageUrl ?? "/placeholder-product.png"}
+                    src={product.imageUrl ?? PRODUCT_PLACEHOLDER_IMAGE}
                     alt={product.name}
                     width={140}
                     height={100}
-                    priority
+                    loading="eager"
                     className="h-auto max-h-[100px] w-auto max-w-[80%] object-contain transition-transform duration-500 group-hover/card:scale-110"
                   />
                 </div>

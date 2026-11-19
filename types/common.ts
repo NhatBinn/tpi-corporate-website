@@ -1,6 +1,31 @@
 import { Prisma } from "@/prisma/generated/prisma/client";
-import { FeedbackInput } from "@/schemas/Feedback";
 
+export type ProductDetail = Prisma.ProductGetPayload<{
+  select: {
+    id: true;
+    name: true;
+    slug: true;
+    sku: true;
+    description: true;
+    imageUrl: true;
+    pdfUrl: true;
+    compressiveStrength: true;
+    waterDilutionRatio: true;
+    pack: true;
+    price: true;
+    salePrice: true;
+    isFeatured: true;
+    isNew: true;
+    isBestSeller: true;
+    seoTitle: true;
+    seoDescription: true;
+    category: { select: { id: true; name: true; slug: true } };
+    tags: { select: { id: true; name: true; slug: true } };
+    productImages: {
+      select: { id: true; url: true; alt: true; sortOrder: true };
+    };
+  };
+}>;
 export type CategoryWithProducts = Prisma.ProductCategoryGetPayload<{
   select: {
     id: true;
@@ -31,11 +56,11 @@ interface CategoriesProps {
   categories: CategoryWithProducts[];
 }
 
-export interface NavbarProps extends CategoriesProps {}
+export type NavbarProps = CategoriesProps;
 
-export interface NavigationProps extends CategoriesProps {}
+export type NavigationProps = CategoriesProps;
 
-export interface ProductMegaProps extends CategoriesProps {}
+export type ProductMegaProps = CategoriesProps;
 
 export type SolutionCardProps = {
   href: string;
@@ -87,7 +112,11 @@ type ProjectProducts = {
 };
 
 export type ProjectDetail = {
+  id: string;
   name: string;
+  slug: string;
+  description: string | null;
+  excerpt: string | null;
   location: string | null;
   investor: string | null;
   contractor: string | null;
@@ -95,11 +124,10 @@ export type ProjectDetail = {
   constructionTime: string | null;
   completedYear: number | null;
   thumbnailUrl: string;
-  category: { name: string };
+  category: { id: string; name: string };
   images: ProjectImage[];
   projectProducts: ProjectProducts[];
 };
-
 export interface FeedbackActionState {
   success?: boolean;
   message?: string;

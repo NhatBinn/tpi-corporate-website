@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import RedStripes from "./RedStripes";
 
 export function ParallaxLogo({ position = false }: { position: boolean }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -49,16 +50,10 @@ export function ParallaxLogo({ position = false }: { position: boolean }) {
     <div
       ref={wrapperRef}
       style={{ transform: `translate3d(0, ${offset}px, 0)` }}
-      className={`absolute top-1/2 z-10 h-[70px] w-[120px] -translate-y-1/2 sm:h-[100px] sm:w-[160px] md:h-[140px] md:w-[220px]
+      className={`absolute top-1/2 z-10 hidden md:block h-[70px] w-[120px] -translate-y-1/2 sm:h-[100px] sm:w-[160px] md:h-[140px] md:w-[220px]
          ${position ? "right-[22%]" : "left-[8%]"}`}
     >
-      <svg
-        viewBox="0 0 380 150"
-        className="h-[80px] w-[250px] md:h-[120px] md:w-[450px]"
-      >
-        <polygon points="0,150 95,150 235,0 140,0" fill="#e5173f" />
-        <polygon points="145,150 240,150 380,0 285,0" fill="#e5173f" />
-      </svg>
+      <RedStripes className="h-[80px] w-[250px] md:h-[120px] md:w-[450px]" />
     </div>
   );
 }

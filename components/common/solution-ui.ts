@@ -1,23 +1,25 @@
+// Chỉ đặt flex-grow từ md trở lên: trên mobile các card xếp dọc (flex-col),
+// flex-1 (flex-basis: 0) sẽ làm card có nội dung absolute bị co về chiều cao 0.
 export const solutionUI = {
   "nha-xuong": {
-    span: "flex-1 md:flex-5",
+    span: "md:flex-5",
   },
   "cao-tang": {
-    span: "flex-1 md:flex-4",
+    span: "md:flex-4",
   },
   "be-tong-tuoi": {
-    span: "flex-1 md:flex-3",
+    span: "md:flex-3",
   },
   "be-tong-duc-san": {
-    span: "flex-1 md:flex-3",
+    span: "md:flex-3",
     titleTight: true,
   },
   "cua-hang-vlxd": {
-    span: "flex-1 md:flex-6",
+    span: "md:flex-6",
     titleLine2: "Kênh Phân Phối",
     titleTight: true,
   },
   "thau-tho": {
-    span: "flex-1 md:flex-3",
+    span: "md:flex-3",
   },
 } as const;

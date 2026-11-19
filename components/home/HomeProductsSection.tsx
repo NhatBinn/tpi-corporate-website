@@ -1,10 +1,11 @@
 import Link from "next/link";
 import ProductCategoryBrowser from "../common/ProductCategoryBrowser";
+import RedStripes from "../common/RedStripes";
 import { getCategoriesWithProducts } from "@/services/product.service";
 
 export default async function HomeProductsSection() {
   const category = await getCategoriesWithProducts();
-  if(!category.success) return <div>error</div>
+  if (!category.success) return null;
   return (
     <section className="mx-auto max-w-[1400px] px-4 md:px-6 py-12 md:py-16">
       <div className="mb-6 md:mb-8 flex items-start justify-between">
@@ -24,17 +25,11 @@ export default async function HomeProductsSection() {
           </Link>
         </div>
 
-        <svg
-          viewBox="0 0 380 150"
-          className="hidden md:block h-[80px] md:h-[120px] w-[300px] md:w-[450px]"
-        >
-          <polygon points="0,150 95,150 235,0 140,0" fill="#e5173f" />
-          <polygon points="145,150 240,150 380,0 285,0" fill="#e5173f" />
-        </svg>
+        <RedStripes className="hidden md:block h-[120px] w-[450px]" />
       </div>
 
       <ProductCategoryBrowser
-        categories={category.success ? category.data : []}
+        categories={category.data}
         columns={4}
         pageSize={8}
         variant="section"

@@ -13,7 +13,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,
-    requireEmailVerification: false
+    requireEmailVerification: false,
+    // /api/auth/sign-up/email là public → trên production ai cũng tự tạo được tài khoản vào /admin.
+    disableSignUp: process.env.NODE_ENV === "production",
   },
   plugins: [nextCookies()]
 });

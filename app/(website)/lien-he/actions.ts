@@ -23,19 +23,17 @@ export async function sendFeedback(
     };
   }
 
-  try {
-    await submitFeedback(formData);
-
-    return {
-      success: true,
-      message:
-        "Cảm ơn bạn đã liên hệ! TPI sẽ phản hồi trong thời gian sớm nhất.",
-    };
-  } catch {
+  // submitFeedback trả về Result chứ không throw → phải kiểm tra success.
+  const res = await submitFeedback(result.data);
+  if (!res.success) {
     return {
       success: false,
-      message:
-        "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ trực tiếp qua hotline.",
+      message: "Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ trực tiếp qua hotline.",
     };
   }
+
+  return {
+    success: true,
+    message: "Cảm ơn bạn đã liên hệ! TPI sẽ phản hồi trong thời gian sớm nhất.",
+  };
 }

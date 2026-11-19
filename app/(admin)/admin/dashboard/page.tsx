@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useSession } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { Package, FolderKanban, Users, Activity } from "lucide-react";
 
 const stats = [
@@ -30,7 +30,7 @@ function DashboardPage() {
     );
   }
 
-  if (!session) return null;
+  if (!session) return notFound();
 
   return (
     <div className="min-h-screen flex-1 bg-neutral-50 px-8 py-8">

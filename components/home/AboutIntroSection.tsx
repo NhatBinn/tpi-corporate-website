@@ -13,7 +13,7 @@ export default function AboutIntroSection() {
   };
 
   return (
-    <section className="relative flex flex-col md:flex-row items-center py-12 md:py-16">
+    <section className="relative flex flex-col lg:flex-row items-center py-12 md:py-16">
       <div className="relative z-0 flex w-full max-w-[1280px] flex-col justify-center gap-8 md:gap-10 bg-[#0a8a3f] px-4 md:px-16 py-10 md:py-14">
         <div>
           <span className="text-[48px] md:text-[80px] font-bold leading-none text-white/10">
@@ -72,11 +72,13 @@ export default function AboutIntroSection() {
         </div>
       </div>
 
-      <div className="relative md:absolute right-6 top-1/2 z-10 h-[260px] md:h-[78%] w-full md:w-[50%] md:-translate-y-1/2 overflow-hidden rounded-sm shadow-2xl">
+      <div className="relative z-10 mx-4 -mt-6 h-55 w-[calc(100%-2rem)] overflow-hidden rounded-sm shadow-2xl sm:h-80 md:h-105 lg:absolute lg:right-6 lg:top-1/2 lg:mx-0 lg:mt-0 lg:h-[78%] lg:w-[50%] lg:-translate-y-1/2">
         <video
           ref={videoRef}
           src="/YTSave_YouTube_Chat-thao-khuon-cop-pha-cho-be-tong_Media_JVbWAoOlT1Y_001_720p.mp4"
           poster="/ytb-poster.png"
+          preload="none"
+          playsInline
           className="h-full w-full object-cover"
           controls={isPlaying}
         />

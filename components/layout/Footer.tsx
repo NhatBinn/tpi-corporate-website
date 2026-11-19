@@ -4,15 +4,38 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Plus, ChevronUp } from "lucide-react";
+import SectionTitle from "@/components/common/SectionTitle";
+import { ZALO_BUSINESS, ZALO_RETAIL } from "@/lib/constants";
+
+const FOOTER_TITLE = "text-[15px] md:text-[16px] uppercase text-black";
+
+const CONTACTS = [
+  {
+    segment: "KH doanh nghiệp",
+    name: "Mr.Papa Kim",
+    phone: "0933 43 83 23",
+    zalo: ZALO_BUSINESS,
+    email: "papa.kim.cs2@tpi.pro.vn",
+  },
+  {
+    segment: "KH cửa hàng, đại lý",
+    name: "Mr.Nhân Trần",
+    phone: "0901 96 68 46",
+    zalo: ZALO_RETAIL,
+    email: "nhantran@tpi.pro.vn",
+  },
+];
 
 const mapLocations = {
   "nha-may": {
     label: "Nhà Máy",
-    embedSrc: "https://www.google.com/maps/embed?pb=YOUR_EMBED_ID_NHA_MAY",
+    embedSrc:
+      "https://maps.google.com/maps?q=82D+QL13%2C+L%C3%A1i+Thi%C3%AAu%2C+Thu%E1%BA%ADn+An%2C+B%C3%ACnh+D%C6%B0%C6%A1ng&output=embed",
   },
   "van-phong": {
     label: "Văn Phòng",
-    embedSrc: "https://www.google.com/maps/embed?pb=YOUR_EMBED_ID_VAN_PHONG",
+    embedSrc:
+      "https://maps.google.com/maps?q=52+T%C3%A2n+H%E1%BA%A3i%2C+T%C3%A2n+B%C3%ACnh%2C+TP.HCM&output=embed",
   },
 };
 
@@ -46,10 +69,9 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto grid max-w-[1280px] grid-cols-1 gap-10 md:grid-cols-[380px_320px_1fr]">
         <div>
-          <h3 className="text-[15px] md:text-[16px] font-bold uppercase text-black">
+          <SectionTitle as="h3" className={FOOTER_TITLE}>
             Cty TNHH Đầu Tư Phát Triển TPI
-          </h3>
-          <div className="mt-2 h-[3px] w-10 bg-[#e5173f]" />
+          </SectionTitle>
 
           <div className="mt-6 flex flex-col gap-3 md:gap-4 text-[13px] md:text-[14px] text-[#4a4a4a]">
             <p>VP: 52 Tân Hải, P.Tân Bình, HCM</p>
@@ -91,67 +113,37 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-[15px] md:text-[16px] font-bold uppercase text-black">Liên hệ</h3>
-          <div className="mt-2 h-[3px] w-10 bg-[#e5173f]" />
+          <SectionTitle as="h3" className={FOOTER_TITLE}>
+            Liên hệ
+          </SectionTitle>
 
           <div className="mt-6 flex flex-col gap-5 md:gap-6 text-[13px] md:text-[14px] text-[#4a4a4a]">
-            <div>
-              <p>
-                KH doanh nghiệp{" "}
-                <span className="font-bold text-black">Mr.Papa Kim</span>
-              </p>
-              <ul className="mt-2 flex flex-col gap-2">
-                <li className="flex items-center gap-2">
-                  <span>ĐT: 0123 456 789</span>
-                  <a
-                    href="https://zalo.me/0933438323"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-sm bg-[#0a8a3f] px-2 py-0.5 text-[11px] md:text-[12px] font-semibold text-white transition-colors hover:bg-[#097535]"
-                  >
-                    Zalo
-                  </a>
-                </li>
-                <li>
-                  Email:{" "}
-                  <a
-                    href="mailto:cuongnguyen@tpi.pro.vn"
-                    className="text-[#0a8a3f] hover:underline"
-                  >
-                    nhantran@tpi.pro.vn
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <p>
-                KH cửa hàng, đại lý{" "}
-                <span className="font-bold text-black">Mr.Nhân Trần</span>
-              </p>
-              <ul className="mt-2 flex flex-col gap-2">
-                <li className="flex items-center gap-2">
-                  <span>ĐT: 0123 456 789</span>
-                  <a
-                    href="https://zalo.me/0901966846"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-sm bg-[#0a8a3f] px-2 py-0.5 text-[11px] md:text-[12px] font-semibold text-white transition-colors hover:bg-[#097535]"
-                  >
-                    Zalo
-                  </a>
-                </li>
-                <li>
-                  Email:{" "}
-                  <a
-                    href="mailto:tu.nguyen@tpi.pro.vn"
-                    className="text-[#0a8a3f] hover:underline"
-                  >
-                    papa.kim.cs2@tpi.pro.vn
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {CONTACTS.map((c) => (
+              <div key={c.email}>
+                <p>
+                  {c.segment} <span className="font-bold text-black">{c.name}</span>
+                </p>
+                <ul className="mt-2 flex flex-col gap-2">
+                  <li className="flex items-center gap-2">
+                    <span>ĐT: {c.phone}</span>
+                    <a
+                      href={c.zalo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-sm bg-[#0a8a3f] px-2 py-0.5 text-[11px] md:text-[12px] font-semibold text-white transition-colors hover:bg-[#097535]"
+                    >
+                      Zalo
+                    </a>
+                  </li>
+                  <li>
+                    Email:{" "}
+                    <a href={`mailto:${c.email}`} className="text-[#0a8a3f] hover:underline">
+                      {c.email}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 

@@ -17,24 +17,18 @@ const keyPeople: KeyPerson[] = [
     role: "CEO",
     note: "BK HCM 2006",
     image: "/Duy-Nguyen.webp",
-    facebookHref: "https://facebook.com/duynguyen",
-    linkedinHref: "https://linkedin.com/in/duynguyen",
   },
   {
     name: "Cường Nguyễn",
     role: "Sale Manager",
     note: "BK HCM 2007",
     image: "/CUONG-NGUYEN-02.webp",
-    facebookHref: "https://facebook.com/cuongnguyen",
-    linkedinHref: "https://linkedin.com/in/cuongnguyen",
   },
   {
     name: "Tú Nguyễn",
-    role: "Business Depvelopment",
+    role: "Business Development",
     note: "BK HCM 2005",
     image: "/Tu-Nguyen.webp",
-    facebookHref: "https://facebook.com/tunguyen",
-    linkedinHref: "https://linkedin.com/in/tunguyen",
   },
 ];
 

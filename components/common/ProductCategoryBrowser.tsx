@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { ProductCard, ProductCategoryBrowserProps } from "@/types/common";
+import type { ProductCategoryBrowserProps } from "@/types/common";
+import ProductCardBody from "./ProductCard";
 
 export default function ProductCategoryBrowser({
   categories,
@@ -13,7 +13,7 @@ export default function ProductCategoryBrowser({
   variant = "nav",
   interaction = variant === "nav" ? "hover" : "click",
 }: ProductCategoryBrowserProps) {
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [activeCategory, setActiveCategory] = useState(categories[0]?.id ?? "");
   const [page, setPage] = useState(0);
   const activeCategoryData = categories.find((c) => c.id === activeCategory);
 
@@ -96,10 +96,10 @@ export default function ProductCategoryBrowser({
           {visibleProducts.map((p) =>
             variant === "nav" ? (
               <NavigationMenuLink
-                key={p.name}
+                key={p.id}
                 className="group flex flex-col items-center text-center"
                 render={
-                  <Link href={p.slug}>
+                  <Link href={`/san-pham/${p.slug}`}>
                     <ProductCardBody product={p} />
                   </Link>
                 }
@@ -107,7 +107,7 @@ export default function ProductCategoryBrowser({
             ) : (
               <Link
                 key={p.id}
-                href={p.slug}
+                href={`/san-pham/${p.slug}`}
                 className="group flex flex-col items-center text-center"
               >
                 <ProductCardBody product={p} />
@@ -137,23 +137,3 @@ export default function ProductCategoryBrowser({
   );
 }
 
-function ProductCardBody({ product }: { product: ProductCard }) {
-  return (
-    <>
-      <div className="relative aspect-square w-full overflow-hidden p-2 md:p-3">
-        <Image
-          src="/products/list/TPI-SPR4-25L-800x800-1-300x300.webp"
-          alt={product.name}
-          fill
-          sizes="(max-width: 768px) 120px, 180px"
-          className="object-contain transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-      <p className="mt-2 md:mt-3 text-[12px] md:text-[13px] leading-snug text-[#4a4a4a]">
-        <span className="font-bold text-black">{product.name}</span>
-        {" – "}
-        {product.description}
-      </p>
-    </>
-  );
-}

@@ -39,6 +39,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                           src="/Grouting-580-280.jpg"
                           alt="Nhà Xưởng"
                           fill
+                          sizes="(max-width: 1400px) 40vw, 560px"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
@@ -66,6 +67,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                           src="/Building-Cao-tang.webp"
                           alt="Cao Tầng"
                           fill
+                          sizes="(max-width: 1400px) 40vw, 560px"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
@@ -92,6 +94,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                           src="/Do-beton-tuoi-280x280-1.jpg"
                           alt="Bê Tông Tươi"
                           fill
+                          sizes="(max-width: 1400px) 40vw, 560px"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
@@ -118,6 +121,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                           src="/Beton-Duc-san-cong-2-280x280-1.webp"
                           alt="Bê Tông Đúc Sẵn"
                           fill
+                          sizes="(max-width: 1400px) 40vw, 560px"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
@@ -142,6 +146,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                           src="/Cua-hang-vlxd.jpg"
                           alt="Cửa Hàng VLXD Kênh Phân Phối"
                           fill
+                          sizes="(max-width: 1400px) 40vw, 560px"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
@@ -169,6 +174,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                           src="/Non-bao-ho.webp"
                           alt="Thầu Thợ"
                           fill
+                          sizes="(max-width: 1400px) 40vw, 560px"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-white via-white/80 to-transparent" />
@@ -205,9 +211,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
         </NavigationMenuItem>
 
         <NavigationMenuItem className={`hover:text-black mx-0.5`}>
-          <NavigationMenuTrigger>
-            <Link href={"/"}>TÀI LIỆU & ỨNG DỤNG</Link>
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>TÀI LIỆU & ỨNG DỤNG</NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="flex flex-row gap-10 p-8">
               <ul className="grid w-full">
@@ -284,8 +288,7 @@ function Navigation({ megaMenuSlot }: { megaMenuSlot: React.ReactNode }) {
                   src="/Mockup-San-Pham-Chong-Tham.jpeg"
                   width={580}
                   height={580}
-                  alt="mockup"
-                  priority
+                  alt="Mockup sản phẩm chống thấm TPI"
                   className="h-auto w-full object-contain drop-shadow-md"
                 />
               </div>
